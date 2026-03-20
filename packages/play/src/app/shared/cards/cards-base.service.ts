@@ -91,6 +91,11 @@ export class CardsBaseService {
   }
 
   public getScanUrl(card: Card): string {
+    const remoteImageUrl = (card as any).rawData?.image_url as string | undefined;
+    if (remoteImageUrl) {
+      return remoteImageUrl;
+    }
+
     const config = this.sessionService.session.config;
     const scansUrl = config && config.scansUrl || '';
     const apiUrl = this.apiService.getApiUrl();

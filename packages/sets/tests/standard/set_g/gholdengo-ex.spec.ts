@@ -2,6 +2,7 @@ import {
   AttackAction,
   CardType,
   ChooseCardsPrompt,
+  PlayCardAction,
   PlayerType,
   ResolvePromptAction,
   Simulator,
@@ -9,12 +10,14 @@ import {
   UseAbilityAction,
 } from '@ptcg/common';
 
-import { GholdengoEx } from '../../../src/standard/set-csv4c/gholdengo-ex';
+import { GholdengoEx } from '../../../src/standard/set_g/gholdengo-ex';
+import { Gimmighoul } from '../../../src/standard/set_g/gimmighoul';
+import { Gimmighoul2 } from '../../../src/standard/set_g/gimmighoul2';
 import { TestCard } from '../../test-cards/test-card';
 import { TestEnergy } from '../../test-cards/test-energy';
 import { TestUtils } from '../../test-utils';
 
-describe('Gholdengo ex CSV4C', () => {
+describe('Gholdengo ex set_g', () => {
   let sim: Simulator;
 
   beforeEach(() => {
@@ -75,5 +78,39 @@ describe('Gholdengo ex CSV4C', () => {
     expect(player.discard.cards).toContain(energyA);
     expect(player.discard.cards).toContain(energyB);
     expect(opponent.active.damage).toEqual(100);
+  });
+
+  it('can evolve from Gimmighoul', () => {
+    const gholdengo = new GholdengoEx();
+    const gimmighoul = new Gimmighoul();
+
+    const { state, player } = TestUtils.getAll(sim);
+    TestUtils.setActive(sim, [gimmighoul]);
+    state.turn = 2;
+    player.active.pokemonPlayedTurn = 1;
+    player.hand.cards = [gholdengo];
+
+    expect(() => {
+      sim.dispatch(new PlayCardAction(1, 0, { player: PlayerType.BOTTOM_PLAYER, slot: SlotType.ACTIVE, index: 0 }));
+    }).not.toThrow();
+
+    expect(player.active.getPokemonCard()).toBe(gholdengo);
+  });
+
+  it('can evolve from Gimmighoul 2', () => {
+    const gholdengo = new GholdengoEx();
+    const gimmighoul2 = new Gimmighoul2();
+
+    const { state, player } = TestUtils.getAll(sim);
+    TestUtils.setActive(sim, [gimmighoul2]);
+    state.turn = 2;
+    player.active.pokemonPlayedTurn = 1;
+    player.hand.cards = [gholdengo];
+
+    expect(() => {
+      sim.dispatch(new PlayCardAction(1, 0, { player: PlayerType.BOTTOM_PLAYER, slot: SlotType.ACTIVE, index: 0 }));
+    }).not.toThrow();
+
+    expect(player.active.getPokemonCard()).toBe(gholdengo);
   });
 });

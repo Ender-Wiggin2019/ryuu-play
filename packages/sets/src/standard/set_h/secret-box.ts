@@ -119,11 +119,34 @@ function* playCard(
 }
 
 export class SecretBox extends TrainerCard {
+  public rawData = {
+    raw_card: {
+      id: 17553,
+      name: '秘密箱',
+      yorenCode: 'Y1465',
+      cardType: '2',
+      commodityCode: 'CSV8C',
+      details: {
+        regulationMarkText: 'H',
+        collectionNumber: '176/207'
+      },
+      image: 'img/458/479.png',
+      hash: 'caeb47c9cf36bb083a01450f2c59d6de'
+    },
+    collection: {
+      id: 458,
+      commodityCode: 'CSV8C',
+      name: '补充包 璀璨诡幻',
+      salesDate: '2026-03-13'
+    },
+    image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/458/479.png'
+  };
+
   public trainerType: TrainerType = TrainerType.ITEM;
 
   public tags = [CardTag.ACE_SPEC];
 
-  public set: string = 'CSV8C';
+  public set: string = 'set_h';
 
   public name: string = 'Secret Box';
 

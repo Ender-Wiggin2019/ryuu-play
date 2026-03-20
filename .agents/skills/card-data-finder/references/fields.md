@@ -8,6 +8,8 @@
 - `collection_number`：卡牌编号（来自 `details.collectionNumber`）
 - `yoren_code`：卡牌代码（如存在）
 - `card_type`：卡牌类型（来自原对象）
+- `regulation_mark_text`：标记（如 `H`、`G`）
+- `set_version`：从 `regulationMarkText` 映射出的 set 版本（如 `set_h`、`set_g`）
 - `image`：仓库内相对图片路径
 - `image_url`：最终可访问 URL
 - `score`：检索匹配分数（越高越相关）

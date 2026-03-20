@@ -5,11 +5,11 @@ import {
   SlotType,
 } from '@ptcg/common';
 
-import { Iono } from '../../../src/standard/set-csv8c/iono';
+import { Iono } from '../../../src/standard/set_g/iono';
 import { TestCard } from '../../test-cards/test-card';
 import { TestUtils } from '../../test-utils';
 
-describe('Iono CSV8C', () => {
+describe('Iono set_g', () => {
   let sim: Simulator;
 
   beforeEach(() => {

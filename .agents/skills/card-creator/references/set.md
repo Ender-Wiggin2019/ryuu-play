@@ -16,8 +16,8 @@
 
 按以下顺序接入：
 
-1. 在对应分组下新建目录（示例：`packages/sets/src/standard/set-my-new-set/`）。
-2. 在新目录建立 `index.ts`，导出 `setMyNewSet: Card[]`。
+1. 在对应分组下新建目录（示例：`packages/sets/src/standard/set_g/` 或 `set_h/`）。
+2. 在新目录建立 `index.ts`，导出 `setG: Card[]` / `setH: Card[]`（按目录命名）。
 3. 在分组入口导出新 set：
    - `packages/sets/src/standard/index.ts`（或 `base-sets/index.ts` / `ex-sets/index.ts`）
 4. 若是新分组（极少见），还要更新 `packages/sets/src/index.ts`。
@@ -27,10 +27,10 @@
 
 ## 2) set 目录结构建议
 
-建议沿用当前结构：
+建议沿用当前结构（按 regulation mark 分组）：
 
 ```
-set-my-new-set/
+set_g/
   index.ts
   card-a.ts
   card-b.ts
@@ -43,14 +43,15 @@ set-my-new-set/
 import { Card } from '@ptcg/common';
 import { CardA } from './card-a';
 
-export const setMyNewSet: Card[] = [
+export const setG: Card[] = [
   new CardA(),
 ];
 ```
 
 ## 3) 命名与唯一性
 
-- `set`：短码（如 `BW3`、`BS`），用于路径占位。
+- `set`：统一使用 `set_<regulationMarkText 小写>`（如 `set_h`、`set_g`），从 card-data 的 `details.regulationMarkText` 推导。
+- 目录：`packages/sets/src/standard/set_<regulationMarkText 小写>/`（如 `set_g/`、`set_h/`）。
 - `name`：卡牌展示名。
 - `fullName`：必须全局唯一（推荐 `"<name> <set-code>"` 风格）。
 

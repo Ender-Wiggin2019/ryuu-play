@@ -10,7 +10,7 @@ import {
   TrainerType,
 } from '@ptcg/common';
 
-import { SecretBox } from '../../../src/standard/set-csv8c/secret-box';
+import { SecretBox } from '../../../src/standard/set_h/secret-box';
 import { TestCard } from '../../test-cards/test-card';
 import { TestUtils } from '../../test-utils';
 
@@ -31,7 +31,7 @@ class DummyTrainer extends TrainerCard {
   }
 }
 
-describe('Secret Box CSV8C', () => {
+describe('Secret Box set_h', () => {
   let sim: Simulator;
 
   beforeEach(() => {

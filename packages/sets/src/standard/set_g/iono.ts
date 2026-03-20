@@ -9,9 +9,32 @@ import {
 } from '@ptcg/common';
 
 export class Iono extends TrainerCard {
+  public rawData = {
+    raw_card: {
+      id: 17271,
+      name: '奇树',
+      yorenCode: 'Y1294',
+      cardType: '2',
+      commodityCode: 'promosvPaldea',
+      details: {
+        regulationMarkText: 'G',
+        collectionNumber: '205/SV-P'
+      },
+      image: 'img/456/4.png',
+      hash: '5c7e1412fe89a88ed26e05f5d334e851'
+    },
+    collection: {
+      id: 456,
+      commodityCode: 'promosvPaldea',
+      name: '帕底亚训练家合影卡挂件套装&对战礼盒',
+      salesDate: '2026-03-13'
+    },
+    image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/456/4.png'
+  };
+
   public trainerType: TrainerType = TrainerType.SUPPORTER;
 
-  public set: string = 'CSV8C';
+  public set: string = 'set_g';
 
   public name: string = 'Iono';
 

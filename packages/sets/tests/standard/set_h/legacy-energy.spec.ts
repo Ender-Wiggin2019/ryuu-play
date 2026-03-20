@@ -6,9 +6,9 @@ import {
   StoreLike,
 } from '@ptcg/common';
 
-import { LegacyEnergy } from '../../../src/standard/set-csv8c/legacy-energy';
+import { LegacyEnergy } from '../../../src/standard/set_h/legacy-energy';
 
-describe('Legacy Energy CSV8C', () => {
+describe('Legacy Energy set_h', () => {
   function createAttackKoState() {
     const state = new State();
     const attacker = new Player();

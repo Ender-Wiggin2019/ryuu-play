@@ -25,6 +25,7 @@ describe('Card', () => {
   it('should initialize with default values', () => {
     expect(card.id).toBe(-1);
     expect(card.tags).toEqual([]);
+    expect(card.rawData).toBeUndefined();
   });
 
   it('should have correct abstract properties set', () => {

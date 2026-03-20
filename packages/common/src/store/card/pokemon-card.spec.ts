@@ -26,6 +26,7 @@ describe('PokemonCard', () => {
     expect(pokemon.resistance).toEqual([]);
     expect(pokemon.powers).toEqual([]);
     expect(pokemon.attacks).toEqual([]);
+    expect(pokemon.rawData).toBeUndefined();
   });
 
   it('should set card types correctly', () => {

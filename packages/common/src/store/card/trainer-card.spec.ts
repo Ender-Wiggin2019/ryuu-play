@@ -19,6 +19,7 @@ describe('TrainerCard', () => {
     expect(trainer.trainerType).toBe(TrainerType.ITEM);
     expect(trainer.text).toBe('');
     expect(trainer.useWhenInPlay).toBe(false);
+    expect(trainer.rawData).toBeUndefined();
   });
 
   it('should set trainer type correctly', () => {

@@ -50,7 +50,11 @@ export class FilterCardsPipe implements PipeTransform {
   }
 
   private matchesSearch(card: Card, searchValue: string): boolean {
+    const rawName = (card.rawData?.raw_card as { name?: unknown } | undefined)?.name;
+    const chineseName = typeof rawName === 'string' ? rawName.toLowerCase() : '';
+
     return card.name.toLowerCase().includes(searchValue)
+      || chineseName.includes(searchValue)
       || card.fullName.toLowerCase().includes(searchValue);
   }
 

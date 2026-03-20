@@ -12,13 +12,36 @@ import {
 } from '@ptcg/common';
 
 export class LegacyEnergy extends EnergyCard {
+  public rawData = {
+    raw_card: {
+      id: 17584,
+      name: '遗赠能量',
+      yorenCode: 'Y1494',
+      cardType: '3',
+      commodityCode: 'CSV8C',
+      details: {
+        regulationMarkText: 'H',
+        collectionNumber: '207/207'
+      },
+      image: 'img/458/558.png',
+      hash: '8fde2b4c8350686f3397e9acf39b2562'
+    },
+    collection: {
+      id: 458,
+      commodityCode: 'CSV8C',
+      name: '补充包 璀璨诡幻',
+      salesDate: '2026-03-13'
+    },
+    image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/458/558.png'
+  };
+
   public provides: CardType[] = [CardType.COLORLESS];
 
   public energyType = EnergyType.SPECIAL;
 
   public tags = [CardTag.ACE_SPEC];
 
-  public set: string = 'CSV8C';
+  public set: string = 'set_h';
 
   public name: string = 'Legacy Energy';
 

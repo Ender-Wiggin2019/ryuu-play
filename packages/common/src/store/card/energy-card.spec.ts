@@ -19,6 +19,7 @@ describe('EnergyCard', () => {
     expect(energy.energyType).toBe(EnergyType.BASIC);
     expect(energy.provides).toEqual([]);
     expect(energy.text).toBe('');
+    expect(energy.rawData).toBeUndefined();
   });
 
   it('should set energy type correctly', () => {

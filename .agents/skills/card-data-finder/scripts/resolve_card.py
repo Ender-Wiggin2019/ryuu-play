@@ -55,6 +55,13 @@ def get_detail_value(card: Dict[str, Any], key: str) -> Any:
     return None
 
 
+def to_set_version(regulation_mark: Any) -> str:
+    mark = str(regulation_mark or "").strip().lower()
+    if not mark:
+        return ""
+    return f"set_{mark}"
+
+
 def flatten_cards(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     for collection in data.get("collections", []):
@@ -75,6 +82,8 @@ def flatten_cards(data: Dict[str, Any]) -> List[Dict[str, Any]]:
                 "collection_name": collection.get("name"),
                 "collection_number": get_detail_value(card, "collectionNumber"),
                 "rarity": get_detail_value(card, "rarity"),
+                "regulation_mark_text": get_detail_value(card, "regulationMarkText"),
+                "set_version": to_set_version(get_detail_value(card, "regulationMarkText")),
                 "hp": get_detail_value(card, "hp"),
                 "image": image,
                 "image_url": to_image_url(image),

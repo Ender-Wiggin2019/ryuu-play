@@ -20,6 +20,29 @@ import {
 } from '@ptcg/common';
 
 export class GholdengoEx extends PokemonCard {
+  public rawData = {
+    raw_card: {
+      id: 14328,
+      yorenCode: 'Y1313',
+      name: '赛富豪ex',
+      cardType: '1',
+      commodityCode: 'CSV4C',
+      details: {
+        regulationMarkText: 'G',
+        collectionNumber: '089/129'
+      },
+      image: 'img\\285\\246.png',
+      hash: '9822cad43fac8f9589f095fdd9d0271e'
+    },
+    collection: {
+      id: 285,
+      name: '补充包 嘉奖回合',
+      commodityCode: 'CSV4C',
+      salesDate: '2025-07-18'
+    },
+    image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/285/246.png'
+  };
+
   public tags = [CardTag.POKEMON_EX];
 
   public stage: Stage = Stage.STAGE_1;
@@ -58,7 +81,7 @@ export class GholdengoEx extends PokemonCard {
     },
   ];
 
-  public set: string = 'CSV4C';
+  public set: string = 'set_g';
 
   public name: string = 'Gholdengo ex';
 
