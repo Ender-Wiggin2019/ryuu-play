@@ -24,16 +24,16 @@ const { baseSets, exSets, standardSets } = require('@ptcg/sets');
 const cardManager = CardManager.getInstance();
 
 cardManager.defineFormat('Standard', [
-  // standardSets.setDiamondAndPearl,
+  standardSets.setDiamondAndPearl,
   standardSets.setG,
   standardSets.setH,
-  // standardSets.setOp9,
-  // standardSets.setHgss,
-  // standardSets.setBlackAndWhite,
-  // standardSets.setBlackAndWhite2,
-  // standardSets.setBlackAndWhite3,
-  // standardSets.setBlackAndWhite4,
-  // standardSets.setSwordAndShield
+  standardSets.setOp9,
+  standardSets.setHgss,
+  standardSets.setBlackAndWhite,
+  standardSets.setBlackAndWhite2,
+  standardSets.setBlackAndWhite3,
+  standardSets.setBlackAndWhite4,
+  standardSets.setSwordAndShield
 ]);
 
 cardManager.defineFormat('EX Sets', [
