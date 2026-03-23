@@ -35,19 +35,32 @@ export function deepCompare(x: any, y: any): boolean {
   return true;
 }
 
-export function deepIterate(source: any, callback: (holder: any, key: string, value: any) => void): void {
-  if (source === null) { return; }
-
-  if (source instanceof Array) {
-    source.forEach((item: any) => deepIterate(item, callback));
+export function deepIterate(
+  source: any,
+  callback: (holder: any, key: string, value: any) => void,
+  visited: WeakSet<object> = new WeakSet<object>()
+): void {
+  if (source === null || !(source instanceof Object)) {
+    return;
   }
 
-  if (source instanceof Object) {
-    for (const key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        deepIterate(source[key], callback);
-        callback(source, key, source[key]);
-      }
+  if (visited.has(source)) {
+    return;
+  }
+  visited.add(source);
+
+  if (source instanceof Array) {
+    source.forEach((item: any, index: number) => {
+      deepIterate(item, callback, visited);
+      callback(source, String(index), item);
+    });
+    return;
+  }
+
+  for (const key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      deepIterate(source[key], callback, visited);
+      callback(source, key, source[key]);
     }
   }
 }

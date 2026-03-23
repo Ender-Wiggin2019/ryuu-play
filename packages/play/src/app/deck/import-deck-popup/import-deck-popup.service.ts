@@ -3,6 +3,10 @@ import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from
 
 import { ImportDeckPopupComponent } from './import-deck-popup.component';
 
+export interface ImportDeckPopupData {
+  initialDeckText?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,11 +14,11 @@ export class ImportDeckPopupService {
 
   constructor(public dialog: MatDialog) { }
 
-  public openDialog(): MatDialogRef<ImportDeckPopupComponent, string[] | undefined> {
+  public openDialog(initialDeckText?: string): MatDialogRef<ImportDeckPopupComponent, string[] | undefined> {
     const dialogRef = this.dialog.open(ImportDeckPopupComponent, {
       maxWidth: '100%',
       width: '350px',
-      data: { name }
+      data: { initialDeckText }
     });
 
     return dialogRef;

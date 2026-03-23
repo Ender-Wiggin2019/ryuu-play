@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "es2015",
     "outDir": "dist/esm",
-    "moduleResolution": "nodenext"
+    "moduleResolution": "node"
   },
   "include": [
     "src/index.ts"

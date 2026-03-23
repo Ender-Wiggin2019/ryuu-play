@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, inject, DestroyRef } from '@angular/core';
-import { GameInfo, GameState } from '@ptcg/common';
+import { GameInfo } from '@ptcg/common';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs/operators';
 
 import { AlertService } from 'src/app/shared/alert/alert.service';
 import { GameService } from 'src/app/api/services/game.service';
@@ -17,13 +19,15 @@ import { SessionService } from '../../shared/session/session.service';
 export class GameActionsComponent implements OnInit {
 
   @Input() game: GameInfo;
-  public gameStates$: Observable<GameState[]>;
+  public gameStates$: Observable<LocalGameState[]>;
   public isJoined: boolean;
+  public joining = false;
   private destroyRef = inject(DestroyRef);
 
   constructor(
     private alertService: AlertService,
     private gameService: GameService,
+    private router: Router,
     private sessionService: SessionService,
     private translate: TranslateService
   ) {
@@ -48,8 +52,20 @@ export class GameActionsComponent implements OnInit {
   }
 
   public join() {
+    if (this.joining) {
+      return;
+    }
+    this.joining = true;
     this.gameService.join(this.game.gameId)
-      .subscribe(() => {}, () => {});
+      .pipe(finalize(() => { this.joining = false; }))
+      .subscribe({
+        next: localGameState => {
+          this.router.navigate(['/table', localGameState.localId]);
+        },
+        error: () => {
+          this.alertService.toast(this.translate.instant('ERROR_UNKNOWN'));
+        }
+      });
   }
 
   public async leave() {

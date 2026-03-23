@@ -1,5 +1,5 @@
 <div>
-  <button mat-button *ngIf="!isJoined" (click)="join()">
+  <button mat-button *ngIf="!isJoined" [disabled]="joining" (click)="join()">
     {{ 'BUTTON_JOIN' | translate }}
   </button>
   <button mat-button *ngIf="isJoined" (click)="leave()">

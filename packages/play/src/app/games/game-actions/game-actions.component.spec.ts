@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ApiModule } from '../../api/api.module';
@@ -12,6 +13,7 @@ describe('GameActionsComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         ApiModule,
         AlertModule,
         TranslateModule.forRoot()

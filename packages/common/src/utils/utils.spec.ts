@@ -85,6 +85,19 @@ describe('utils', () => {
       });
       expect(values).toEqual([]);
     });
+
+    it('should handle circular references without stack overflow', () => {
+      const obj: any = { a: 1 };
+      obj.self = obj;
+
+      const values: any[] = [];
+      deepIterate(obj, (holder, key, value) => {
+        values.push({ key, value });
+      });
+
+      expect(values.some(v => v.key === 'a' && v.value === 1)).toBe(true);
+      expect(values.some(v => v.key === 'self')).toBe(true);
+    });
   });
 
   describe('deepClone', () => {

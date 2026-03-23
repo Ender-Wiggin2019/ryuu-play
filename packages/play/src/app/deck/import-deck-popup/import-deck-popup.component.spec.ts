@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ImportDeckPopupComponent } from './import-deck-popup.component';
@@ -31,7 +31,25 @@ describe('ImportDeckPopupComponent', () => {
     }
   } as any;
 
-  const cards = [mewExSvp, mewExPaf];
+  const psychicEnergy = {
+    fullName: 'Psychic Energy CSVSC',
+    name: 'Psychic Energy',
+    rawData: {
+      collection: { commodityCode: 'CSVSC' },
+      raw_card: { details: { collectionNumber: 'PSY' } }
+    }
+  } as any;
+
+  const fireEnergy = {
+    fullName: 'Fire Energy CSVSC',
+    name: 'Fire Energy',
+    rawData: {
+      collection: { commodityCode: 'CSVSC' },
+      raw_card: { details: { collectionNumber: 'FIR' } }
+    }
+  } as any;
+
+  const cards = [mewExSvp, mewExPaf, psychicEnergy, fireEnergy];
 
   beforeEach(waitForAsync(() => {
     cardsBaseService = jasmine.createSpyObj('CardsBaseService', ['getCards', 'getCardByName']);
@@ -52,6 +70,7 @@ describe('ImportDeckPopupComponent', () => {
       declarations: [ ImportDeckPopupComponent ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: SessionService, useValue: sessionServiceStub },
         { provide: CardsBaseService, useValue: cardsBaseService }
       ],
@@ -97,5 +116,22 @@ describe('ImportDeckPopupComponent', () => {
     expect(component.cardNames).toBeUndefined();
     expect(component.deckTextError).toBe('DECK_IMPORT_CANNOT_MATCH');
     expect(component.unmatchedLines).toEqual(['1 Missing Card PAF 1']);
+  });
+
+  it('should match basic energy names without the basic prefix', () => {
+    component.updatePreviewFromText([
+      '3 Basic Psychic Energy SVE 13',
+      '3 Basic Fire Energy SVE 10'
+    ].join('\n'));
+
+    expect(component.deckTextError).toBe('');
+    expect(component.cardNames).toEqual([
+      'Psychic Energy CSVSC',
+      'Psychic Energy CSVSC',
+      'Psychic Energy CSVSC',
+      'Fire Energy CSVSC',
+      'Fire Energy CSVSC',
+      'Fire Energy CSVSC'
+    ]);
   });
 });

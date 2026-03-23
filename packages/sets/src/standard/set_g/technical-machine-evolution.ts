@@ -1,5 +1,6 @@
 import {
   Card,
+  CardList,
   CardTarget,
   CardType,
   CheckProvidedEnergyEffect,
@@ -125,34 +126,35 @@ export class TechnicalMachineEvolution extends TrainerCard {
             return;
           }
 
-          for (const target of selectedTargets) {
+          const evolveSelectedPokemon = (targetIndex: number): State => {
+            if (targetIndex >= selectedTargets.length) {
+              return store.prompt(state, new ShuffleDeckPrompt(player.id), order => {
+                player.deck.applyOrder(order);
+              });
+            }
+
+            const target = selectedTargets[targetIndex];
             const targetPokemon = target.getPokemonCard();
             if (!targetPokemon) {
-              continue;
+              return evolveSelectedPokemon(targetIndex + 1);
             }
 
             const evolutions = getAvailableEvolutionCards(player.deck.cards, targetPokemon);
             if (evolutions.length === 0) {
-              continue;
+              return evolveSelectedPokemon(targetIndex + 1);
             }
 
-            const blockedIndexes: number[] = [];
-            player.deck.cards.forEach((card, index) => {
-              if (!(card instanceof PokemonCard)
-                || card.evolvesFrom !== targetPokemon.name
-                || card.stage !== getEvolutionStage(targetPokemon.stage)) {
-                blockedIndexes.push(index);
-              }
-            });
+            const evolutionChoices = new CardList();
+            evolutionChoices.cards = [...evolutions];
 
-            store.prompt(
+            return store.prompt(
               state,
               new ChooseCardsPrompt(
                 player.id,
                 GameMessage.CHOOSE_CARD_TO_EVOLVE,
-                player.deck,
+                evolutionChoices,
                 {},
-                { min: 1, max: 1, allowCancel: false, blocked: blockedIndexes }
+                { min: 1, max: 1, allowCancel: false }
               ),
               cards => {
                 const selectedCard = (cards || [])[0];
@@ -161,13 +163,14 @@ export class TechnicalMachineEvolution extends TrainerCard {
                   target.pokemonPlayedTurn = state.turn;
                   target.clearEffects();
                 }
+
+                evolveSelectedPokemon(targetIndex + 1);
               }
             );
-          }
 
-          store.prompt(state, new ShuffleDeckPrompt(player.id), order => {
-            player.deck.applyOrder(order);
-          });
+          };
+
+          return evolveSelectedPokemon(0);
         }
       );
     }

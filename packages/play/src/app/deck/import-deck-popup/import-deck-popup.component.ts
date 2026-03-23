@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { Card } from '@ptcg/common';
 
 import { CardsBaseService } from '../../shared/cards/cards-base.service';
 import { FileInput } from '../../shared/file-input/file-input.model';
 import { SessionService } from '../../shared/session/session.service';
+import { ImportDeckPopupData } from './import-deck-popup.service';
 
 @Component({
   selector: 'ptcg-import-deck-popup',
@@ -26,9 +27,13 @@ export class ImportDeckPopupComponent {
   constructor(
     private cardsBaseService: CardsBaseService,
     private dialogRef: MatDialogRef<ImportDeckPopupComponent>,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    @Inject(MAT_DIALOG_DATA) data: ImportDeckPopupData
   ) {
     this.maxFileSize = this.sessionService.session.config.avatarFileSize;
+    if (data?.initialDeckText) {
+      this.updatePreviewFromText(data.initialDeckText);
+    }
   }
 
   public updatePreview(value: FileInput) {
@@ -187,9 +192,9 @@ export class ImportDeckPopupComponent {
   }
 
   private resolveCardByName(name: string, editionCode?: string, editionNumber?: string): Card | undefined {
-    const normalizedName = this.normalizeCardToken(name);
+    const normalizedCandidates = this.getNormalizedCardNameCandidates(name);
     const candidates = this.cardsBaseService.getCards()
-      .filter(card => this.normalizeCardToken(card.name) === normalizedName);
+      .filter(card => normalizedCandidates.includes(this.normalizeCardToken(card.name)));
 
     if (candidates.length === 0) {
       return undefined;
@@ -203,6 +208,20 @@ export class ImportDeckPopupComponent {
     }
 
     return candidates[0];
+  }
+
+  private getNormalizedCardNameCandidates(name: string): string[] {
+    const normalizedName = this.normalizeCardToken(name);
+    const names = [normalizedName];
+
+    // Some decklists include "Basic Fire Energy"/"Basic Psychic Energy"
+    // while the local card pool stores "Fire Energy"/"Psychic Energy".
+    const basicEnergyMatch = normalizedName.match(/^basic (.+ energy)$/);
+    if (basicEnergyMatch) {
+      names.push(basicEnergyMatch[1]);
+    }
+
+    return names.filter((candidate, index, all) => all.indexOf(candidate) === index);
   }
 
   private matchesEdition(card: Card, editionCode: string, editionNumber: string): boolean {

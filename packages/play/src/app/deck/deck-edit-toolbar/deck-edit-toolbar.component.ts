@@ -97,7 +97,25 @@ export class DeckEditToolbarComponent {
   }
 
   public importFromFile() {
-    const dialogRef = this.importDeckPopupService.openDialog();
+    this.openImportDialog();
+  }
+
+  public async importFromClipboard() {
+    let clipboardText = '';
+
+    try {
+      if (navigator?.clipboard?.readText) {
+        clipboardText = await navigator.clipboard.readText();
+      }
+    } catch {
+      clipboardText = '';
+    }
+
+    this.openImportDialog(clipboardText);
+  }
+
+  private openImportDialog(initialDeckText?: string) {
+    const dialogRef = this.importDeckPopupService.openDialog(initialDeckText);
     dialogRef.afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({

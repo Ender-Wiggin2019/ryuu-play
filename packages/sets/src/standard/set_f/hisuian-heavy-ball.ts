@@ -14,7 +14,7 @@ import {
   TrainerType,
 } from '@ptcg/common';
 
-function shuffleCards(cards: Card[]): Card[] {
+function shuffleCards<T>(cards: T[]): T[] {
   const shuffled = cards.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
     const randomIndex = Math.floor(Math.random() * (i + 1));
@@ -23,6 +23,15 @@ function shuffleCards(cards: Card[]): Card[] {
     shuffled[randomIndex] = temp;
   }
   return shuffled;
+}
+
+function shufflePrizeSlots(prizes: CardList[]): void {
+  const prizeStacks = prizes.map(prize => prize.cards.slice());
+  const shuffledStacks = shuffleCards(prizeStacks);
+
+  prizes.forEach((prize, index) => {
+    prize.cards = shuffledStacks[index];
+  });
 }
 
 function* playCard(
@@ -35,14 +44,19 @@ function* playCard(
   const player = effect.player;
   const opponent = state.players.find(p => p.id !== player.id)!;
   const secretPrizes = player.prizes.filter(prize => prize.isSecret && prize.cards.length > 0);
+  effect.preventDefault = true;
 
   secretPrizes.forEach(prize => {
     prize.isSecret = false;
   });
 
   const prizeCards = new CardList();
+  const prizeByFlatIndex: CardList[] = [];
   secretPrizes.forEach(prize => {
-    prize.cards.forEach(card => prizeCards.cards.push(card));
+    prize.cards.forEach(card => {
+      prizeCards.cards.push(card);
+      prizeByFlatIndex.push(prize);
+    });
   });
 
   const blocked: number[] = [];
@@ -53,6 +67,7 @@ function* playCard(
   });
 
   let selected: Card[] = [];
+  let selectedIndex: number | undefined;
   yield store.prompt(
     state,
     new ChooseCardsPrompt(
@@ -62,8 +77,22 @@ function* playCard(
       {},
       { min: 0, max: 1, allowCancel: true, blocked }
     ),
-    cards => {
-      selected = cards || [];
+    selectedCards => {
+      if (selectedCards === null || selectedCards === undefined || selectedCards.length === 0) {
+        selected = [];
+        selectedIndex = undefined;
+        next();
+        return;
+      }
+
+      if (typeof selectedCards[0] === 'number') {
+        selectedIndex = selectedCards[0] as unknown as number;
+        const selectedCard = prizeCards.cards[selectedIndex];
+        selected = selectedCard !== undefined ? [selectedCard] : [];
+      } else {
+        selected = selectedCards as Card[];
+        selectedIndex = prizeCards.cards.indexOf(selected[0]);
+      }
       next();
     }
   );
@@ -73,12 +102,16 @@ function* playCard(
   });
 
   if (selected.length === 0) {
+    player.hand.moveCardTo(self, player.discard);
     return state;
   }
 
   const selectedCard = selected[0];
-  const selectedPrize = player.prizes.find(prize => prize.cards.includes(selectedCard));
+  const selectedPrize =
+    (selectedIndex !== undefined ? prizeByFlatIndex[selectedIndex] : undefined)
+    || player.prizes.find(prize => prize.cards.includes(selectedCard));
   if (!selectedPrize) {
+    player.hand.moveCardTo(self, player.discard);
     return state;
   }
 
@@ -88,16 +121,10 @@ function* playCard(
     () => next()
   );
 
-  effect.preventDefault = true;
   selectedPrize.moveCardTo(selectedCard, player.hand);
   player.hand.moveCardTo(self, selectedPrize);
 
-  const hiddenPrizeSlots = player.prizes.filter(prize => prize.isSecret && prize.cards.length > 0);
-  const hiddenPrizeCards = hiddenPrizeSlots.map(prize => prize.cards[0]);
-  const shuffledHiddenPrizeCards = shuffleCards(hiddenPrizeCards);
-  hiddenPrizeSlots.forEach((prize, index) => {
-    prize.cards = [shuffledHiddenPrizeCards[index]];
-  });
+  shufflePrizeSlots(secretPrizes);
 
   return state;
 }

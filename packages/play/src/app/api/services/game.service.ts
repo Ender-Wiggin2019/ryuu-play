@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ClientInfo, GameState, State, CardTarget, StateLog, Replay,
-  Base64, StateSerializer, PlayerStats } from '@ptcg/common';
+  Base64, StateSerializer, PlayerStats, ApiErrorEnum } from '@ptcg/common';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs/operators';
@@ -33,14 +33,19 @@ export class GameService {
     return this.api.get<PlayerStatsResponse>('/v1/game/' + gameId + '/playerStats');
   }
 
-  public join(gameId: number): Observable<GameState> {
-    return new Observable<GameState>(observer => {
+  public join(gameId: number): Observable<LocalGameState> {
+    return new Observable<LocalGameState>(observer => {
       this.socketService.emit('game:join', gameId)
         .pipe(finalize(() => observer.complete()))
         .subscribe((gameState: GameState) => {
-          this.appendGameState(gameState);
-          observer.next(gameState);
+          const localGameState = this.appendGameState(gameState);
+          if (localGameState !== undefined) {
+            observer.next(localGameState);
+            return;
+          }
+          observer.error(new ApiError(ApiErrorEnum.SOCKET_ERROR));
         }, (error: any) => {
+          this.handleError(error);
           observer.error(error);
         });
     });
@@ -71,6 +76,8 @@ export class GameService {
       this.sessionService.set({ gameStates, lastGameId });
       return localGameState;
     }
+
+    return games[index];
   }
 
   public markAsDeleted(gameId: number) {
@@ -192,8 +199,8 @@ export class GameService {
   }
 
   private startListening(id: number) {
-    this.socketService.on(`game[${id}]:join`, (clientId: number) => this.onJoin(id, clientId));
-    this.socketService.on(`game[${id}]:leave`, (clientId: number) => this.onLeave(id, clientId));
+    this.socketService.on(`game[${id}]:join`, (data: { clientId: number }) => this.onJoin(id, data.clientId));
+    this.socketService.on(`game[${id}]:leave`, (data: { clientId: number }) => this.onLeave(id, data.clientId));
     this.socketService.on(`game[${id}]:stateChange`, (data: {stateData: string, playerStats: PlayerStats[]}) =>
       this.onStateChange(id, data.stateData, data.playerStats));
   }

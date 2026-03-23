@@ -15,6 +15,7 @@
   "BUTTON_EXPORT": "Export",
   "BUTTON_FILE_UPLOAD": "Upload",
   "BUTTON_IMPORT": "Import",
+  "BUTTON_IMPORT_FROM_CLIPBOARD": "Import from clipboard",
   "BUTTON_IMPORT_FROM_FILE": "Import from file",
   "BUTTON_INVITE": "Invite to game",
   "BUTTON_JOIN": "Join",
