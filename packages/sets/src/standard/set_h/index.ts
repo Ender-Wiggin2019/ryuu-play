@@ -10,10 +10,12 @@ import { Duskull } from './duskull';
 import { FezandipitiEx } from './fezandipiti-ex';
 import { FightingEnergy } from './fighting-energy';
 import { FireEnergy } from './fire-energy';
+import { FlutterMane } from './flutter-mane';
 import { GrassEnergy } from './grass-energy';
 import { LegacyEnergy } from './legacy-energy';
 import { LightningEnergy } from './lightning-energy';
 import { MetalEnergy } from './metal-energy';
+import { Munkidori } from './munkidori';
 import { NightStretcher } from './night-stretcher';
 import { PrimeCatcher } from './prime-catcher';
 import { PsychicEnergy } from './psychic-energy';
@@ -24,6 +26,7 @@ import { SecretBox } from './secret-box';
 import { SlitherWing } from './slither-wing';
 import { SparklingCrystal } from './sparkling-crystal';
 import { TealMaskOgerponEx } from './teal-mask-ogerpon-ex';
+import { UnfairStamp } from './unfair-stamp';
 import { WaterEnergy } from './water-energy';
 import { WellspringMaskOgerponEx } from './wellspring-mask-ogerpon-ex';
 
@@ -39,10 +42,12 @@ export const setH: Card[] = [
   new FezandipitiEx(),
   new FightingEnergy(),
   new FireEnergy(),
+  new FlutterMane(),
   new GrassEnergy(),
   new LegacyEnergy(),
   new LightningEnergy(),
   new MetalEnergy(),
+  new Munkidori(),
   new NightStretcher(),
   new PrimeCatcher(),
   new PsychicEnergy(),
@@ -53,6 +58,7 @@ export const setH: Card[] = [
   new SlitherWing(),
   new SparklingCrystal(),
   new TealMaskOgerponEx(),
+  new UnfairStamp(),
   new WaterEnergy(),
   new WellspringMaskOgerponEx(),
 ];
