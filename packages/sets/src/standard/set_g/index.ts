@@ -9,6 +9,7 @@ import { GholdengoEx } from './gholdengo-ex';
 import { Gimmighoul } from './gimmighoul';
 import { Gimmighoul2 } from './gimmighoul2';
 import { Iono } from './iono';
+import { Mela } from './mela';
 import { MewEx } from './mew-ex';
 import { NestBall } from './nest-ball';
 import { PalPad } from './pal-pad';
@@ -18,6 +19,7 @@ import { ProfessorTurosScenario } from './professor-turos-scenario';
 import { SquawkabillyEx } from './squawkabilly-ex';
 import { SuperRod } from './super-rod';
 import { SuperEnergyRetrieval } from './super-energy-retrieval';
+import { TechnicalMachineEvolution } from './technical-machine-evolution';
 
 export const setG: Card[] = [
   new Arven(),
@@ -30,6 +32,7 @@ export const setG: Card[] = [
   new Gimmighoul2(),
   new GholdengoEx(),
   new Iono(),
+  new Mela(),
   new MewEx(),
   new NestBall(),
   new PalPad(),
@@ -39,4 +42,5 @@ export const setG: Card[] = [
   new SquawkabillyEx(),
   new SuperRod(),
   new SuperEnergyRetrieval(),
+  new TechnicalMachineEvolution(),
 ];

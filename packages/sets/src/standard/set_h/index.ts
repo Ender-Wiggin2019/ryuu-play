@@ -18,6 +18,7 @@ import { NightStretcher } from './night-stretcher';
 import { PrimeCatcher } from './prime-catcher';
 import { PsychicEnergy } from './psychic-energy';
 import { RagingBoltEx } from './raging-bolt-ex';
+import { RescueBoard } from './rescue-board';
 import { SandyShocks } from './sandy-shocks';
 import { SecretBox } from './secret-box';
 import { SlitherWing } from './slither-wing';
@@ -46,6 +47,7 @@ export const setH: Card[] = [
   new PrimeCatcher(),
   new PsychicEnergy(),
   new RagingBoltEx(),
+  new RescueBoard(),
   new SandyShocks(),
   new SecretBox(),
   new SlitherWing(),
