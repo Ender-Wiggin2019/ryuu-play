@@ -3,6 +3,7 @@ import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap, finalize } from 'rxjs/operators';
+import { Card, SuperType } from '@ptcg/common';
 
 import { ApiError } from '../../api/api.error';
 import { AlertService } from '../../shared/alert/alert.service';
@@ -101,13 +102,27 @@ export class DeckEditComponent implements OnInit {
   }
 
   public async exportDeck() {
-    const cardNames = [];
-    for (const item of this.deckItems) {
-      for (let i = 0; i < item.count; i++) {
-        cardNames.push(item.card.fullName);
-      }
-    }
-    const data = cardNames.join('\n') + '\n';
+    const pokemonItems = this.deckItems.filter(item => item.card.superType === SuperType.POKEMON);
+    const trainerItems = this.deckItems.filter(item => item.card.superType === SuperType.TRAINER);
+    const energyItems = this.deckItems.filter(item => item.card.superType === SuperType.ENERGY);
+
+    const pokemonCount = pokemonItems.reduce((total, item) => total + item.count, 0);
+    const trainerCount = trainerItems.reduce((total, item) => total + item.count, 0);
+    const energyCount = energyItems.reduce((total, item) => total + item.count, 0);
+    const totalCards = pokemonCount + trainerCount + energyCount;
+
+    const data = [
+      'By: RyuuPlay',
+      `Pokémon:${pokemonCount}`,
+      ...pokemonItems.map(item => this.formatDeckExportLine(item.count, item.card)),
+      `Trainer:${trainerCount}`,
+      ...trainerItems.map(item => this.formatDeckExportLine(item.count, item.card)),
+      `Energy:${energyCount}`,
+      ...energyItems.map(item => this.formatDeckExportLine(item.count, item.card)),
+      `Total Cards:${totalCards}`,
+      ''
+    ].join('\n');
+
     const fileName = this.deck.name + '.txt';
     try {
       await this.fileDownloadService.downloadFile(data, fileName);
@@ -140,6 +155,44 @@ export class DeckEditComponent implements OnInit {
         this.alertService.toast(this.translate.instant('ERROR_UNKNOWN'));
       }
     });
+  }
+
+  private formatDeckExportLine(count: number, card: Card): string {
+    const edition = this.getCardEdition(card);
+    if (edition.code && edition.number) {
+      return `${count} ${card.name} ${edition.code} ${edition.number}`;
+    }
+    if (edition.code) {
+      return `${count} ${card.name} ${edition.code}`;
+    }
+    return `${count} ${card.name}`;
+  }
+
+  private getCardEdition(card: Card): { code: string; number: string } {
+    const rawData = card.rawData as {
+      collection?: { commodityCode?: string };
+      raw_card?: { commodityCode?: string; details?: { collectionNumber?: string } };
+    } | undefined;
+
+    const codeFromRawData = rawData?.collection?.commodityCode || rawData?.raw_card?.commodityCode || '';
+    const codeFromFullName = card.fullName.split(/\s+/).pop() || '';
+    const code = codeFromRawData || codeFromFullName;
+
+    const collectionNumber = rawData?.raw_card?.details?.collectionNumber || '';
+    const number = this.extractCollectionNumber(collectionNumber);
+
+    return { code, number };
+  }
+
+  private extractCollectionNumber(collectionNumber: string): string {
+    if (!collectionNumber) {
+      return '';
+    }
+    const numberMatch = collectionNumber.match(/[0-9]+/);
+    if (numberMatch) {
+      return numberMatch[0];
+    }
+    return collectionNumber;
   }
 
 }

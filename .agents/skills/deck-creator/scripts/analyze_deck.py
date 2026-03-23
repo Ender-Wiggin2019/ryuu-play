@@ -36,6 +36,13 @@ CHINESE_QUERY_ALIASES: Dict[str, List[str]] = {
     "Prime Catcher": ["顶尖捕捉器"],
     "Trekking Shoes": ["健行鞋"],
     "Bravery Charm": ["勇气护符"],
+    "Forest Seal Stone": ["森林封印石"],
+    "Hisuian Heavy Ball": ["洗翠的沉重球"],
+    "Mela": ["梅洛可"],
+    "Technical Machine: Evolution": ["招式学习器 进化"],
+    "Radiant Alakazam": ["光辉胡地"],
+    "Rescue Board": ["紧急滑板"],
+    "Roxanne": ["杜鹃", "杜娟"],
     "Basic Grass Energy": ["基本草能量"],
     "Basic Lightning Energy": ["基本雷能量"],
     "Basic Fighting Energy": ["基本斗能量"],
@@ -49,8 +56,20 @@ IGNORE_LINE_PATTERNS = [
 ]
 CARD_LINE_PATTERN = re.compile(r"^\s*(\d+)\s+(.+?)\s*$")
 IMPLEMENTED_NAME_PATTERN = re.compile(
-    r"public\s+name\s*:\s*string\s*=\s*['\"](.+?)['\"];?"
+    r"public\s+name\s*:\s*string\s*=\s*(['\"])((?:\\.|(?!\1).)*)\1;?"
 )
+
+IMPLEMENTED_NAME_EQUIVALENTS: Dict[str, List[str]] = {
+    "Basic Fire Energy": ["Fire Energy"],
+    "Basic Psychic Energy": ["Psychic Energy"],
+    "Basic Grass Energy": ["Grass Energy"],
+    "Basic Lightning Energy": ["Lightning Energy"],
+    "Basic Fighting Energy": ["Fighting Energy"],
+    "Basic Water Energy": ["Water Energy"],
+    "Basic Darkness Energy": ["Darkness Energy"],
+    "Basic Metal Energy": ["Metal Energy"],
+    "Basic Fairy Energy": ["Fairy Energy"],
+}
 
 
 def normalize_name(value: str) -> str:
@@ -60,6 +79,19 @@ def normalize_name(value: str) -> str:
     value = value.replace("’", "'")
     value = re.sub(r"[^a-z0-9]+", "", value)
     return value
+
+
+def unescape_ts_string(value: str) -> str:
+    return value.replace("\\'", "'").replace('\\"', '"').replace("\\\\", "\\")
+
+
+def contains_cjk(value: str) -> bool:
+    return bool(re.search(r"[\u4e00-\u9fff]", value or ""))
+
+
+def get_preferred_chinese_name(card_name: str) -> str:
+    aliases = CHINESE_QUERY_ALIASES.get(card_name, [])
+    return aliases[0] if aliases else ""
 
 
 def to_folder_name(value: str) -> str:
@@ -133,12 +165,22 @@ def load_implemented_names() -> Dict[str, List[str]]:
     name_map: Dict[str, List[str]] = defaultdict(list)
     for path in sorted(SETS_ROOT.rglob("*.ts")):
         text = path.read_text(encoding="utf-8")
-        for hit in IMPLEMENTED_NAME_PATTERN.findall(text):
-            normalized = normalize_name(hit)
+        for _, hit in IMPLEMENTED_NAME_PATTERN.findall(text):
+            unescaped_hit = unescape_ts_string(hit)
+            normalized = normalize_name(unescaped_hit)
             if not normalized:
                 continue
-            if hit not in name_map[normalized]:
-                name_map[normalized].append(hit)
+            if unescaped_hit not in name_map[normalized]:
+                name_map[normalized].append(unescaped_hit)
+
+    # If an equivalent naming variant exists in any set, treat it as implemented.
+    for deck_name, implemented_aliases in IMPLEMENTED_NAME_EQUIVALENTS.items():
+        deck_key = normalize_name(deck_name)
+        for alias in implemented_aliases:
+            alias_key = normalize_name(alias)
+            for alias_hit in name_map.get(alias_key, []):
+                if alias_hit not in name_map[deck_key]:
+                    name_map[deck_key].append(alias_hit)
     return name_map
 
 
@@ -351,6 +393,10 @@ def resolve_chinese_info(card_name: str, set_number: str) -> Dict:
             last_error = "no selected candidate"
             continue
 
+        selected_name = str(selected.get("name", "")).strip()
+        alias_name = get_preferred_chinese_name(card_name)
+        chinese_name = selected_name if contains_cjk(selected_name) else alias_name
+
         return {
             "description": (
                 selected.get("name", "")
@@ -367,6 +413,8 @@ def resolve_chinese_info(card_name: str, set_number: str) -> Dict:
             "collection_number": selected.get("collection_number", ""),
             "rarity": selected.get("rarity", ""),
             "regulation_mark_text": selected.get("regulation_mark_text", ""),
+            "source": selected.get("source", ""),
+            "chinese_name": chinese_name,
         }
 
     return {"ok": False, "error": last_error or "card-data-finder search failed"}
@@ -395,7 +443,11 @@ def write_markdown_outputs(
         todo_lines.append("- No missing cards. This deck can be assembled from implemented cards.")
     else:
         for card in missing_cards:
-            todo_lines.append(f"- [ ] {card['name']} x{card['quantity']}")
+            cn_label = card.get("chinese_name", "").strip()
+            if cn_label:
+                todo_lines.append(f"- [ ] {card['name']} / {cn_label} x{card['quantity']}")
+            else:
+                todo_lines.append(f"- [ ] {card['name']} x{card['quantity']}")
 
     plan_lines = [
         "# Deck Build Plan",
@@ -414,6 +466,7 @@ def write_markdown_outputs(
             plan_lines.extend(
                 [
                     f"### {index}. {card['name']} (x{card['quantity']})",
+                    f"- 中文名: {card.get('chinese_name', '') or '未命中，需手动确认'}",
                     f"- English description: {card['english_description']}",
                     f"- 中文描述: {card['chinese_description']}",
                     f"- 来源建议: {card['source_hint']}",
@@ -505,6 +558,7 @@ def main() -> int:
 
         if chinese_result.get("ok"):
             chinese_description = chinese_result.get("description", "")
+            chinese_name = chinese_result.get("chinese_name", "") or get_preferred_chinese_name(item["name"])
             source_hint = (
                 f"card-data-finder: {chinese_result.get('name', '')} "
                 f"{chinese_result.get('collection_name', '')} "
@@ -514,6 +568,7 @@ def main() -> int:
             target_set_version = f"set_{regulation_mark}" if regulation_mark else "set_h"
         else:
             chinese_description = "未自动匹配到中文卡牌，请用 card-data-finder 手动检索并确认候选。"
+            chinese_name = get_preferred_chinese_name(item["name"])
             source_hint = "card-data-finder: search <name> 后手动选择候选"
             target_set_version = "set_h"
 
@@ -524,6 +579,7 @@ def main() -> int:
                 "set_code": item.get("set_code", ""),
                 "set_number": item.get("set_number", ""),
                 "english_description": english_description,
+                "chinese_name": chinese_name,
                 "chinese_description": chinese_description,
                 "source_hint": source_hint,
                 "target_set_version": target_set_version,

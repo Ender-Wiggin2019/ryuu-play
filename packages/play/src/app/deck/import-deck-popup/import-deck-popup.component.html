@@ -10,7 +10,7 @@
     <!-- Avatar image -->
     <mat-form-field>
       <mat-label translate>DECK_FILE</mat-label>
-      <ptcg-file-input #deckFileInput required
+      <ptcg-file-input #deckFileInput
         ptcgErrorValidator [ptcgErrorValue]="deckError"
         ptcgFileSizeValidator [maxFileSize]="maxFileSize"
         name="deck" accept="txt"
@@ -27,9 +27,31 @@
       <mat-error>
         <div *ngIf="deckField.errors?.ptcgError" translate>VALIDATION_INVALID_DECK_FILE</div>
         <div *ngIf="deckField.errors?.maxFileSize" translate>VALIDATION_MAX_FILE_SIZE</div>
-        <div *ngIf="deckField.errors?.required" translate>VALIDATION_FIELD_REQUIRED</div>
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label translate>DECK_TEXT</mat-label>
+      <textarea matInput
+        name="deckText"
+        [disabled]="loading"
+        [ngModel]="deckText"
+        (ngModelChange)="updatePreviewFromText($event)"
+        rows="8"
+        [placeholder]="'DECK_TEXT_PLACEHOLDER' | translate">
+      </textarea>
+      <mat-error *ngIf="deckTextError === 'CANNOT_DECODE_DECK_FILE'" translate>
+        VALIDATION_INVALID_DECK_FILE
+      </mat-error>
+      <mat-error *ngIf="deckTextError === 'DECK_IMPORT_CANNOT_MATCH'" translate>
+        DECK_IMPORT_CANNOT_MATCH
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="unmatchedLines.length > 0" class="ptcg-u-bottom">
+      <div translate>DECK_IMPORT_UNMATCHED_LINES</div>
+      <div>{{ unmatchedLines.join(', ') }}</div>
+    </div>
 
   </form>
 
@@ -39,7 +61,7 @@
   <button mat-raised-button mat-dialog-close>
     {{ 'BUTTON_CANCEL' | translate }}
   </button>
-  <button mat-raised-button color="primary" (click)="importDeck()" [disabled]="form.invalid">
+  <button mat-raised-button color="primary" (click)="importDeck()" [disabled]="loading || !cardNames || cardNames.length === 0">
     {{ 'BUTTON_IMPORT' | translate }}
   </button>
 </mat-dialog-actions>
