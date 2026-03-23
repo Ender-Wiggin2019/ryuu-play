@@ -15,11 +15,12 @@
     }
   },
   "scripts": {
-    "lint": "eslint -c .eslintrc.js --ext .ts src",
-    "compile": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "lint": "if [ -x ./node_modules/.bin/eslint ]; then ./node_modules/.bin/eslint -c .eslintrc.js --ext .ts src; else ../../node_modules/.bin/eslint -c .eslintrc.js --ext .ts src; fi",
+    "compile": "if [ -x ./node_modules/.bin/tsc ]; then ./node_modules/.bin/tsc -p tsconfig.cjs.json && ./node_modules/.bin/tsc -p tsconfig.esm.json; else ../../node_modules/.bin/tsc -p tsconfig.cjs.json && ../../node_modules/.bin/tsc -p tsconfig.esm.json; fi",
     "build": "npm run lint && npm run test && npm run compile",
-    "test": "nyc -e \".ts\" -x \"tests/**/*.ts\" jasmine-ts \"tests/**/*.spec.ts\"",
-    "coverage": "npm test && nyc report -r html"
+    "test": "if [ -x ./node_modules/.bin/nyc ]; then ./node_modules/.bin/nyc -e \".ts\" -x \"tests/**/*.ts\" ./node_modules/.bin/jasmine-ts \"tests/**/*.spec.ts\"; else ../../node_modules/.bin/nyc -e \".ts\" -x \"tests/**/*.ts\" ../../node_modules/.bin/jasmine-ts \"tests/**/*.spec.ts\"; fi",
+    "test:spec": "if [ -x ./node_modules/.bin/nyc ]; then ./node_modules/.bin/nyc -e \".ts\" -x \"tests/**/*.ts\" ./node_modules/.bin/jasmine-ts \"${SPEC}\"; else ../../node_modules/.bin/nyc -e \".ts\" -x \"tests/**/*.ts\" ../../node_modules/.bin/jasmine-ts \"${SPEC}\"; fi",
+    "coverage": "npm test && if [ -x ./node_modules/.bin/nyc ]; then ./node_modules/.bin/nyc report -r html; else ../../node_modules/.bin/nyc report -r html; fi"
   },
   "author": "",
   "license": "MIT",

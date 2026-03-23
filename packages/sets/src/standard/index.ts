@@ -3,6 +3,8 @@ export * from './set-black-and-white-2';
 export * from './set-black-and-white-3';
 export * from './set-black-and-white-4';
 export * from './set-diamond-and-pearl';
+export * from './set_e';
+export * from './set_f';
 export * from './set-hgss';
 export * from './set-op9';
 export * from './set_g';

@@ -1,5 +1,7 @@
 import { Card } from '@ptcg/common';
 import { Arven } from './arven';
+import { BosssOrders } from './bosss-orders';
+import { BraveryCharm } from './bravery-charm';
 import { CounterCatcher } from './counter-catcher';
 import { EarthenVessel } from './earthen-vessel';
 import { EnergyTransfer } from './energy-transfer';
@@ -9,14 +11,18 @@ import { Gimmighoul2 } from './gimmighoul2';
 import { Iono } from './iono';
 import { MewEx } from './mew-ex';
 import { NestBall } from './nest-ball';
+import { PalPad } from './pal-pad';
 import { PokemonSwitch } from './pokemon-switch';
 import { ProfessorSadasVitality } from './professor-sadas-vitality';
 import { ProfessorTurosScenario } from './professor-turos-scenario';
+import { SquawkabillyEx } from './squawkabilly-ex';
 import { SuperRod } from './super-rod';
 import { SuperEnergyRetrieval } from './super-energy-retrieval';
 
 export const setG: Card[] = [
   new Arven(),
+  new BosssOrders(),
+  new BraveryCharm(),
   new CounterCatcher(),
   new EarthenVessel(),
   new EnergyTransfer(),
@@ -26,9 +32,11 @@ export const setG: Card[] = [
   new Iono(),
   new MewEx(),
   new NestBall(),
+  new PalPad(),
   new PokemonSwitch(),
   new ProfessorSadasVitality(),
   new ProfessorTurosScenario(),
+  new SquawkabillyEx(),
   new SuperRod(),
   new SuperEnergyRetrieval(),
 ];

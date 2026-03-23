@@ -18,10 +18,10 @@ description: 在新增卡牌时，从 PTCG-CHS 数据集中检索卡牌对象与
   - `https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/<image>`
 
 ### pokemon-tcg-data（英文卡数据）
-- 数据源：`https://api.pokemontcg.io/v2/cards`
-- 可通过 npm 包 `pokemon-tcg-data` 获取
-- **仅用于获取英文名字(用于文件和class命名)和 `subtypes` 字段**（如 Stage 2、Tera、Radiant、ex 等）
-- 检索时直接用 npm 包查询，匹配 `name` 字段获取卡牌完整信息
+- 数据源：仓库 `pokemon-tcg-data/cards/en/*.json`
+- **英文关键词检索必须优先走 pokemon-tcg-data**
+- 返回结果仍保持与中文数据集一致的候选结构（含 `index/name/collection_name/collection_number/image_url/card/score`）
+- 当英文关键词在中文数据集无命中时，也要返回英文候选（`source: "pokemon-tcg-data"`）
 
 ## 脚本入口
 
@@ -42,9 +42,10 @@ python3 .agents/skills/card-data-finder/scripts/resolve_card.py search "charizar
 
 ## 检索策略
 
-1. **优先英文名搜索**：用户提交名称时，先尝试搜索对应的英文名。
-2. **模糊匹配**：支持中文名、英文名、卡牌编号、yoren_code 等多种匹配方式。
-3. **如果不确定英文名**：可以询问用户是否知道英文名称。
+1. **英文关键词**：优先用 `pokemon-tcg-data` 搜索并返回英文候选。
+2. **中文关键词**：继续用 `ptcg_chs_infos.json` 搜索并返回中文候选。
+3. **混合兼容**：同一次 `search` 支持中英文并合并排序，用户可统一用 `--select <index>` 选择。
+4. **如果不确定英文名**：可以询问用户是否知道英文名称。
 
 ## 标准流程
 

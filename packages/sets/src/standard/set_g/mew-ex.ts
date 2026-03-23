@@ -73,7 +73,7 @@ export class MewEx extends PokemonCard {
       name: 'Genome Hacking',
       cost: [CardType.COLORLESS, CardType.COLORLESS, CardType.COLORLESS],
       damage: '',
-      text: "Choose 1 of your opponent's Active Pokemon's attacks and use it as this attack.",
+      text: 'Choose 1 of your opponent\'s Active Pokemon\'s attacks and use it as this attack.',
     },
   ];
 

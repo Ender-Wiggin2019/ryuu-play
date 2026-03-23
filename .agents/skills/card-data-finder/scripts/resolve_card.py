@@ -16,11 +16,19 @@ IMAGE_BASE_URL = "https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/mai
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = SKILL_ROOT / "assets"
 DATA_PATH = ASSETS_DIR / "ptcg_chs_infos.json"
+WORKSPACE_ROOT = SKILL_ROOT.parents[2]
+POKEMON_TCG_DATA_EN_ROOT = WORKSPACE_ROOT / "pokemon-tcg-data" / "cards" / "en"
+
+_ENGLISH_ROWS_CACHE: List[Dict[str, Any]] = []
 
 
 def normalize(text: str) -> str:
     text = (text or "").strip().lower()
     return re.sub(r"[\s_\-]+", "", text)
+
+
+def should_search_english(query: str) -> bool:
+    return bool(re.search(r"[A-Za-z]", query or ""))
 
 
 def download_data(data_path: Path) -> Dict[str, Any]:
@@ -161,6 +169,120 @@ def search(rows: List[Dict[str, Any]], query: str, limit: int) -> Tuple[int, Lis
     return len(scored), output
 
 
+def load_english_rows() -> List[Dict[str, Any]]:
+    global _ENGLISH_ROWS_CACHE
+    if _ENGLISH_ROWS_CACHE:
+        return _ENGLISH_ROWS_CACHE
+
+    if not POKEMON_TCG_DATA_EN_ROOT.exists():
+        _ENGLISH_ROWS_CACHE = []
+        return _ENGLISH_ROWS_CACHE
+
+    rows: List[Dict[str, Any]] = []
+    for path in sorted(POKEMON_TCG_DATA_EN_ROOT.glob("*.json")):
+        cards = json.loads(path.read_text(encoding="utf-8"))
+        for card in cards:
+            set_info = card.get("set") or {}
+            images = card.get("images") or {}
+            image_url = images.get("large") or images.get("small") or ""
+            card_id = str(card.get("id") or "")
+            rows.append(
+                {
+                    "id": card_id,
+                    "name": card.get("name") or "",
+                    "yoren_code": "",
+                    "commodity_code": set_info.get("id") or "",
+                    "card_type": card.get("supertype") or "",
+                    "collection_id": set_info.get("id") or "",
+                    "collection_name": set_info.get("name") or "",
+                    "collection_number": card.get("number") or "",
+                    "rarity": card.get("rarity") or "",
+                    "regulation_mark_text": "",
+                    "set_version": "",
+                    "hp": card.get("hp"),
+                    "subtypes": card.get("subtypes") or [],
+                    "image": image_url,
+                    "image_url": image_url,
+                    "hash": "",
+                    "card": {
+                        "raw_card": card,
+                        "collection": set_info,
+                        "source": "pokemon-tcg-data",
+                    },
+                    "source": "pokemon-tcg-data",
+                }
+            )
+
+    _ENGLISH_ROWS_CACHE = rows
+    return _ENGLISH_ROWS_CACHE
+
+
+def score_english_row(row: Dict[str, Any], query: str) -> int:
+    q = normalize(query)
+    if not q:
+        return 0
+
+    score = 0
+    name = normalize(str(row.get("name") or ""))
+    collection_name = normalize(str(row.get("collection_name") or ""))
+    collection_id = normalize(str(row.get("collection_id") or ""))
+    collection_number = normalize(str(row.get("collection_number") or ""))
+    card_id = normalize(str(row.get("id") or ""))
+
+    if q == name:
+        score = max(score, 220)
+    elif name.startswith(q):
+        score = max(score, 190)
+    elif q in name:
+        score = max(score, 170)
+
+    if q == card_id:
+        score = max(score, 215)
+    elif q in card_id:
+        score = max(score, 175)
+
+    if q == collection_number:
+        score = max(score, 180)
+    elif q and q in collection_number:
+        score = max(score, 150)
+
+    if q == collection_id:
+        score = max(score, 160)
+    elif q in collection_id:
+        score = max(score, 140)
+
+    if q in collection_name:
+        score = max(score, 120)
+
+    return score
+
+
+def search_multisource(rows: List[Dict[str, Any]], query: str, limit: int) -> Tuple[int, List[Dict[str, Any]]]:
+    scored: List[Tuple[int, Dict[str, Any]]] = []
+    for row in rows:
+        s = score_row(row, query)
+        if s > 0:
+            item = dict(row)
+            item["source"] = "ptcg-chs"
+            scored.append((s, item))
+
+    if should_search_english(query):
+        for row in load_english_rows():
+            s = score_english_row(row, query)
+            if s > 0:
+                scored.append((s, row))
+
+    scored.sort(key=lambda item: (item[0], str(item[1].get("id") or "")), reverse=True)
+
+    output: List[Dict[str, Any]] = []
+    for idx, (score, row) in enumerate(scored[:limit], start=1):
+        item = dict(row)
+        item["index"] = idx
+        item["score"] = score
+        output.append(item)
+    return len(scored), output
+
+
 def run_update(args: argparse.Namespace) -> int:
     try:
         data = download_data(DATA_PATH)
@@ -188,7 +310,7 @@ def run_search(args: argparse.Namespace) -> int:
         data = load_data(DATA_PATH)
 
     rows = flatten_cards(data)
-    total_matches, candidates = search(rows, args.query, args.limit)
+    total_matches, candidates = search_multisource(rows, args.query, args.limit)
 
     result: Dict[str, Any] = {
         "ok": True,

@@ -13,6 +13,7 @@
 - `image`：仓库内相对图片路径
 - `image_url`：最终可访问 URL
 - `score`：检索匹配分数（越高越相关）
+- `source`：候选来源（`ptcg-chs` 或 `pokemon-tcg-data`）
 
 ## image_url 规则
 

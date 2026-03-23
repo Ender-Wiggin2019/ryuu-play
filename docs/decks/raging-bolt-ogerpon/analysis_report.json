@@ -1,0 +1,245 @@
+{
+  "ok": true,
+  "deck_file": "/Users/oushuohuang/Documents/ryuu-play/.agents/skills/deck-creator/deck_input_raging-bolt-ogerpon.txt",
+  "parsed_lines": 27,
+  "implemented_unique_cards": 13,
+  "missing_unique_cards": 14,
+  "todo_file": "/Users/oushuohuang/Documents/ryuu-play/docs/decks/raging-bolt-ogerpon/deck_todo.md",
+  "plan_file": "/Users/oushuohuang/Documents/ryuu-play/docs/decks/raging-bolt-ogerpon/deck_plan.md",
+  "implemented_cards": [
+    {
+      "name": "Teal Mask Ogerpon ex",
+      "quantity": 3,
+      "implemented_aliases": [
+        "Teal Mask Ogerpon ex"
+      ]
+    },
+    {
+      "name": "Radiant Greninja",
+      "quantity": 1,
+      "implemented_aliases": [
+        "Radiant Greninja"
+      ]
+    },
+    {
+      "name": "Mew ex",
+      "quantity": 1,
+      "implemented_aliases": [
+        "Mew EX",
+        "Mew ex"
+      ]
+    },
+    {
+      "name": "Fezandipiti ex",
+      "quantity": 1,
+      "implemented_aliases": [
+        "Fezandipiti ex"
+      ]
+    },
+    {
+      "name": "Raging Bolt ex",
+      "quantity": 3,
+      "implemented_aliases": [
+        "Raging Bolt ex"
+      ]
+    },
+    {
+      "name": "Temple of Sinnoh",
+      "quantity": 1,
+      "implemented_aliases": [
+        "Temple of Sinnoh"
+      ]
+    },
+    {
+      "name": "Night Stretcher",
+      "quantity": 2,
+      "implemented_aliases": [
+        "Night Stretcher"
+      ]
+    },
+    {
+      "name": "Energy Retrieval",
+      "quantity": 2,
+      "implemented_aliases": [
+        "Energy Retrieval"
+      ]
+    },
+    {
+      "name": "Nest Ball",
+      "quantity": 4,
+      "implemented_aliases": [
+        "Nest Ball"
+      ]
+    },
+    {
+      "name": "Earthen Vessel",
+      "quantity": 4,
+      "implemented_aliases": [
+        "Earthen Vessel"
+      ]
+    },
+    {
+      "name": "Ultra Ball",
+      "quantity": 2,
+      "implemented_aliases": [
+        "Ultra Ball"
+      ]
+    },
+    {
+      "name": "Pokémon Catcher",
+      "quantity": 2,
+      "implemented_aliases": [
+        "Pokemon Catcher"
+      ]
+    },
+    {
+      "name": "Pokégear 3.0",
+      "quantity": 3,
+      "implemented_aliases": [
+        "Pokegear 3.0"
+      ]
+    }
+  ],
+  "missing_cards": [
+    {
+      "name": "Sandy Shocks",
+      "quantity": 1,
+      "set_code": "TEF",
+      "set_number": "98",
+      "english_description": "Type: Pokémon | Subtypes: Basic, Ancient | Attack - Magnetic Burst (20+): If you have 3 or more Energy in play, this attack does 70 more damage. This attack's damage isn't affected by Weakness. | Attack - Power Gem (60)",
+      "chinese_description": "磁场炸裂：如果自己场上有3个及以上能量的话，则追加造成70伤害。这个招式的伤害不计算弱点。 | 力量宝石：none | 没有捕获记录。资料不足。其特征与某本探险记中所记载的生物一致。",
+      "source_hint": "card-data-finder: 沙铁皮 补充包 利刃猛醒 132/204",
+      "target_set_version": "set_h"
+    },
+    {
+      "name": "Slither Wing",
+      "quantity": 1,
+      "set_code": "PAR",
+      "set_number": "203",
+      "english_description": "Type: Pokémon | Subtypes: Basic, Ancient | Attack - Stomp Off: Discard the top card of your opponent's deck. | Attack - Burning Turbulence (120): This Pokémon also does 90 damage to itself. Your opponent's Active Pokémon is now Burned.",
+      "chinese_description": "碎铁：如果对手场上有「未来」宝可梦的话，则追加造成120伤害。 | 粉碎之翼：选择这只宝可梦身上附着的2个能量，放于弃牌区。 | 这只神秘的宝可梦与古老的书中介绍的名为爬地翅的生物有相似点。",
+      "source_hint": "card-data-finder: 爬地翅 补充包 璀璨诡幻 119/207",
+      "target_set_version": "set_h"
+    },
+    {
+      "name": "Squawkabilly ex",
+      "quantity": 1,
+      "set_code": "PAF",
+      "set_number": "223",
+      "english_description": "Type: Pokémon | Subtypes: Basic, ex | Ability - Squawk and Seize: Once during your first turn, you may discard your hand and draw 6 cards. You can't use more than 1 Squawk and Seize Ability during your turn. | Attack - Motivate (20): Attach up to 2 Basic Energy cards from your discard pile to 1 of your Benched Pokémon. | Rule: Pokémon ex rule: When your Pokémon ex is Knocked Out, your opponent takes 2 Prize cards.",
+      "chinese_description": "鼓足干劲：选择自己弃牌区中最多2张基本能量，附着于1只备战宝可梦身上。 | 当宝可梦ex【昏厥】时，对手将拿取2张奖赏卡。",
+      "source_hint": "card-data-finder: 怒鹦哥ex 大师战略卡组构筑套装 沙奈朵ex 014/033",
+      "target_set_version": "set_g"
+    },
+    {
+      "name": "Boss's Orders",
+      "quantity": 1,
+      "set_code": "ASC",
+      "set_number": "256",
+      "english_description": "Type: Trainer | Subtypes: Supporter | Rule: Switch in 1 of your opponent's Benched Pokémon to the Active Spot. | Rule: You may play only 1 Supporter card during your turn.",
+      "chinese_description": "选择对手的1只备战宝可梦，将其与战斗宝可梦互换。|在自己的回合只可以使用1张支援者卡。",
+      "source_hint": "card-data-finder: 老大的指令 活动奖赏包 第一弹 219/SV-P",
+      "target_set_version": "set_g"
+    },
+    {
+      "name": "Professor Sada's Vitality",
+      "quantity": 4,
+      "set_code": "PRE",
+      "set_number": "120",
+      "english_description": "Type: Trainer | Subtypes: Supporter, Ancient | Rule: Choose up to 2 of your Ancient Pokémon and attach a Basic Energy card from your discard pile to each of them. If you attached any Energy in this way, draw 3 cards. | Rule: You may play only 1 Supporter card during your turn.",
+      "chinese_description": "选择自己最多2只「古代」宝可梦，各附着1张弃牌区中的基本能量。然后，从自己牌库上方抽取3张卡牌。|在自己的回合只可以使用1张支援者卡。",
+      "source_hint": "card-data-finder: 奥琳博士的气魄 活动奖赏包 第二弹 238/SV-P",
+      "target_set_version": "set_g"
+    },
+    {
+      "name": "Judge",
+      "quantity": 1,
+      "set_code": "PAF",
+      "set_number": "228",
+      "english_description": "Type: Trainer | Subtypes: Supporter | Rule: You can play only one Supporter card each turn. When you play this card, put it next to your Active Pokémon. When your turn ends, discard this card. | Rule: Each player shuffles his or her hand into his or her deck and draws 4 cards.",
+      "chinese_description": "双方玩家，各将所有手牌放回牌库并重洗牌库。然后，各从牌库上方抽取4张卡牌。|在自己的回合只可以使用1张支援者卡。",
+      "source_hint": "card-data-finder: 裁判 勇魅群星 V起始卡组 141/153",
+      "target_set_version": "set_e"
+    },
+    {
+      "name": "Switch Cart",
+      "quantity": 2,
+      "set_code": "ASR",
+      "set_number": "154",
+      "english_description": "Type: Trainer | Subtypes: Item | Rule: Switch your Active Basic Pokémon with 1 of your Benched Pokémon. If you do, heal 30 damage from the Pokémon you moved to your Bench. | Rule: You may play any number of Item cards during your turn.",
+      "chinese_description": "将自己战斗场上的【基础】宝可梦与备战宝可梦互换。然后，回复被换入备战区的宝可梦「30」点HP。|在自己的回合可以使用任意张物品卡。",
+      "source_hint": "card-data-finder: 交替推车 补充包 勇魅群星 勇 116/128",
+      "target_set_version": "set_f"
+    },
+    {
+      "name": "Pal Pad",
+      "quantity": 1,
+      "set_code": "SVI",
+      "set_number": "182",
+      "english_description": "Type: Trainer | Subtypes: Item | Rule: Shuffle up to 2 Supporter cards from your discard pile into your deck. | Rule: You may play any number of Item cards during your turn.",
+      "chinese_description": "选择自己弃牌区中最多2张支援者，在给对手看过之后，放回牌库并重洗牌库。|在自己的回合可以使用任意张物品卡。",
+      "source_hint": "card-data-finder: 朋友手册 补充包 真实玄虚 163/128",
+      "target_set_version": "set_g"
+    },
+    {
+      "name": "Prime Catcher",
+      "quantity": 1,
+      "set_code": "PRE",
+      "set_number": "119",
+      "english_description": "Type: Trainer | Subtypes: Item, ACE SPEC | Rule: You can't have more than 1 ACE SPEC card in your deck. | Rule: Switch in 1 of your opponent's Benched Pokémon to the Active Spot. If you do, switch your Active Pokémon with 1 of your Benched Pokémon. | Rule: You may play any number of Item cards during your turn.",
+      "chinese_description": "选择对手的1只备战宝可梦，将其与战斗宝可梦互换。然后，将自己的战斗宝可梦与备战宝可梦互换。|在自己的回合可以使用任意张物品卡。",
+      "source_hint": "card-data-finder: 顶尖捕捉器 补充包 利刃猛醒 180/204",
+      "target_set_version": "set_h"
+    },
+    {
+      "name": "Trekking Shoes",
+      "quantity": 4,
+      "set_code": "CRZ",
+      "set_number": "145",
+      "english_description": "Type: Trainer | Subtypes: Item | Rule: Look at the top card of your deck. You may put that card into your hand. If you don't, discard that card and draw a card. | Rule: You may play any number of Item cards during your turn.",
+      "chinese_description": "查看自己牌库上方1张卡牌，将那张卡牌加入手牌。或者，将那张卡牌放于弃牌区，从自己牌库上方抽取1张卡牌。|在自己的回合可以使用任意张物品卡。",
+      "source_hint": "card-data-finder: 健行鞋 对战派对 耀梦 下 152/207",
+      "target_set_version": "set_f"
+    },
+    {
+      "name": "Bravery Charm",
+      "quantity": 2,
+      "set_code": "SCR",
+      "set_number": "175",
+      "english_description": "Type: Trainer | Subtypes: Pokémon Tool | Rule: The Basic Pokémon this card is attached to gets +50 HP. | Rule: Attach a Pokémon Tool to 1 of your Pokémon that doesn't already have a Pokémon Tool attached.",
+      "chinese_description": "身上放有这张卡牌的【基础】宝可梦的最大HP「+50」。|在自己的回合可以将任意张宝可梦道具卡，放于自己的宝可梦身上。每只宝可梦身上只可以放1张宝可梦道具卡，并保持附加状态。",
+      "source_hint": "card-data-finder: 勇气护符 补充包 璀璨诡幻 260/207",
+      "target_set_version": "set_g"
+    },
+    {
+      "name": "Basic Grass Energy",
+      "quantity": 6,
+      "set_code": "SVE",
+      "set_number": "9",
+      "english_description": "Type: Energy | Subtypes: Basic",
+      "chinese_description": "基本草能量",
+      "source_hint": "card-data-finder: 基本草能量 对战学院 GRA",
+      "target_set_version": "set_h"
+    },
+    {
+      "name": "Basic Lightning Energy",
+      "quantity": 3,
+      "set_code": "SVE",
+      "set_number": "12",
+      "english_description": "Type: Energy | Subtypes: Basic",
+      "chinese_description": "基本雷能量",
+      "source_hint": "card-data-finder: 基本雷能量 对战学院 LIG",
+      "target_set_version": "set_h"
+    },
+    {
+      "name": "Basic Fighting Energy",
+      "quantity": 3,
+      "set_code": "SVE",
+      "set_number": "14",
+      "english_description": "Type: Energy | Subtypes: Basic",
+      "chinese_description": "基本斗能量",
+      "source_hint": "card-data-finder: 基本斗能量 对战学院 FIG",
+      "target_set_version": "set_h"
+    }
+  ]
+}
