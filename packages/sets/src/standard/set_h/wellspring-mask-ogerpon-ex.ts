@@ -128,7 +128,7 @@ export class WellspringMaskOgerponEx extends PokemonCard {
     image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/458/182.png'
   };
 
-  public tags = [CardTag.POKEMON_EX];
+  public tags = [CardTag.POKEMON_EX, CardTag.TERA];
 
   public stage: Stage = Stage.BASIC;
 

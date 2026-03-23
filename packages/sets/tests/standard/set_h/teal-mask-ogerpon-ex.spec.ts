@@ -1,5 +1,6 @@
 import {
   AttackAction,
+  CardTag,
   CardType,
   Simulator,
 } from '@ptcg/common';
@@ -13,6 +14,11 @@ describe('Teal Mask Ogerpon ex set_h', () => {
 
   beforeEach(() => {
     sim = TestUtils.createTestSimulator();
+  });
+
+  it('has Tera tag', () => {
+    const tealMaskOgerponEx = new TealMaskOgerponEx();
+    expect(tealMaskOgerponEx.tags).toContain(CardTag.TERA);
   });
 
   it('adds 30 damage for each Energy attached to both Active Pokemon', () => {

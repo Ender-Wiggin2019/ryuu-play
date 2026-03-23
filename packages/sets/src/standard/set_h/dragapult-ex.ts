@@ -95,7 +95,7 @@ export class DragapultEx extends PokemonCard {
     image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/458/436.png',
   };
 
-  public tags = [CardTag.POKEMON_EX];
+  public tags = [CardTag.POKEMON_EX, CardTag.TERA];
 
   public stage: Stage = Stage.STAGE_2;
 

@@ -11,6 +11,7 @@ import { LegacyEnergy } from './legacy-energy';
 import { NightStretcher } from './night-stretcher';
 import { RagingBoltEx } from './raging-bolt-ex';
 import { SecretBox } from './secret-box';
+import { SparklingCrystal } from './sparkling-crystal';
 import { TealMaskOgerponEx } from './teal-mask-ogerpon-ex';
 import { WellspringMaskOgerponEx } from './wellspring-mask-ogerpon-ex';
 
@@ -27,6 +28,7 @@ export const setH: Card[] = [
   new NightStretcher(),
   new RagingBoltEx(),
   new SecretBox(),
+  new SparklingCrystal(),
   new TealMaskOgerponEx(),
   new WellspringMaskOgerponEx(),
 ];

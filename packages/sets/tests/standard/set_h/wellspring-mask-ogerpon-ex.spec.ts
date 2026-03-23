@@ -1,5 +1,6 @@
 import {
   AttackAction,
+  CardTag,
   CardType,
   ChooseCardsPrompt,
   ConfirmPrompt,
@@ -16,6 +17,11 @@ describe('Wellspring Mask Ogerpon ex set_h', () => {
 
   beforeEach(() => {
     sim = TestUtils.createTestSimulator();
+  });
+
+  it('has Tera tag', () => {
+    const wellspringMaskOgerponEx = new WellspringMaskOgerponEx();
+    expect(wellspringMaskOgerponEx.tags).toContain(CardTag.TERA);
   });
 
   it('can shuffle 3 attached Energy cards into deck with Torrential Pump', () => {
