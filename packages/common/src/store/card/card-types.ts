@@ -10,6 +10,8 @@ export enum CardTag {
   FOSSIL = 'FOSSIL',
   RADIANT = 'RADIANT',
   TERA = 'TERA',
+  ANCIENT = 'ANCIENT',
+  FUTURE = 'FUTURE',
 }
 
 export enum SuperType {

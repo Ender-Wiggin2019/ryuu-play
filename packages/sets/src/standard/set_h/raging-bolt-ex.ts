@@ -41,7 +41,7 @@ export class RagingBoltEx extends PokemonCard {
     image_url: 'https://raw.githubusercontent.com/duanxr/PTCG-CHS-Datasets/main/img/324/419.png',
   };
 
-  public tags = [CardTag.POKEMON_EX];
+  public tags = [CardTag.POKEMON_EX, CardTag.ANCIENT];
 
   public stage: Stage = Stage.BASIC;
 

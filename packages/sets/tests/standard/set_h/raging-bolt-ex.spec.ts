@@ -1,5 +1,6 @@
 import {
   AttackAction,
+  CardTag,
   CardType,
   ChooseCardsPrompt,
   ResolvePromptAction,
@@ -17,6 +18,11 @@ describe('Raging Bolt ex set_h', () => {
 
   beforeEach(() => {
     sim = TestUtils.createTestSimulator();
+  });
+
+  it('has Ancient tag', () => {
+    const ragingBoltEx = new RagingBoltEx();
+    expect(ragingBoltEx.tags).toContain(CardTag.ANCIENT);
   });
 
   it('discards hand and draws 6 cards with Burst Roar', () => {

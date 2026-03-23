@@ -7,8 +7,10 @@ import { GholdengoEx } from './gholdengo-ex';
 import { Gimmighoul } from './gimmighoul';
 import { Gimmighoul2 } from './gimmighoul2';
 import { Iono } from './iono';
+import { MewEx } from './mew-ex';
 import { NestBall } from './nest-ball';
 import { PokemonSwitch } from './pokemon-switch';
+import { ProfessorSadasVitality } from './professor-sadas-vitality';
 import { ProfessorTurosScenario } from './professor-turos-scenario';
 import { SuperRod } from './super-rod';
 import { SuperEnergyRetrieval } from './super-energy-retrieval';
@@ -22,8 +24,10 @@ export const setG: Card[] = [
   new Gimmighoul2(),
   new GholdengoEx(),
   new Iono(),
+  new MewEx(),
   new NestBall(),
   new PokemonSwitch(),
+  new ProfessorSadasVitality(),
   new ProfessorTurosScenario(),
   new SuperRod(),
   new SuperEnergyRetrieval(),
