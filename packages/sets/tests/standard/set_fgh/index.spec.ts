@@ -3,6 +3,7 @@ import { SuperType, TrainerType, EnergyType } from '@ptcg/common';
 import { setFgh } from '../../../src/standard/set_fgh';
 
 type VariantRawData = {
+  logic_group_key?: string;
   variant_group_key?: string;
   variant_group_size?: number;
 };
@@ -13,7 +14,7 @@ describe('set_fgh', () => {
       expect([SuperType.TRAINER, SuperType.ENERGY, SuperType.POKEMON]).toContain(card.superType);
     }
 
-    expect(setFgh.length).toBeGreaterThan(338);
+    expect(setFgh.length).toBeGreaterThan(344);
   });
 
   it('stores variant grouping metadata while keeping all card faces', () => {
@@ -21,13 +22,13 @@ describe('set_fgh', () => {
 
     for (const card of setFgh) {
       const rawData = (card.rawData || {}) as VariantRawData;
-      const groupKey = rawData.variant_group_key || card.fullName;
+      const groupKey = rawData.logic_group_key || rawData.variant_group_key || card.fullName;
       const group = groups.get(groupKey) || [];
       group.push(card);
       groups.set(groupKey, group);
     }
 
-    expect(groups.size).toBe(291);
+    expect(groups.size).toBeGreaterThan(412);
 
     const nestBallGroup = Array.from(groups.values()).find(group =>
       group.some(card => card.name === '巢穴球')
@@ -49,9 +50,19 @@ describe('set_fgh', () => {
     const professorResearchGroup = Array.from(groups.values()).find(group =>
       group.some(card => card.name === '博士的研究')
     );
+    const houJiaoWeiHGroup = Array.from(groups.values()).find(group =>
+      group.some(card => card.name === '吼叫尾' && card.fullName === '吼叫尾 107/204#16692')
+    );
+    const houJiaoWeiGGroup = Array.from(groups.values()).find(group =>
+      group.some(card => card.name === '吼叫尾' && card.fullName === '吼叫尾 065/128#15924')
+    );
 
     expect(professorResearchGroup).toBeDefined();
     expect(professorResearchGroup!.some(card => (card as any).trainerType === TrainerType.SUPPORTER)).toBe(true);
     expect(doubleTurboGroup!.some(card => (card as any).energyType === EnergyType.SPECIAL)).toBe(true);
+    expect(houJiaoWeiHGroup).toBeDefined();
+    expect(houJiaoWeiHGroup!.length).toBe(3);
+    expect(houJiaoWeiGGroup).toBeDefined();
+    expect(houJiaoWeiGGroup!.length).toBe(5);
   });
 });

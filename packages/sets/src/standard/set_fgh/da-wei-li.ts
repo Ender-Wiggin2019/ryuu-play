@@ -1,4 +1,5 @@
 import {
+  CardType,
   Effect,
   EndTurnEffect,
   GameError,
@@ -10,21 +11,42 @@ import {
   State,
   StateUtils,
   StoreLike,
-  CardType,
 } from '@ptcg/common';
 
-export class DaWeiLi extends PokemonCard {
-  public rawData = {
+type DaWeiLiDiggingMawFaceSeed = {
+  id: number;
+  collectionId: number;
+  collectionName: string;
+  commodityCode: string;
+  collectionNumber: string;
+  rarityLabel: string;
+};
+
+const DIGGING_MAW_LOGIC_GROUP_KEY = 'pokemon:da-wei-li:p400:diligent-incisors';
+const DIGGING_MAW_VARIANT_GROUP_KEY = 'pokemon:da-wei-li:p400:diligent-incisors:f';
+const DIGGING_MAW_VARIANT_GROUP_SIZE = 7;
+
+const defaultDiggingMawSeed: DaWeiLiDiggingMawFaceSeed = {
+  id: 9914,
+  collectionId: 183,
+  collectionName: '补充包 勇魅群星 魅',
+  commodityCode: 'CS5aC',
+  collectionNumber: '130/127',
+  rarityLabel: 'AR',
+};
+
+export function createDaWeiLiDiggingMawRawData(seed: DaWeiLiDiggingMawFaceSeed) {
+  return {
     raw_card: {
-      id: 10076,
+      id: seed.id,
       name: '大尾狸',
       yorenCode: 'P400',
       cardType: '1',
-      commodityCode: 'PROMO3',
+      commodityCode: seed.commodityCode,
       details: {
         regulationMarkText: 'F',
-        collectionNumber: '161/S-P',
-        rarityLabel: '无标记',
+        collectionNumber: seed.collectionNumber,
+        rarityLabel: seed.rarityLabel,
         cardTypeLabel: '宝可梦',
         attributeLabel: '无色',
         specialCardLabel: null,
@@ -34,7 +56,7 @@ export class DaWeiLi extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/10076/image',
+      image: `/api/v1/cards/${seed.id}/image`,
       ruleLines: [],
       attacks: [
         {
@@ -54,12 +76,19 @@ export class DaWeiLi extends PokemonCard {
       ],
     },
     collection: {
-      id: 32,
-      commodityCode: 'PROMO3',
-      name: '特典卡·剑&盾',
+      id: seed.collectionId,
+      commodityCode: seed.commodityCode,
+      name: seed.collectionName,
     },
-    image_url: 'http://localhost:3000/api/v1/cards/10076/image',
+    image_url: `http://localhost:3000/api/v1/cards/${seed.id}/image`,
+    logic_group_key: DIGGING_MAW_LOGIC_GROUP_KEY,
+    variant_group_key: DIGGING_MAW_VARIANT_GROUP_KEY,
+    variant_group_size: DIGGING_MAW_VARIANT_GROUP_SIZE,
   };
+}
+
+export class DaWeiLi extends PokemonCard {
+  public rawData = createDaWeiLiDiggingMawRawData(defaultDiggingMawSeed);
 
   public stage: Stage = Stage.STAGE_1;
 
@@ -95,7 +124,7 @@ export class DaWeiLi extends PokemonCard {
 
   public name: string = '大尾狸';
 
-  public fullName: string = '大尾狸 161/S-P#10076';
+  public fullName: string = `大尾狸 ${defaultDiggingMawSeed.collectionNumber}#${defaultDiggingMawSeed.id}`;
 
   public readonly DIGGING_MAW_MARKER = 'DIGGING_MAW_MARKER';
 

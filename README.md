@@ -31,7 +31,7 @@ The project consists of several packages:
 
 * **@ptcg/common** is a library shared by both client and server. It provides generic data types and game logic.
 
-* **@ptcg/sets** is a package with list of availabe cards and its implementation.
+* **@ptcg/sets** is a package with the available cards and their implementation, including the current standard card pool and its variant printings.
 
 * **@ptcg/server** is a game server. It is responsible for database and propagating game state to the connected clients by websockets.
 
@@ -131,7 +131,9 @@ config.storage.database = 'name';
 
 The cards are implemented on the server side. It is not required to rebuild the client after adding/modyfing the cards, because all the simulation is handled by the server and list of available cards are downloaded by clients after successful login. This guarantees consistency between clients.
 
-Currently there are about 250 cards added to the project. You may find them in the the directory `packages/sets`. If you wish to add some more cards, it is the good place to look into.
+Currently there are more than 400 cards added to the project. You may find them in the the directory `packages/sets`. If you wish to add some more cards, it is the good place to look into.
+
+The current `set_fgh` package also includes additional printings and variant-group metadata so cards with the same logic can remain separate faces when needed.
 
 ```
 const { CardManager } = require('@ptcg/common');

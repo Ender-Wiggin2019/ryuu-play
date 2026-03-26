@@ -1,9 +1,8 @@
 import {
-  AttackEffect,
   CardType,
   ChooseCardsPrompt,
-  EndTurnEffect,
   Effect,
+  EndTurnEffect,
   GameError,
   GameMessage,
   PokemonCard,
@@ -17,60 +16,59 @@ import {
 export class Kirlia extends PokemonCard {
   public rawData = {
     raw_card: {
-      id: 12791,
+      id: 10964,
       name: '奇鲁莉安',
       yorenCode: 'P281',
       cardType: '1',
-      commodityCode: 'CSV2C',
+      commodityCode: 'CS6.5C',
       details: {
-        regulationMarkText: 'G',
-        collectionNumber: '133/128',
-        rarityLabel: 'AR',
+        regulationMarkText: 'F',
+        collectionNumber: '030/072',
+        rarityLabel: 'C',
         cardTypeLabel: '宝可梦',
         attributeLabel: '超',
         trainerTypeLabel: null,
         energyTypeLabel: null,
         pokemonTypeLabel: null,
         specialCardLabel: null,
-        hp: 90,
+        hp: 80,
         evolveText: '1阶进化',
-        weakness: '恶 ×2',
-        resistance: '斗 -30',
-        retreatCost: 1,
+        weakness: '钢 ×2',
+        resistance: null,
+        retreatCost: 2,
       },
-      image: '/api/v1/cards/12791/image',
+      image: '/api/v1/cards/10964/image',
       ruleLines: [],
       attacks: [
         {
-          id: 6885,
-          name: '魔法射击',
+          id: 8143,
+          name: '巴掌',
           text: '',
           cost: ['超', '无色'],
           damage: '30',
         },
+      ],
+      features: [
         {
-          id: 6886,
-          name: '精神强念',
-          text: '追加造成对手战斗宝可梦身上附着的能量数量×20伤害。',
-          cost: ['超', '超', '无色'],
-          damage: '60+',
+          id: 1078,
+          name: '精炼',
+          text: '在自己的回合，如果将自己的1张手牌放于弃牌区的话，则可使用1次。从自己牌库上方抽取2张卡牌。',
         },
       ],
-      features: [],
-      illustratorNames: ['Jiro Sasumo'],
+      illustratorNames: ['Yukiko Baba'],
       pokemonCategory: '感情宝可梦',
-      pokedexCode: '0281',
-      pokedexText: '可以通过操纵精神力量扭曲周围的空间来看清未来。',
+      pokedexCode: '281',
+      pokedexText: '当训练家高兴的时候，奇鲁莉安会充满能量，开心地转着圈跳舞。',
       height: 0.8,
       weight: 20.2,
       deckRuleLimit: null,
     },
     collection: {
-      id: 253,
-      commodityCode: 'CSV2C',
-      name: '补充包 奇迹启程',
+      id: 222,
+      commodityCode: 'CS6.5C',
+      name: '强化包 胜象星引',
     },
-    image_url: 'http://localhost:3000/api/v1/cards/12791/image',
+    image_url: 'http://localhost:3000/api/v1/cards/10964/image',
   };
 
   public stage: Stage = Stage.STAGE_1;
@@ -79,34 +77,26 @@ export class Kirlia extends PokemonCard {
 
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
-  public hp: number = 90;
+  public hp: number = 80;
 
-  public weakness = [{ type: CardType.DARK }];
+  public weakness = [{ type: CardType.METAL }];
 
-  public resistance = [{ type: CardType.FIGHTING, value: -30 }];
-
-  public retreat = [CardType.COLORLESS];
+  public retreat = [CardType.COLORLESS, CardType.COLORLESS];
 
   public attacks = [
     {
-      name: '魔法射击',
+      name: '巴掌',
       cost: [CardType.PSYCHIC, CardType.COLORLESS],
       damage: '30',
       text: '',
     },
-    {
-      name: '精神强念',
-      cost: [CardType.PSYCHIC, CardType.PSYCHIC, CardType.COLORLESS],
-      damage: '60+',
-      text: '追加造成对手战斗宝可梦身上附着的能量数量×20伤害。',
-    },
   ];
 
-  public set: string = 'set_g';
+  public set: string = 'set_f';
 
   public name: string = '奇鲁莉安';
 
-  public fullName: string = '奇鲁莉安 CSV2C';
+  public fullName: string = '奇鲁莉安 CS6.5C';
 
   public readonly REFINEMENT_MARKER = 'REFINEMENT_MARKER';
 
@@ -115,7 +105,7 @@ export class Kirlia extends PokemonCard {
       name: '精炼',
       useWhenInPlay: true,
       powerType: PowerType.ABILITY,
-      text: '在自己的回合可使用1次。将自己的1张手牌放于弃牌区。然后，从自己牌库上方抽取2张卡牌。',
+      text: '在自己的回合，如果将自己的1张手牌放于弃牌区的话，则可使用1次。从自己牌库上方抽取2张卡牌。',
     },
   ];
 
@@ -147,11 +137,6 @@ export class Kirlia extends PokemonCard {
           player.marker.addMarker(this.REFINEMENT_MARKER, this);
         }
       );
-    }
-
-    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      effect.damage = 60 + effect.opponent.active.energies.cards.length * 20;
-      return state;
     }
 
     if (effect instanceof EndTurnEffect) {

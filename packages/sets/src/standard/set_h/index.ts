@@ -4,8 +4,6 @@ import { AmoongussEx } from './amoonguss-ex';
 import { Ariados } from './ariados';
 import { Absol } from './absol';
 import { BlackKyuremEx } from './black-kyurem-ex';
-import { GuangHuiPenHuoLong } from './guang-hui-pen-huo-long';
-import { HuoKongLong } from './huo-kong-long';
 import { IronCrownEx } from './iron-crown-ex';
 import { IronLeaves } from './iron-leaves';
 import { IronThornsEx } from './iron-thorns-ex';
@@ -21,20 +19,17 @@ import { Foongus } from './foongus';
 import { CornerstoneMaskOgerponEx } from './cornerstone-mask-ogerpon-ex';
 import { HearthflameMaskOgerponEx } from './hearthflame-mask-ogerpon-ex';
 import { IronBundle } from './iron-bundle';
-import { PecharuntEx } from './pecharunt-ex';
 import { Ledyba } from './ledyba';
 import { Ledian } from './ledian';
 import { Lechonk } from './lechonk';
 import { SandyShocks } from './sandy-shocks';
 import { ShaTiePi } from './sha-tie-pi';
 import { RagingBoltEx } from './raging-bolt-ex';
-import { PenHuoLongEx } from './pen-huo-long-ex';
 import { simpleHCards } from './simple-generated';
 import { TealMaskOgerponEx } from './teal-mask-ogerpon-ex';
 import { Timburr } from './timburr';
 import { TyranitarEx } from './tyranitar-ex';
 import { Venipede } from './venipede';
-import { XiaoHuoLong } from './xiao-huo-long';
 import { WellspringMaskOgerponEx } from './wellspring-mask-ogerpon-ex';
 
 type VariantPokemonLike = Card & {
@@ -107,22 +102,6 @@ export const setH: Card[] = [
   new BlackKyuremEx(),
   ...seedPokemonVariants(() => new BlackKyuremEx(), [
     { id: 17435, collectionNumber: '058/207', rarityLabel: 'RR' },
-  ]),
-  new XiaoHuoLong(),
-  ...seedPokemonVariants(() => new XiaoHuoLong(), [
-    { id: 11551, collectionNumber: '004/151', rarityLabel: 'C☆★' },
-    { id: 11690, collectionNumber: '004/151', rarityLabel: 'C★★★' },
-  ]),
-  new HuoKongLong(),
-  ...seedPokemonVariants(() => new HuoKongLong(), [
-    { id: 11552, collectionNumber: '005/151', rarityLabel: 'U☆★' },
-    { id: 11691, collectionNumber: '005/151', rarityLabel: 'U★★★' },
-  ]),
-  new GuangHuiPenHuoLong(),
-  new PenHuoLongEx(),
-  ...seedPokemonVariants(() => new PenHuoLongEx(), [
-    { id: 14802, collectionNumber: '145/129', rarityLabel: 'SR' },
-    { id: 14819, collectionNumber: '162/129', rarityLabel: 'UR' },
   ]),
   new Dreepy(),
   ...seedPokemonVariants(() => new Dreepy(), [
@@ -198,7 +177,6 @@ export const setH: Card[] = [
   new ShaTiePi(),
   new IronCrownEx(),
   new IronThornsEx(),
-  new PecharuntEx(),
   new HearthflameMaskOgerponEx(),
   ...seedPokemonVariants(() => new HearthflameMaskOgerponEx(), [
     { id: 17592, collectionNumber: '215/207', rarityLabel: 'SR' },

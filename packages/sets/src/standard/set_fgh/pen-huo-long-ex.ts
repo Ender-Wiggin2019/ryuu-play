@@ -21,14 +21,47 @@ import {
   SuperType,
 } from '@ptcg/common';
 
+export const PEN_HUO_LONG_EX_LOGIC_GROUP_KEY = 'pokemon:喷火龙ex:Y1181:G:hp330:烈炎支配:燃烧黑暗180+';
+export const PEN_HUO_LONG_EX_VARIANT_GROUP_KEY = 'pokemon:喷火龙ex:Y1181:G:hp330:烈炎支配:燃烧黑暗180+';
+
+type PenHuoLongExVariantSeed = {
+  id: number;
+  collectionNumber: string;
+  rarityLabel: string;
+  illustratorNames?: string[];
+};
+
+function seedPenHuoLongExVariant(card: PenHuoLongEx, seed: PenHuoLongExVariantSeed): PenHuoLongEx {
+  card.rawData = {
+    ...card.rawData,
+    raw_card: {
+      ...card.rawData.raw_card,
+      id: seed.id,
+      image: `/api/v1/cards/${seed.id}/image`,
+      ...(seed.illustratorNames ? { illustratorNames: seed.illustratorNames } : {}),
+      details: {
+        ...card.rawData.raw_card.details,
+        collectionNumber: seed.collectionNumber,
+        rarityLabel: seed.rarityLabel,
+      },
+    },
+    image_url: `http://localhost:3000/api/v1/cards/${seed.id}/image`,
+    logic_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
+    variant_group_key: PEN_HUO_LONG_EX_VARIANT_GROUP_KEY,
+    variant_group_size: 4,
+  };
+  card.fullName = `${card.name} CSV5C ${seed.collectionNumber}#${seed.id}`;
+  return card;
+}
+
 export class PenHuoLongEx extends PokemonCard {
   public rawData = {
     raw_card: {
       id: 14812,
       name: '喷火龙ex',
-      yorenCode: null,
+      yorenCode: 'Y1181',
       cardType: '1',
-      commodityCode: '',
+      commodityCode: 'CSV5C',
       details: {
         regulationMarkText: 'G',
         collectionNumber: '155/129',
@@ -73,10 +106,13 @@ export class PenHuoLongEx extends PokemonCard {
     },
     collection: {
       id: 298,
-      commodityCode: '151C4',
+      commodityCode: 'CSV5C',
       name: '补充包 黑晶炽诚',
     },
     image_url: 'http://localhost:3000/api/v1/cards/14812/image',
+    logic_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
+    variant_group_key: PEN_HUO_LONG_EX_VARIANT_GROUP_KEY,
+    variant_group_size: 4,
   };
 
   public tags = [CardTag.POKEMON_EX, CardTag.TERA];
@@ -178,3 +214,30 @@ export class PenHuoLongEx extends PokemonCard {
     return state;
   }
 }
+
+export const penHuoLongExVariants = [
+  seedPenHuoLongExVariant(new PenHuoLongEx(), {
+    id: 14819,
+    collectionNumber: '162/129',
+    rarityLabel: 'UR',
+    illustratorNames: ['PLANETA Tsuji'],
+  }),
+  seedPenHuoLongExVariant(new PenHuoLongEx(), {
+    id: 14812,
+    collectionNumber: '155/129',
+    rarityLabel: 'SAR',
+    illustratorNames: ['PLANETA Mochizuki'],
+  }),
+  seedPenHuoLongExVariant(new PenHuoLongEx(), {
+    id: 14802,
+    collectionNumber: '145/129',
+    rarityLabel: 'SR',
+    illustratorNames: ['PLANETA Tsuji'],
+  }),
+  seedPenHuoLongExVariant(new PenHuoLongEx(), {
+    id: 14732,
+    collectionNumber: '075/129',
+    rarityLabel: 'RR',
+    illustratorNames: ['5ban Graphics'],
+  }),
+];

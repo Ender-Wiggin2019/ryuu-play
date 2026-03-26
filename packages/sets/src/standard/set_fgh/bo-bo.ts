@@ -5,15 +5,101 @@ import {
   ChooseCardsPrompt,
   Effect,
   GameMessage,
-  PlayerType,
   PokemonCard,
   ShuffleDeckPrompt,
   Stage,
   State,
-  StateUtils,
   StoreLike,
   SuperType,
 } from '@ptcg/common';
+
+type BoBoRawData = {
+  raw_card: {
+    id: number;
+    name: string;
+    yorenCode: string;
+    cardType: string;
+    commodityCode: string;
+    details: {
+      regulationMarkText: string;
+      collectionNumber: string;
+      rarityLabel: string;
+      cardTypeLabel: string;
+      attributeLabel: string;
+      specialCardLabel: string | null;
+      hp: number;
+      evolveText: string;
+      weakness: string;
+      resistance: string;
+      retreatCost: number;
+    };
+    image: string;
+    ruleLines: string[];
+    attacks: Array<{
+      id: number;
+      name: string;
+      text: string;
+      cost: string[];
+      damage: string;
+    }>;
+    features: unknown[];
+  };
+  collection: {
+    id: number;
+    commodityCode: string;
+    name: string;
+  };
+  image_url: string;
+  logic_group_key: string;
+  variant_group_key: string;
+  variant_group_size: number;
+};
+
+type BoBoVariantCapable = {
+  name: string;
+  fullName: string;
+  rawData: BoBoRawData;
+};
+
+export type BoBoVariantSeed = {
+  id: number;
+  collectionNumber: string;
+  rarityLabel: string;
+  commodityCode?: string;
+};
+
+export const BO_BO_LOGIC_GROUP_KEY = 'pokemon:波波:P016:G:hp50:呼朋引伴+撞击';
+export const BO_BO_VARIANT_GROUP_KEY = 'pokemon:波波:P016:G:hp50';
+
+export function seedBoBoVariant<T extends BoBoVariantCapable>(instance: T, options: BoBoVariantSeed): T {
+  const commodityCode = options.commodityCode || instance.rawData.raw_card.commodityCode;
+  instance.rawData = {
+    ...instance.rawData,
+    raw_card: {
+      ...instance.rawData.raw_card,
+      id: options.id,
+      commodityCode,
+      image: `/api/v1/cards/${options.id}/image`,
+      details: {
+        ...instance.rawData.raw_card.details,
+        collectionNumber: options.collectionNumber,
+        rarityLabel: options.rarityLabel,
+      },
+    },
+    image_url: `http://localhost:3000/api/v1/cards/${options.id}/image`,
+    logic_group_key: BO_BO_LOGIC_GROUP_KEY,
+    variant_group_key: BO_BO_VARIANT_GROUP_KEY,
+  };
+  instance.fullName = `${instance.name} ${commodityCode} ${options.collectionNumber}#${options.id}`;
+  return instance;
+}
+
+export function seedBoBoVariants<T extends BoBoVariantCapable>(
+  factory: () => T,
+  variants: BoBoVariantSeed[]
+): T[] {
+  return variants.map(variant => seedBoBoVariant(factory(), variant));
+}
 
 function* useBirdCall(
   next: Function,
@@ -22,7 +108,6 @@ function* useBirdCall(
   effect: AttackEffect
 ): IterableIterator<State> {
   const player = effect.player;
-  const playerType = state.players[0] === player ? PlayerType.BOTTOM_PLAYER : PlayerType.TOP_PLAYER;
   const emptySlots = player.bench.filter(slot => slot.pokemons.cards.length === 0);
   const basicCards = player.deck.cards.filter(card => {
     return card.superType === SuperType.POKEMON && (card as PokemonCard).stage === Stage.BASIC;
@@ -41,7 +126,7 @@ function* useBirdCall(
     state,
     new ChooseCardsPrompt(
       player.id,
-      GameMessage.CHOOSE_CARD_TO_BENCH,
+      GameMessage.CHOOSE_CARD_TO_PUT_ONTO_BENCH,
       player.deck,
       { superType: SuperType.POKEMON, stage: Stage.BASIC },
       { min: 0, max, allowCancel: false }
@@ -64,7 +149,7 @@ function* useBirdCall(
 }
 
 export class BoBo extends PokemonCard {
-  public rawData = {
+  public rawData: BoBoRawData = {
     raw_card: {
       id: 11516,
       name: '波波',
@@ -110,6 +195,9 @@ export class BoBo extends PokemonCard {
       name: '收集啦151 聚',
     },
     image_url: 'http://localhost:3000/api/v1/cards/11516/image',
+    logic_group_key: BO_BO_LOGIC_GROUP_KEY,
+    variant_group_key: BO_BO_VARIANT_GROUP_KEY,
+    variant_group_size: 5,
   };
 
   public stage: Stage = Stage.BASIC;
@@ -143,7 +231,7 @@ export class BoBo extends PokemonCard {
 
   public name: string = '波波';
 
-  public fullName: string = '波波 153/151#11516';
+  public fullName: string = '波波 151C4 153/151#11516';
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {

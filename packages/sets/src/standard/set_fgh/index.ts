@@ -106,11 +106,15 @@ import { LiZhiShaLou } from './li-zhi-sha-lou';
 import { LostVacuum } from './lost-vacuum';
 import { LuckyHelmet } from './lucky-helmet';
 import { Annihilape } from './annihilape';
-import { BoBo } from './bo-bo';
+import { BoBo, seedBoBoVariants } from './bo-bo';
+import { BoBoCsv4C, seedBoBoCsv4CVariants } from './bo-bo-csv4c';
 import { DaBiNiaoEx } from './da-bi-niao-ex';
 import { DaBiNiaoV } from './da-bi-niao-v';
 import { DaWeiLi } from './da-wei-li';
+import { DaWeiLiCs5bC, DaWeiLiCs5bCCommon } from './da-wei-li-cs5bc';
+import { DaWeiLiCs5aC, DaWeiLiCs5aCRareSparkle, DaWeiLiPromo3, DaWeiLiCszc, DaWeiLiCsve1C2, DaWeiLiCsve2pC2 } from './da-wei-li-variants';
 import { DaYaLi } from './da-ya-li';
+import { DaYaLiCs5aC } from './da-ya-li-cs5ac';
 import { Drifloon } from './drifloon';
 import { GardevoirEx } from './gardevoir-ex';
 import { GuangHuiJiaHeRenWa } from './guang-hui-jia-he-ren-wa';
@@ -118,9 +122,15 @@ import { GuangHuiPenHuoLong } from './guang-hui-pen-huo-long';
 import { GuiJiaoLuV } from './gui-jiao-lu-v';
 import { HongMingYueEx } from './hong-ming-yue-ex';
 import { HouJiaoWei } from './hou-jiao-wei';
+import { HouJiaoWeiG } from './hou-jiao-wei-g';
 import { HuoKongLong } from './huo-kong-long';
+import { huoKongLong151CVariants } from './huo-kong-long-151c';
+import { huoKongLongCsv5cVariants } from './huo-kong-long-csv5c';
+import { huoKongLongCs5aCVariants } from './huo-kong-long-cs5ac';
 import { IronHandsEx } from './iron-hands-ex';
 import { Kirlia } from './kirlia';
+import { KirliaCs5aC } from './kirlia-cs5ac';
+import { KirliaCsv2C } from './kirlia-csv2c';
 import { LuoJiYaV } from './luo-ji-ya-v';
 import { LuoJiYaVSTAR } from './luo-ji-ya-vstar';
 import { LumineonV } from './lumineon-v';
@@ -144,7 +154,9 @@ import { NieKai } from './nie-kai';
 import { NieMu } from './nie-mu';
 import { NuYingGeEx } from './nu-ying-ge-ex';
 import { Ralts } from './ralts';
-import { PenHuoLongEx } from './pen-huo-long-ex';
+import { RaltsCs5aC } from './ralts-cs5ac';
+import { RaltsCs65C } from './ralts-cs65c';
+import { penHuoLongExVariants } from './pen-huo-long-ex';
 import { DoubleTurboEnergy } from './double-turbo-energy';
 import { RaichuV } from './raichu-v';
 import { RaikouV } from './raikou-v';
@@ -156,7 +168,7 @@ import { MistEnergy } from './mist-energy';
 import { YaoQuanEr } from './yao-quan-er';
 import { ZhenYiFa } from './zhen-yi-fa';
 import { ShiZuDaNiao } from './shi-zu-da-niao';
-import { XiaoHuoLong } from './xiao-huo-long';
+import { xiaoHuoLongCards } from './xiao-huo-long';
 import { YueYueXiongHeYueEx } from './yue-yue-xiong-he-yue-ex';
 import { Zapdos } from './zapdos';
 import { NightStretcher } from '../set_h/night-stretcher';
@@ -279,6 +291,81 @@ function seedCard<T extends SeededCardLike>(instance: T, seed: SeededCardLike): 
     instance.tags = seed.tags;
   }
   return instance;
+}
+
+type PokemonVariantLike = Card & {
+  name: string;
+  fullName: string;
+  rawData: {
+    raw_card: {
+      id: number;
+      commodityCode?: string;
+      details: {
+        collectionNumber: string;
+        rarityLabel?: string;
+      };
+      image?: string;
+      illustratorNames?: string[];
+    };
+    collection?: {
+      id: number;
+      commodityCode?: string;
+      name: string;
+    };
+    image_url?: string;
+    logic_group_key?: string;
+    variant_group_key?: string;
+    variant_group_size?: number;
+  };
+};
+
+type PokemonVariantSeed = {
+  id: number;
+  collectionId: number;
+  collectionName: string;
+  commodityCode: string;
+  collectionNumber: string;
+  rarityLabel: string;
+  logicGroupKey: string;
+  variantGroupKey: string;
+  variantGroupSize: number;
+  illustratorNames?: string[];
+};
+
+function seedPokemonVariant<T extends PokemonVariantLike>(instance: T, options: PokemonVariantSeed): T {
+  instance.rawData = {
+    ...instance.rawData,
+    raw_card: {
+      ...instance.rawData.raw_card,
+      id: options.id,
+      commodityCode: options.commodityCode,
+      image: `/api/v1/cards/${options.id}/image`,
+      ...(options.illustratorNames ? { illustratorNames: options.illustratorNames } : {}),
+      details: {
+        ...instance.rawData.raw_card.details,
+        collectionNumber: options.collectionNumber,
+        rarityLabel: options.rarityLabel,
+      },
+    },
+    collection: {
+      id: options.collectionId,
+      commodityCode: options.commodityCode,
+      name: options.collectionName,
+    },
+    image_url: `http://localhost:3000/api/v1/cards/${options.id}/image`,
+    logic_group_key: options.logicGroupKey,
+    variant_group_key: options.variantGroupKey,
+    variant_group_size: options.variantGroupSize,
+  };
+  instance.fullName = `${instance.name} ${options.collectionNumber}#${options.id}`;
+  return instance;
+}
+
+function seedPokemonVariants<T extends PokemonVariantLike>(
+  factory: () => T,
+  variants: PokemonVariantSeed[]
+): T[] {
+  return variants.map(variant => seedPokemonVariant(factory(), variant));
 }
 
 function normalizeTrainerName(value: string): string {
@@ -527,30 +614,172 @@ export const setFgh: Card[] = [
     .map(card => overrideFactories[normalizeTrainerName(card.name)](card)),
   new GardevoirEx(),
   new Kirlia(),
+  new KirliaCs5aC(),
+  new KirliaCsv2C(),
   new Ralts(),
+  new RaltsCs5aC(),
+  new RaltsCs65C(),
   new Annihilape(),
   new Drifloon(),
   new HouJiaoWei(),
+  new HouJiaoWei({
+    id: 16519,
+    collectionNumber: '107/204',
+    rarityLabel: 'C☆★',
+    commodityCode: 'CSV7C',
+    collectionId: 324,
+    collectionName: '补充包 利刃猛醒',
+    specialCardLabel: '古代',
+  }),
+  new HouJiaoWei({
+    id: 16273,
+    collectionNumber: '107/204',
+    rarityLabel: 'C',
+    commodityCode: 'CSV7C',
+    collectionId: 324,
+    collectionName: '补充包 利刃猛醒',
+    specialCardLabel: '古代',
+  }),
+  new HouJiaoWeiG(),
+  new HouJiaoWeiG({
+    id: 15809,
+    collectionNumber: '065/128',
+    rarityLabel: 'U☆★',
+    commodityCode: 'CSV6C',
+    collectionId: 311,
+    collectionName: '补充包 真实玄虚',
+    specialCardLabel: '古代',
+  }),
+  new HouJiaoWeiG({
+    id: 15652,
+    collectionNumber: '065/128',
+    rarityLabel: 'U',
+    commodityCode: 'CSV6C',
+    collectionId: 311,
+    collectionName: '补充包 真实玄虚',
+    specialCardLabel: '古代',
+  }),
+  new HouJiaoWeiG({
+    id: 16097,
+    collectionNumber: '104/052',
+    rarityLabel: '无标记',
+    commodityCode: 'CSVL2C',
+    collectionId: 314,
+    collectionName: '游历专题包',
+    specialCardLabel: '古代',
+  }),
+  new HouJiaoWeiG({
+    id: 16908,
+    collectionNumber: '011/033',
+    rarityLabel: '无标记',
+    commodityCode: 'CSVM1bC',
+    collectionId: 329,
+    collectionName: '大师战略卡组构筑套装 沙奈朵ex',
+    specialCardLabel: null,
+  }),
   new GuangHuiJiaHeRenWa(),
   new GuangHuiPenHuoLong(),
   new GuiJiaoLuV(),
   new HongMingYueEx(),
   new BoBo(),
+  ...seedBoBoVariants(() => new BoBo(), [
+    { id: 11700, collectionNumber: '016/151', rarityLabel: 'C★★★', commodityCode: '151C4' },
+    { id: 11561, collectionNumber: '016/151', rarityLabel: 'C☆★', commodityCode: '151C4' },
+    { id: 11379, collectionNumber: '016/151', rarityLabel: 'C', commodityCode: '151C4' },
+    { id: 16938, collectionNumber: '008/033', rarityLabel: '无标记', commodityCode: 'CSVM1aC' },
+  ]),
+  new BoBoCsv4C(),
+  ...seedBoBoCsv4CVariants(() => new BoBoCsv4C(), [
+    { id: 14606, collectionNumber: '099/129', rarityLabel: 'C★★★', commodityCode: 'CSV4C' },
+    { id: 14491, collectionNumber: '099/129', rarityLabel: 'C☆★', commodityCode: 'CSV4C' },
+    { id: 14338, collectionNumber: '099/129', rarityLabel: 'C', commodityCode: 'CSV4C' },
+  ]),
   new DaBiNiaoEx(),
   new DaBiNiaoV(),
   new DaWeiLi(),
+  new DaWeiLiCs5aCRareSparkle(),
+  new DaWeiLiCs5aC(),
+  new DaWeiLiPromo3(),
+  new DaWeiLiCszc(),
+  new DaWeiLiCsve1C2(),
+  new DaWeiLiCsve2pC2(),
+  new DaWeiLiCs5bC(),
+  new DaWeiLiCs5bCCommon(),
   new DaYaLi(),
+  ...seedPokemonVariants(() => new DaYaLi(), [
+    {
+      id: 9615,
+      collectionId: 182,
+      collectionName: '补充包 勇魅群星 勇',
+      commodityCode: 'CS5bC',
+      collectionNumber: '111/128',
+      rarityLabel: 'C',
+      logicGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupSize: 5,
+    },
+    {
+      id: 12565,
+      collectionId: 258,
+      collectionName: '对战派对 共梦 下',
+      commodityCode: 'CSVE1C2',
+      collectionNumber: '096/177',
+      rarityLabel: '无标记',
+      logicGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupSize: 5,
+    },
+    {
+      id: 11109,
+      collectionId: 224,
+      collectionName: '收藏周边礼盒 百变宝盒',
+      commodityCode: 'CSZC',
+      collectionNumber: '022/066',
+      rarityLabel: '无标记',
+      logicGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupSize: 5,
+    },
+    {
+      id: 11166,
+      collectionId: 228,
+      collectionName: '精灵球/等级球礼盒：宝可梦艺术插画庆典 聚',
+      commodityCode: 'CSYC',
+      collectionNumber: '004/011',
+      rarityLabel: '无标记',
+      logicGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupKey: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+      variantGroupSize: 5,
+    },
+  ]),
+  new DaYaLiCs5aC(),
+  ...seedPokemonVariants(() => new DaYaLiCs5aC(), [
+    {
+      id: 9888,
+      collectionId: 183,
+      collectionName: '补充包 勇魅群星 魅',
+      commodityCode: 'CS5aC',
+      collectionNumber: '104/127',
+      rarityLabel: 'C',
+      logicGroupKey: 'pokemon:P399:大牙狸:70:滚动',
+      variantGroupKey: 'pokemon:P399:大牙狸:70:滚动',
+      variantGroupSize: 2,
+    },
+  ]),
   new HuoKongLong(),
+  ...huoKongLongCs5aCVariants,
+  ...huoKongLong151CVariants,
+  ...huoKongLongCsv5cVariants,
   new IronHandsEx(),
   new LuoJiYaV(),
   new LuoJiYaVSTAR(),
   new MiraidonEx(),
   new NuYingGeEx(),
-  new PenHuoLongEx(),
+  ...penHuoLongExVariants,
   new RaichuV(),
   new RaikouV(),
   new ShiZuDaNiao(),
-  new XiaoHuoLong(),
+  ...xiaoHuoLongCards,
   new YueYueXiongHeYueEx(),
   new Zapdos(),
   new RotomV(),
@@ -567,6 +796,7 @@ export * from './poke-ball';
 export * from './buddy-buddy-poffin';
 export * from './capturing-aroma';
 export * from './bo-bo';
+export * from './bo-bo-csv4c';
 export * from './annihilape';
 export * from './drifloon';
 export * from './gardevoir-ex';
@@ -575,18 +805,26 @@ export * from './guang-hui-pen-huo-long';
 export * from './gui-jiao-lu-v';
 export * from './hong-ming-yue-ex';
 export * from './hou-jiao-wei';
+export * from './hou-jiao-wei-g';
 export * from './huo-kong-long';
 export * from './iron-hands-ex';
 export * from './kirlia';
+export * from './kirlia-cs5ac';
+export * from './kirlia-csv2c';
 export * from './luo-ji-ya-v';
 export * from './luo-ji-ya-vstar';
 export * from './rotom-v';
 export * from './lumineon-v';
 export * from './ralts';
+export * from './ralts-cs5ac';
+export * from './ralts-cs65c';
 export * from './da-bi-niao-ex';
 export * from './da-bi-niao-v';
 export * from './da-wei-li';
+export * from './da-wei-li-cs5bc';
+export * from './da-wei-li-variants';
 export * from './da-ya-li';
+export * from './da-ya-li-cs5ac';
 export * from './miraidon-ex';
 export * from './nu-ying-ge-ex';
 export * from './pen-huo-long-ex';

@@ -159,9 +159,9 @@ export class CardsBaseService {
   }
 
   private getPokemonVariantGroupKey(card: PokemonCard): string {
-    const yorenCode = (card.rawData?.raw_card as any)?.yorenCode as string | undefined;
-    if (yorenCode) {
-      return `pokemon:${yorenCode}`;
+    const logicGroupKey = (card.rawData as any)?.logic_group_key as string | undefined;
+    if (logicGroupKey) {
+      return logicGroupKey;
     }
 
     const rawGroupKey = (card.rawData as any)?.variant_group_key as string | undefined;

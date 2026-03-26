@@ -4,7 +4,7 @@ import {
   CardType,
   CoinFlipPrompt,
   Effect,
-  PlayerType,
+  GameMessage,
   PokemonCard,
   PowerType,
   PutCountersEffect,
@@ -61,6 +61,9 @@ export class DaYaLi extends PokemonCard {
       name: '补充包 勇魅群星 勇',
     },
     image_url: 'http://localhost:3000/api/v1/cards/9768/image',
+    logic_group_key: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+    variant_group_key: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
+    variant_group_size: 5,
   };
 
   public tags = [CardTag.TERA];
@@ -111,7 +114,7 @@ export class DaYaLi extends PokemonCard {
 
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       let heads = false;
-      return store.prompt(state, new CoinFlipPrompt(effect.player.id, '硬币投掷'), result => {
+      return store.prompt(state, new CoinFlipPrompt(effect.player.id, GameMessage.COIN_FLIP), result => {
         heads = result;
         if (!heads) {
           effect.damage = 0;

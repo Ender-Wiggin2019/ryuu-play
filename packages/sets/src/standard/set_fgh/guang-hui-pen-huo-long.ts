@@ -12,6 +12,9 @@ import {
   StoreLike,
 } from '@ptcg/common';
 
+export const GUANG_HUI_PEN_HUO_LONG_LOGIC_GROUP_KEY = 'pokemon:光辉喷火龙:Y1064:F:hp160:振奋之心:炎爆250';
+export const GUANG_HUI_PEN_HUO_LONG_VARIANT_GROUP_KEY = 'pokemon:光辉喷火龙:Y1064:F:hp160:振奋之心:炎爆250';
+
 export class GuangHuiPenHuoLong extends PokemonCard {
   public rawData = {
     raw_card: {
@@ -64,6 +67,9 @@ export class GuangHuiPenHuoLong extends PokemonCard {
       name: '对战派对 共梦 下 奖赏包',
     },
     image_url: 'http://localhost:3000/api/v1/cards/13130/image',
+    logic_group_key: GUANG_HUI_PEN_HUO_LONG_LOGIC_GROUP_KEY,
+    variant_group_key: GUANG_HUI_PEN_HUO_LONG_VARIANT_GROUP_KEY,
+    variant_group_size: 1,
   };
 
   public tags = [CardTag.RADIANT];

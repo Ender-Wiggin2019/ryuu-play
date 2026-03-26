@@ -19,6 +19,7 @@ import {
 
 import { GuangHuiJiaHeRenWa } from '../../../src/standard/set_fgh/guang-hui-jia-he-ren-wa';
 import { HouJiaoWei } from '../../../src/standard/set_fgh/hou-jiao-wei';
+import { HouJiaoWeiG } from '../../../src/standard/set_fgh/hou-jiao-wei-g';
 import { GuangHuiPenHuoLong } from '../../../src/standard/set_fgh/guang-hui-pen-huo-long';
 import { HuoKongLong } from '../../../src/standard/set_fgh/huo-kong-long';
 import { Kirlia } from '../../../src/standard/set_fgh/kirlia';
@@ -221,6 +222,34 @@ describe('pokemon impl2 set_fgh', () => {
     sim.dispatch(new ResolvePromptAction(prompt.id, [player.bench[0]]));
 
     expect(player.bench[0].damage).toBe(20);
+  });
+
+  it('deals 30 damage with the G-version 吼叫尾 巴掌', () => {
+    const sim = TestUtils.createTestSimulator();
+    const card = new HouJiaoWeiG();
+    const target = new DummyPokemon('Active Target');
+    const { opponent } = TestUtils.getAll(sim);
+    TestUtils.setActive(sim, [card], [CardType.PSYCHIC]);
+    opponent.active.pokemons.cards = [target];
+
+    sim.dispatch(new AttackAction(1, '巴掌'));
+    expect(opponent.active.damage).toBe(30);
+  });
+
+  it('prompts for a target with 吼叫尾 G 凶暴吼叫', () => {
+    const sim = TestUtils.createTestSimulator();
+    const card = new HouJiaoWeiG();
+    const target = new DummyPokemon('Bench Target');
+    const { player, opponent } = TestUtils.getAll(sim);
+    TestUtils.setActive(sim, [card], [CardType.PSYCHIC, CardType.PSYCHIC]);
+    opponent.bench[0].pokemons.cards = [target];
+    opponent.bench[0].damage = 50;
+
+    sim.dispatch(new AttackAction(1, '凶暴吼叫'));
+    const prompt = TestUtils.getLastPrompt(sim) as ChoosePokemonPrompt;
+    expect(prompt).toBeTruthy();
+    expect(() => sim.dispatch(new ResolvePromptAction(prompt.id, [opponent.bench[0]]))).not.toThrow();
+    expect(player.active.damage).toBe(0);
   });
 
   it('switches a benched Dark Pokémon and poisons it with 桃歹郎ex', () => {

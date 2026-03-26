@@ -15,6 +15,7 @@ import { Annihilape } from '../../../src/standard/set_fgh/annihilape';
 import { Drifloon } from '../../../src/standard/set_fgh/drifloon';
 import { GardevoirEx } from '../../../src/standard/set_fgh/gardevoir-ex';
 import { Kirlia } from '../../../src/standard/set_fgh/kirlia';
+import { KirliaCsv2C } from '../../../src/standard/set_fgh/kirlia-csv2c';
 import { Ralts } from '../../../src/standard/set_fgh/ralts';
 import { TestPokemon } from '../../test-cards/test-pokemon';
 import { TestUtils } from '../../test-utils';
@@ -33,7 +34,7 @@ describe('pokemon impl1 set_fgh', () => {
 
   it('updates 奇鲁莉安 second attack damage by opponent energy count', () => {
     const sim = TestUtils.createTestSimulator();
-    const card = new Kirlia();
+    const card = new KirliaCsv2C();
     TestUtils.setActive(sim, [card], [CardType.PSYCHIC, CardType.PSYCHIC, CardType.COLORLESS]);
     TestUtils.setDefending(sim, [new TestPokemon()], [CardType.FIRE, CardType.WATER]);
 

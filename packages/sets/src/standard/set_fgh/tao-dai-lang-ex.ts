@@ -15,9 +15,11 @@ import {
   SpecialCondition,
   Stage,
   State,
-  StateUtils,
   StoreLike,
 } from '@ptcg/common';
+
+export const TAO_DAI_LANG_EX_LOGIC_GROUP_KEY = 'pokemon:桃歹郎ex:Y1456:H:hp190:支配锁链:焦躁爆破60x';
+export const TAO_DAI_LANG_EX_VARIANT_GROUP_KEY = 'pokemon:桃歹郎ex:Y1456:H:hp190:支配锁链:焦躁爆破60x';
 
 function isDarkPokemon(card: PokemonCard | undefined): boolean {
   if (card === undefined) {
@@ -92,6 +94,9 @@ export class TaoDaiLangEx extends PokemonCard {
       name: '补充包 璀璨诡幻',
     },
     image_url: 'http://localhost:3000/api/v1/cards/17634/image',
+    logic_group_key: TAO_DAI_LANG_EX_LOGIC_GROUP_KEY,
+    variant_group_key: TAO_DAI_LANG_EX_VARIANT_GROUP_KEY,
+    variant_group_size: 1,
   };
 
   public tags = [CardTag.POKEMON_EX];

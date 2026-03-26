@@ -16,7 +16,6 @@ import { GuangHuiPenHuoLong } from '../../../src/standard/set_h/guang-hui-pen-hu
 import { HuoKongLong } from '../../../src/standard/set_h/huo-kong-long';
 import { PenHuoLongEx } from '../../../src/standard/set_h/pen-huo-long-ex';
 import { XiaoHuoLong } from '../../../src/standard/set_h/xiao-huo-long';
-import { setH } from '../../../src/standard/set_h';
 import { TestCard } from '../../test-cards/test-card';
 import { TestUtils } from '../../test-utils';
 
@@ -61,19 +60,6 @@ describe('pokemon impl4 set_h', () => {
 
   beforeEach(() => {
     sim = TestUtils.createTestSimulator();
-  });
-
-  it('exposes the fire/dragon printings in set_h', () => {
-    expect(setH.some(card => card.fullName === '小火龙 151C4')).toBeTrue();
-    expect(setH.some(card => card.fullName === '小火龙 151C4 004/151#11551')).toBeTrue();
-    expect(setH.some(card => card.fullName === '小火龙 151C4 004/151#11690')).toBeTrue();
-    expect(setH.some(card => card.fullName === '火恐龙 151C4')).toBeTrue();
-    expect(setH.some(card => card.fullName === '火恐龙 151C4 005/151#11552')).toBeTrue();
-    expect(setH.some(card => card.fullName === '火恐龙 151C4 005/151#11691')).toBeTrue();
-    expect(setH.some(card => card.fullName === '光辉喷火龙 CSVE1pC2')).toBeTrue();
-    expect(setH.some(card => card.fullName === '喷火龙ex CSV5C')).toBeTrue();
-    expect(setH.some(card => card.fullName === '喷火龙ex CSV5C 145/129#14802')).toBeTrue();
-    expect(setH.some(card => card.fullName === '喷火龙ex CSV5C 162/129#14819')).toBeTrue();
   });
 
   it('lets 小火龙 discard the stadium in play and deal 30 with 吐火', () => {
