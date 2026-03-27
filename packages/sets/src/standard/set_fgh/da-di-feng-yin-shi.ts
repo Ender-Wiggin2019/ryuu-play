@@ -73,7 +73,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/10578/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/226.png',
       ruleLines: [
         '宝可梦道具可以附着在自己的宝可梦身上。每只宝可梦身上只可以附着1张宝可梦道具，并保持附加状态。',
         '身上放有这张卡牌的「宝可梦V」，可以使用这个【VSTAR】力量。',
@@ -97,7 +97,7 @@ const defaultSeed: VariantTrainerSeed = {
       name: '补充包 碧海暗影 逐',
       commodityNames: ['补充包 碧海暗影 逐'],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10578/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/226.png',
   },
 };
 

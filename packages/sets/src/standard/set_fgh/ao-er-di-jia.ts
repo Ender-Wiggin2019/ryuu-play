@@ -76,7 +76,7 @@ export class AoErDiJia extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/14387/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/377.png',
       ruleLines: [
         '查看对手的手牌，选择其中任意1张卡牌，放回对手的牌库下方。然后，对手若希望，可从牌库上方抽取1张卡牌。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -96,7 +96,7 @@ export class AoErDiJia extends VariantTrainerCard {
       commodityCode: 'CSV4C',
       name: '补充包 嘉奖回合',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14387/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/377.png',
   };
 
   public set: string = 'set_g';

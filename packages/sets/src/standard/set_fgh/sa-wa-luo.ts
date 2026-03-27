@@ -43,7 +43,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/12817/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/388.png',
       ruleLines: [
         '选择最多2只自己的宝可梦，各回复其「50」HP。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -63,7 +63,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV2C',
       name: '补充包 奇迹启程',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/12817/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/388.png',
   },
 };
 

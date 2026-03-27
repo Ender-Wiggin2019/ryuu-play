@@ -98,6 +98,7 @@ export class DisplayTextService {
 
       switch (key) {
         case 'message':
+        case 'choice':
           localizedParams[key] = this.translate.instant('GAME_MESSAGES.' + value);
           break;
         case 'card':

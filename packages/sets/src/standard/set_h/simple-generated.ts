@@ -115,14 +115,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '034/066'
         },
-        'image': '/api/v1/cards/16805/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/33.png'
       },
       'collection': {
         'id': 326,
         'commodityCode': 'CSVSC',
         'name': '对战学院'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16805/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/33.png'
     }
   },
   {
@@ -176,14 +176,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '170/204'
         },
-        'image': '/api/v1/cards/16336/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/463.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16336/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/463.png'
     }
   },
   {
@@ -237,14 +237,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '171/204'
         },
-        'image': '/api/v1/cards/16747/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/468.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16747/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/468.png'
     }
   },
   {
@@ -302,14 +302,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '115/207'
         },
-        'image': '/api/v1/cards/17492/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/318.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17492/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/318.png'
     }
   },
   {
@@ -355,14 +355,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '036/204'
         },
-        'image': '/api/v1/cards/16202/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/99.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16202/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/99.png'
     }
   },
   {
@@ -410,14 +410,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '009/066'
         },
-        'image': '/api/v1/cards/16780/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/8.png'
       },
       'collection': {
         'id': 326,
         'commodityCode': 'CSVSC',
         'name': '对战学院'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16780/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/8.png'
     }
   },
   {
@@ -463,14 +463,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '031/066'
         },
-        'image': '/api/v1/cards/16802/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/30.png'
       },
       'collection': {
         'id': 326,
         'commodityCode': 'CSVSC',
         'name': '对战学院'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16802/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/30.png'
     }
   },
   {
@@ -516,14 +516,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '055/204'
         },
-        'image': '/api/v1/cards/16221/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/150.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16221/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/150.png'
     }
   },
   {
@@ -571,14 +571,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '054/207'
         },
-        'image': '/api/v1/cards/17431/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/149.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17431/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/149.png'
     }
   },
   {
@@ -623,14 +623,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '013/066'
         },
-        'image': '/api/v1/cards/16784/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/12.png'
       },
       'collection': {
         'id': 326,
         'commodityCode': 'CSVSC',
         'name': '对战学院'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16784/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/12.png'
     }
   },
   {
@@ -685,14 +685,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '001/204'
         },
-        'image': '/api/v1/cards/16167/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/0.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16167/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/0.png'
     }
   },
   {
@@ -745,14 +745,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '149/204'
         },
-        'image': '/api/v1/cards/16315/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/404.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16315/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/404.png'
     }
   },
   {
@@ -806,14 +806,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '019/066'
         },
-        'image': '/api/v1/cards/16790/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/18.png'
       },
       'collection': {
         'id': 326,
         'commodityCode': 'CSVSC',
         'name': '对战学院'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16790/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/326/18.png'
     }
   },
   {
@@ -859,14 +859,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '028/204'
         },
-        'image': '/api/v1/cards/16194/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/79.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16194/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/79.png'
     }
   },
   {
@@ -922,14 +922,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '125/204'
         },
-        'image': '/api/v1/cards/16291/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/340.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16291/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/340.png'
     }
   },
   {
@@ -983,14 +983,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '020/207'
         },
-        'image': '/api/v1/cards/17397/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/55.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17397/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/55.png'
     }
   },
   {
@@ -1045,14 +1045,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '208/207'
         },
-        'image': '/api/v1/cards/17585/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/559.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17585/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/559.png'
     }
   },
   {
@@ -1097,14 +1097,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '017/207'
         },
-        'image': '/api/v1/cards/17394/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/46.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17394/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/46.png'
     }
   },
   {
@@ -1167,14 +1167,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '147/207'
         },
-        'image': '/api/v1/cards/17524/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/402.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17524/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/402.png'
     }
   },
   {
@@ -1230,14 +1230,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '127/204'
         },
-        'image': '/api/v1/cards/16293/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/346.png'
       },
       'collection': {
         'id': 324,
         'commodityCode': 'CSV7C',
         'name': '补充包 利刃猛醒'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/16293/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/346.png'
     }
   },
   {
@@ -1282,14 +1282,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '090/207'
         },
-        'image': '/api/v1/cards/17467/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/245.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17467/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/245.png'
     }
   },
   {
@@ -1337,14 +1337,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '060/207'
         },
-        'image': '/api/v1/cards/17437/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/163.png'
       },
       'collection': {
         'id': 458,
         'commodityCode': 'CSV8C',
         'name': '补充包 璀璨诡幻'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17437/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/163.png'
     }
   },
   {
@@ -1392,14 +1392,14 @@ const generatedSimpleHPokemonData: GeneratedSimpleHPokemonCardData[] = [
           'regulationMarkText': 'H',
           'collectionNumber': '171/SV-P'
         },
-        'image': '/api/v1/cards/17277/image'
+        'image': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/453/0.png'
       },
       'collection': {
         'id': 453,
         'commodityCode': 'PROMOSVEVENT02',
         'name': '活动特别包 第二弹'
       },
-      'image_url': 'http://212.52.0.192:3000/api/v1/cards/17277/image'
+      'image_url': 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/453/0.png'
     }
   }
 ];

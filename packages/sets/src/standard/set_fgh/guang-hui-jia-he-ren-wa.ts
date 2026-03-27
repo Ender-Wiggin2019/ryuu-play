@@ -207,7 +207,7 @@ export class GuangHuiJiaHeRenWa extends PokemonCard {
         special_shiny_type: 0,
       },
       name: '光辉甲贺忍蛙',
-      image: '/api/v1/cards/10954/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/33.png',
       hash: 'dc7b16b0287a06904797fd6e4dd7f48f',
     },
     collection: {
@@ -221,7 +221,7 @@ export class GuangHuiJiaHeRenWa extends PokemonCard {
       linkType: 0,
       image: 'img/222/cover.png',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10954/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/33.png',
   };
 
   public tags = [CardTag.RADIANT];

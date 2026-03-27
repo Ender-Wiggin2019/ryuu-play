@@ -41,7 +41,7 @@ export class YangSanJieJie extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/14399/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/389.png',
       ruleLines: [
         '将自己的手牌全部放回牌库并重洗牌库。然后，从牌库上方抽取4张卡牌。如果是后攻玩家的最初回合的话，则抽取的卡牌张数变为8张。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -61,7 +61,7 @@ export class YangSanJieJie extends VariantTrainerCard {
       commodityCode: 'CSV4C',
       name: '补充包 嘉奖回合',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14399/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/389.png',
   };
 
   public set: string = 'set_g';

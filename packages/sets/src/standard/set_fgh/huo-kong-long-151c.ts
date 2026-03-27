@@ -85,7 +85,7 @@ export class HuoKongLong151C extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/11691/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/280/12.png',
       ruleLines: [],
       attacks: [
         {
@@ -117,7 +117,7 @@ export class HuoKongLong151C extends PokemonCard {
       commodityCode: '151C4',
       name: '收集啦151 聚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/11691/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/280/12.png',
     logic_group_key: HUO_KONG_LONG_151C_LOGIC_GROUP_KEY,
     variant_group_key: HUO_KONG_LONG_151C_VARIANT_GROUP_KEY,
     variant_group_size: 5,

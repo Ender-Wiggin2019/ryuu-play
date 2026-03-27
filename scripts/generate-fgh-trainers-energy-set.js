@@ -17,6 +17,22 @@ const outputPath = path.join(
   'cards.generated.ts'
 );
 
+const CARD_IMAGE_BASE_URL = process.env.PTCG_CARD_IMAGE_BASE_URL
+  || 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev';
+const CARD_IMAGE_MAP_PATH = path.join(
+  __dirname,
+  '..',
+  'packages',
+  'sets',
+  'src',
+  'standard',
+  'card-image-r2.generated.ts'
+);
+const CARD_IMAGE_URLS_BY_ID = new Map(
+  [...fs.readFileSync(CARD_IMAGE_MAP_PATH, 'utf8').matchAll(/\s(\d+): '([^']+)'/g)]
+    .map(([, id, url]) => [Number(id), url])
+);
+
 const trainerTypeMap = {
   '物品': 'ITEM',
   '支援者': 'SUPPORTER',
@@ -67,12 +83,16 @@ function normalizeEffectText(value) {
 }
 
 function normalizeImageUrl(value, id) {
+  const mappedUrl = CARD_IMAGE_URLS_BY_ID.get(id);
+  if (mappedUrl) {
+    return mappedUrl;
+  }
   if (!value) {
-    return `http://localhost:3000/api/v1/cards/${id}/image`;
+    return `${CARD_IMAGE_BASE_URL}/api/v1/cards/${id}/image`;
   }
   return value.startsWith('http')
     ? value
-    : `http://localhost:3000${value}`;
+    : `${CARD_IMAGE_BASE_URL}${value}`;
 }
 
 function parseBasicEnergyProvides(name) {

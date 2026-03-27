@@ -85,7 +85,7 @@ export class HuoKongLongCs5aC extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/9962/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/183/3.png',
       ruleLines: [],
       attacks: [
         {
@@ -117,7 +117,7 @@ export class HuoKongLongCs5aC extends PokemonCard {
       commodityCode: 'CS5aC',
       name: '补充包 勇魅群星 魅',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/9962/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/183/3.png',
     logic_group_key: HUO_KONG_LONG_CS5AC_LOGIC_GROUP_KEY,
     variant_group_key: HUO_KONG_LONG_CS5AC_VARIANT_GROUP_KEY,
     variant_group_size: 2,

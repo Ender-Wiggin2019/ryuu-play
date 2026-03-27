@@ -45,7 +45,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/17276/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/456/9.png',
       ruleLines: [
         '选择自己牌库中的1张宝可梦（除「拥有规则的宝可梦」外），在给对手看过之后，加入手牌。并重洗牌库。可加入手牌的宝可梦的张数，会增加与自己弃牌区中「帕底亚的学生」（除这张卡牌外）张数相同的张数。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -53,7 +53,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17276/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/456/9.png',
   },
 };
 

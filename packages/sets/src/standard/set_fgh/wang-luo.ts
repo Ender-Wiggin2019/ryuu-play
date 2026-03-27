@@ -41,7 +41,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/10747/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/269.png',
       ruleLines: [
         '选择自己备战区中的1只「宝可梦V」，将被选择的宝可梦，以及放于其身上的卡牌，全部放于弃牌区。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -49,7 +49,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10747/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/269.png',
   },
 };
 

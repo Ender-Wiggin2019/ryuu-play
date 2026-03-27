@@ -22,6 +22,7 @@ import { endGame } from '../effect-reducers/check-effect';
 import { initNextTurn } from '../effect-reducers/game-phase-effect';
 import { PokemonSlot } from '../state/pokemon-slot';
 import { FilterUtils, FilterType } from '../card/filter-utils';
+import { SelectPrompt } from '../prompts/select-prompt';
 
 
 function putStartingPokemonsAndPrizes(player: Player, cards: Card[]): void {
@@ -37,6 +38,82 @@ function putStartingPokemonsAndPrizes(player: Player, cards: Card[]): void {
   }
 }
 
+function* decideStartingPlayer(next: Function, store: StoreLike, state: State): IterableIterator<State> {
+  const player = state.players[0];
+  const opponent = state.players[1];
+  const coinCallerIndex = Math.round(Math.random());
+  const coinCaller = state.players[coinCallerIndex];
+  const otherPlayer = state.players[coinCallerIndex === 0 ? 1 : 0];
+  const coinSideValues = [
+    GameMessage.SETUP_COIN_SIDE_HEADS,
+    GameMessage.SETUP_COIN_SIDE_TAILS
+  ];
+  const turnOrderValues = [
+    GameMessage.SETUP_TURN_ORDER_FIRST,
+    GameMessage.SETUP_TURN_ORDER_SECOND
+  ];
+  let selectedSide = 0;
+  let guessedCorrectly = false;
+
+  store.log(state, GameLog.LOG_SETUP_COIN_TOSS_CALL, { name: coinCaller.name });
+
+  yield store.prompt(
+    state,
+    new SelectPrompt(
+      coinCaller.id,
+      GameMessage.SETUP_CHOOSE_COIN_SIDE,
+      coinSideValues,
+      { allowCancel: false }
+    ),
+    result => {
+      selectedSide = result;
+      store.log(state, GameLog.LOG_SETUP_COIN_TOSS_CHOICE, {
+        name: coinCaller.name,
+        choice: coinSideValues[selectedSide]
+      });
+      next();
+    }
+  );
+
+  yield store.prompt(
+    state,
+    new CoinFlipPrompt(coinCaller.id, GameMessage.SETUP_WHO_BEGINS_FLIP),
+    result => {
+      guessedCorrectly = selectedSide === (result ? 0 : 1);
+      if (guessedCorrectly) {
+        store.log(state, GameLog.LOG_SETUP_COIN_TOSS_WON, { name: coinCaller.name });
+      } else {
+        store.log(state, GameLog.LOG_SETUP_COIN_TOSS_LOST, {
+          name: coinCaller.name,
+          opponent: otherPlayer.name
+        });
+      }
+      next();
+    }
+  );
+
+  const decisionPlayer = guessedCorrectly ? coinCaller : otherPlayer;
+  yield store.prompt(
+    state,
+    new SelectPrompt(
+      decisionPlayer.id,
+      GameMessage.SETUP_CHOOSE_TURN_ORDER,
+      turnOrderValues,
+      { allowCancel: false }
+    ),
+    turnOrder => {
+      state.activePlayer = turnOrder === 0
+        ? state.players.indexOf(decisionPlayer)
+        : state.players.indexOf(decisionPlayer === player ? opponent : player);
+      store.log(state, GameLog.LOG_SETUP_TURN_ORDER_CHOICE, {
+        name: decisionPlayer.name,
+        choice: turnOrderValues[turnOrder]
+      });
+      next();
+    }
+  );
+}
+
 function* setupGame(next: Function, store: StoreLike, state: State): IterableIterator<State> {
   const basicPokemon: FilterType = [
     {superType: SuperType.POKEMON, stage: Stage.BASIC},
@@ -45,6 +122,8 @@ function* setupGame(next: Function, store: StoreLike, state: State): IterableIte
   const chooseCardsOptions = { min: 1, max: 6, allowCancel: false };
   const player = state.players[0];
   const opponent = state.players[1];
+
+  yield* decideStartingPlayer(next, store, state);
 
   let playerHasBasic = false;
   let opponentHasBasic = false;
@@ -125,12 +204,10 @@ function* setupGame(next: Function, store: StoreLike, state: State): IterableIte
 
   if (whoBeginsEffect.player) {
     state.activePlayer = state.players.indexOf(whoBeginsEffect.player);
-  } else {
-    const coinFlipPrompt = new CoinFlipPrompt(player.id, GameMessage.SETUP_WHO_BEGINS_FLIP);
-    yield store.prompt(state, coinFlipPrompt, whoBegins => {
-      state.activePlayer = whoBegins ? 0 : 1;
-      next();
-    });
+  }
+
+  if (state.activePlayer !== 0 && state.activePlayer !== 1) {
+    state.activePlayer = 0;
   }
 
   // Set initial Pokemon Played Turn, so players can't evolve during first turn

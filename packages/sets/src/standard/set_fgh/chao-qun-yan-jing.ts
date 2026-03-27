@@ -40,7 +40,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/9902/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/183/206.png',
       ruleLines: [
         '宝可梦道具可以附着在自己的宝可梦身上。每只宝可梦身上只可以附着1张宝可梦道具，并保持附加状态。',
         '身上放有这张卡牌的宝可梦使用招式的伤害，在计算对手战斗宝可梦的弱点时，其弱点按照「×3」计算。',
@@ -54,7 +54,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CS5aC',
       name: '补充包 勇魅群星 魅',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/9902/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/183/206.png',
   },
 };
 

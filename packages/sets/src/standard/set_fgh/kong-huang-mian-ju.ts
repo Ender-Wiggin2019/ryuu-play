@@ -33,7 +33,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/11080/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/114.png',
       ruleLines: [
         '宝可梦道具可以附着在自己的宝可梦身上。每只宝可梦身上只可以附着1张宝可梦道具，并保持附加状态。',
         '身上放有这张卡牌的宝可梦，不会受到对手剩余HP在「40」点以下（包含40点）的宝可梦的招式的伤害。',
@@ -55,7 +55,7 @@ const defaultSeed: VariantTrainerSeed = {
       name: '强化包 胜象星引',
       commodityNames: ['强化包 胜象星引'],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/11080/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/114.png',
   },
 };
 

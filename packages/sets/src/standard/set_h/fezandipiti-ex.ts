@@ -34,7 +34,7 @@ export class FezandipitiEx extends PokemonCard {
         collectionNumber: '135/207',
         rarityLabel: 'RR',
       },
-      image: '/api/v1/cards/17512/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/372.png',
       hash: '4eb1f4487234222de0a13f6837d9553d',
     },
     collection: {
@@ -43,7 +43,7 @@ export class FezandipitiEx extends PokemonCard {
       name: '补充包 璀璨诡幻',
       salesDate: '2026-03-13',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17512/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/372.png',
   };
 
   public tags = [CardTag.POKEMON_EX];

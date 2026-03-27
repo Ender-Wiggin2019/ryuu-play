@@ -45,7 +45,7 @@ export class PenHuoLongEx extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/14732/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/202.png',
       ruleLines: ['当宝可梦ex【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -77,7 +77,7 @@ export class PenHuoLongEx extends PokemonCard {
       commodityCode: 'CSV5C',
       name: '补充包 黑晶炽诚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14732/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/202.png',
   };
 
   public tags = [CardTag.POKEMON_EX, CardTag.TERA];

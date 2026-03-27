@@ -66,7 +66,7 @@ export class XinLi extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/17270/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/456/3.png',
       ruleLines: [
         '查看自己牌库上方4张卡牌，选择其中2张卡牌，加入手牌。将剩余的卡牌全部翻到反面重洗，放回牌库下方。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -86,7 +86,7 @@ export class XinLi extends VariantTrainerCard {
       commodityCode: 'promosvPaldea',
       name: '帕底亚训练家合影卡挂件套装&对战礼盒',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17270/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/456/3.png',
   };
 
   public set: string = 'set_g';

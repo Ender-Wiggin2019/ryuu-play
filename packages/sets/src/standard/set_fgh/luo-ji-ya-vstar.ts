@@ -136,7 +136,7 @@ export class LuoJiYaVSTAR extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 2,
       },
-      image: '/api/v1/cards/10752/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/274.png',
       ruleLines: ['当宝可梦VSTAR【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -161,7 +161,7 @@ export class LuoJiYaVSTAR extends PokemonCard {
       commodityCode: 'CS6aC',
       name: '补充包 碧海暗影 啸',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10752/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/274.png',
   };
 
   public tags = [CardTag.POKEMON_VSTAR];

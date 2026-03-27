@@ -43,7 +43,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/13316/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/384.png',
       ruleLines: [
         '从自己牌库上方抽取3张卡牌。将对手的战斗宝可梦与备战宝可梦互换。[放于战斗场的宝可梦由对手选择。]',
         '在自己的回合只可以使用1张支援者卡。',
@@ -63,7 +63,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV3C',
       name: '补充包 无畏太晶',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/13316/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/384.png',
   },
 };
 

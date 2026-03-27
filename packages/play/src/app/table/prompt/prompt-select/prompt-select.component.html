@@ -11,14 +11,28 @@
 
   <form #form="ngForm" autocomplete="off">
 
-    <!-- Select -->
-    <mat-form-field>
+    <div class="ptcg-prompt-select-grid" *ngIf="isCompactLayout(); else selectDropdown">
+      <button
+        mat-stroked-button
+        type="button"
+        class="ptcg-prompt-select-option"
+        *ngFor="let option of options; index as i"
+        [class.selected]="result === i"
+        [color]="result === i ? 'primary' : undefined"
+        (click)="choose(i)">
+        {{ option }}
+      </button>
+    </div>
+
+    <ng-template #selectDropdown>
+      <mat-form-field>
       <mat-select [(value)]="result">
         <mat-option *ngFor="let option of options; index as i" [value]="i">
           {{ option }}
         </mat-option>
       </mat-select>
-    </mat-form-field>
+      </mat-form-field>
+    </ng-template>
 
   </form>
 </div>

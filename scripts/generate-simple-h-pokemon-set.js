@@ -4,6 +4,13 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const CSV_PATH = path.join(ROOT, 'tracking', 'fgh-pokemon-progress.csv');
 const OUTPUT_PATH = path.join(ROOT, 'packages', 'sets', 'src', 'standard', 'set_h', 'simple-generated.ts');
+const CARD_IMAGE_BASE_URL = process.env.PTCG_CARD_IMAGE_BASE_URL
+  || 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev';
+const CARD_IMAGE_MAP_PATH = path.join(ROOT, 'packages', 'sets', 'src', 'standard', 'card-image-r2.generated.ts');
+const CARD_IMAGE_URLS_BY_ID = new Map(
+  [...fs.readFileSync(CARD_IMAGE_MAP_PATH, 'utf8').matchAll(/\s(\d+): '([^']+)'/g)]
+    .map(([, id, url]) => [Number(id), url])
+);
 
 const IMPLEMENTED_FILE = '/Users/easygod/code/ryuu-play/packages/sets/src/standard/set_h/simple-generated.ts';
 const TEST_FILE = '/Users/easygod/code/ryuu-play/packages/sets/tests/standard/set_h/simple-generated.spec.ts';
@@ -126,6 +133,21 @@ function toPowerType(_featureText) {
   return 'PowerType.ABILITY';
 }
 
+function resolveCardImageUrl(detail) {
+  const mappedUrl = CARD_IMAGE_URLS_BY_ID.get(detail.id);
+  if (mappedUrl) {
+    return mappedUrl;
+  }
+
+  if (detail.imageUrl) {
+    return detail.imageUrl.startsWith('http')
+      ? detail.imageUrl
+      : `${CARD_IMAGE_BASE_URL}${detail.imageUrl}`;
+  }
+
+  return `${CARD_IMAGE_BASE_URL}/api/v1/cards/${detail.id}/image`;
+}
+
 async function resolveDetail(row) {
   const collectionNumber = row.collection_numbers.split('|')[0];
   const listUrl = new URL('http://localhost:3000/api/v1/cards');
@@ -160,6 +182,7 @@ function isTrulySimple(detail) {
 }
 
 function buildCardData(row, detail) {
+  const imageUrl = resolveCardImageUrl(detail);
   const commodityCode = Array.isArray(detail.commodityCodes) && detail.commodityCodes.length > 0
     ? detail.commodityCodes[0]
     : '';
@@ -206,14 +229,14 @@ function buildCardData(row, detail) {
           regulationMarkText: detail.regulationMark,
           collectionNumber: detail.collectionNumber,
         },
-        image: `/api/v1/cards/${detail.id}/image`,
+        image: imageUrl,
       },
       collection: {
         id: detail.collectionId,
         commodityCode,
         name: commodityName,
       },
-      image_url: `http://localhost:3000/api/v1/cards/${detail.id}/image`,
+      image_url: imageUrl,
     },
   };
 }

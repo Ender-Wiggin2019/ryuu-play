@@ -38,7 +38,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null
       },
-      image: '/api/v1/cards/15040/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/325.png',
       ruleLines: [
         '只要身上放有这张卡牌的宝可梦在战斗场上，自己的牌库，就不会受到因对手的招式、特性、物品、宝可梦道具、支援者而导致的将牌库的卡牌放于弃牌区的效果影响。',
         '在自己的回合可以将任意张宝可梦道具卡，放于自己的宝可梦身上。每只宝可梦身上只可以放1张宝可梦道具卡，并保持附加状态。'
@@ -59,7 +59,7 @@ const defaultSeed: VariantTrainerSeed = {
       name: '补充包 黑晶炽诚',
       commodityNames: ['补充包 黑晶炽诚']
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15040/image'
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/325.png'
   }
 };
 

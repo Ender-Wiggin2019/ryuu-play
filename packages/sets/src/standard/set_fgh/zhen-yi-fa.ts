@@ -52,7 +52,7 @@ export class ZhenYiFa extends PokemonCard {
         resistance: null,
         retreatCost: 1,
       },
-      image: '/api/v1/cards/17266/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/339/195.png',
       ruleLines: [],
       attacks: [
         {
@@ -83,7 +83,7 @@ export class ZhenYiFa extends PokemonCard {
       commodityCode: 'CBB4C',
       name: '宝石包 VOL.4',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17266/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/339/195.png',
   };
 
   public tags = [CardTag.TERA];

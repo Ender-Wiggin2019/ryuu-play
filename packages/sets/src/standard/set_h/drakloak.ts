@@ -35,7 +35,7 @@ export class Drakloak extends PokemonCard {
       name: '补充包 璀璨诡幻',
       salesDate: '2026-03-13',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17535/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/433.png',
   };
 
   public stage: Stage = Stage.STAGE_1;

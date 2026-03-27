@@ -32,7 +32,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/16353/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/502.png',
       ruleLines: [
         '身上放有这张卡牌的宝可梦的最大HP「+100」。',
         '在自己的回合可以将任意张宝可梦道具卡，放于自己的宝可梦身上。每只宝可梦身上只可以放1张宝可梦道具卡，并保持附加状态。',
@@ -45,7 +45,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV7C',
       name: '补充包 利刃猛醒',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16353/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/502.png',
   },
 };
 

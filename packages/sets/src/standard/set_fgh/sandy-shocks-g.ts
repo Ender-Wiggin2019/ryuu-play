@@ -31,7 +31,7 @@ export class SandyShocksG extends PokemonCard {
         resistance: null,
         retreatCost: 3,
       },
-      image: '/api/v1/cards/15669/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/227.png',
       ruleLines: [],
       attacks: [
         {
@@ -58,7 +58,7 @@ export class SandyShocksG extends PokemonCard {
       commodityCode: 'CSV6C',
       name: '补充包 真实玄虚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15669/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/227.png',
   };
 
   public stage: Stage = Stage.BASIC;

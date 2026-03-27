@@ -36,6 +36,6 @@ describe('RadiantGreninja', () => {
   it('should have correct raw data from PTCG-CHS', () => {
     expect(card.rawData.raw_card.name).toBe('光辉甲贺忍蛙');
     expect(card.rawData.collection.name).toBe('强化包 胜象星引');
-    expect(card.rawData.image_url).toContain('img/222/33.png');
+    expect(card.rawData.image_url).toBe('https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/33.png');
   });
 });

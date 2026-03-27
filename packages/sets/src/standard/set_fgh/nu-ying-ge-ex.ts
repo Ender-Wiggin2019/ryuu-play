@@ -138,7 +138,7 @@ export class NuYingGeEx extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 1,
       },
-      image: '/api/v1/cards/12814/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/385.png',
       ruleLines: ['当宝可梦ex【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -169,7 +169,7 @@ export class NuYingGeEx extends PokemonCard {
       commodityCode: 'CSV2C',
       name: '补充包 奇迹启程',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/12814/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/385.png',
   };
 
   public tags = [CardTag.POKEMON_EX];

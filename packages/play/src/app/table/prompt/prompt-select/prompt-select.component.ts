@@ -39,6 +39,10 @@ export class PromptSelectComponent {
     this.gameService.setPromptMinimized(this.gameState.localId, true);
   }
 
+  public choose(index: number) {
+    this.result = index;
+  }
+
   public confirm() {
     const gameId = this.gameState.gameId;
     const id = this.promptId;
@@ -49,6 +53,10 @@ export class PromptSelectComponent {
     const gameId = this.gameState.gameId;
     const id = this.promptId;
     this.gameService.resolvePrompt(gameId, id, null);
+  }
+
+  public isCompactLayout(): boolean {
+    return this.options.length > 0 && this.options.length <= 4;
   }
 
 }

@@ -1,3 +1,4 @@
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 export type HuoKongLongVariantRawData = {
   raw_card: {
     id: number;
@@ -84,7 +85,7 @@ export function seedHuoKongLongVariant<T extends HuoKongLongVariantCapable>(
       ...instance.rawData.raw_card,
       id: seed.id,
       commodityCode: seed.commodityCode,
-      image: `/api/v1/cards/${seed.id}/image`,
+      image: getCardImageUrl(seed.id),
       details: {
         ...instance.rawData.raw_card.details,
         collectionNumber: seed.collectionNumber,
@@ -96,7 +97,7 @@ export function seedHuoKongLongVariant<T extends HuoKongLongVariantCapable>(
       commodityCode: seed.commodityCode,
       name: seed.collectionName,
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${seed.id}/image`,
+    image_url: getR2CardImageUrl(seed.id),
     logic_group_key: keys.logicGroupKey,
     variant_group_key: keys.variantGroupKey,
     variant_group_size: keys.variantGroupSize,

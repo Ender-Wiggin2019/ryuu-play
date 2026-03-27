@@ -36,7 +36,7 @@ export class RaikouV extends PokemonCard {
         resistance: null,
         retreatCost: 1,
       },
-      image: '/api/v1/cards/10741/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/263.png',
       ruleLines: ['当宝可梦V【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -67,7 +67,7 @@ export class RaikouV extends PokemonCard {
       commodityCode: 'CS6aC',
       name: '补充包 碧海暗影 啸',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10741/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/263.png',
   };
 
   public tags = [CardTag.POKEMON_V];

@@ -108,7 +108,7 @@ export class ChangXiuHeFuShaoNv extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/9782/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/225.png',
       ruleLines: [
         '选择自己牌库中的1张【基础】宝可梦，放于备战区。并重洗牌库。若希望，可将该宝可梦与战斗宝可梦互换。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -128,7 +128,7 @@ export class ChangXiuHeFuShaoNv extends VariantTrainerCard {
       commodityCode: 'CS5bC',
       name: '补充包 勇魅群星 勇',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/9782/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/225.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

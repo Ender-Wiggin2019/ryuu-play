@@ -12,6 +12,7 @@ import {
   StoreLike,
   SuperType,
 } from '@ptcg/common';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 type BoBoRawData = {
   raw_card: {
@@ -79,14 +80,14 @@ export function seedBoBoVariant<T extends BoBoVariantCapable>(instance: T, optio
       ...instance.rawData.raw_card,
       id: options.id,
       commodityCode,
-      image: `/api/v1/cards/${options.id}/image`,
+      image: getCardImageUrl(options.id),
       details: {
         ...instance.rawData.raw_card.details,
         collectionNumber: options.collectionNumber,
         rarityLabel: options.rarityLabel,
       },
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${options.id}/image`,
+    image_url: getR2CardImageUrl(options.id),
     logic_group_key: BO_BO_LOGIC_GROUP_KEY,
     variant_group_key: BO_BO_VARIANT_GROUP_KEY,
   };
@@ -169,7 +170,7 @@ export class BoBo extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 1,
       },
-      image: '/api/v1/cards/11516/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/280/430.png',
       ruleLines: [],
       attacks: [
         {
@@ -194,7 +195,7 @@ export class BoBo extends PokemonCard {
       commodityCode: '151C4',
       name: '收集啦151 聚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/11516/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/280/430.png',
     logic_group_key: BO_BO_LOGIC_GROUP_KEY,
     variant_group_key: BO_BO_VARIANT_GROUP_KEY,
     variant_group_size: 5,

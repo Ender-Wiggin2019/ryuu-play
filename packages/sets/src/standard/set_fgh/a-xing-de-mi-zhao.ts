@@ -51,7 +51,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/17610/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/584.png',
       ruleLines: [
         '选择自己最多2只【恶】宝可梦，各附着1张自己牌库中的「基本【恶】能量」。并重洗牌库。附着于战斗宝可梦身上的情况下，令那只宝可梦陷入【中毒】状态。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -71,7 +71,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV8C',
       name: '补充包 璀璨诡幻',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17610/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/584.png',
   },
 };
 

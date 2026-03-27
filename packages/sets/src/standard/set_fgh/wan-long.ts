@@ -42,7 +42,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/14806/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/378.png',
       ruleLines: [
         '抛掷1次硬币如果为正面，则选择对手的1只备战宝可梦，将其与战斗宝可梦互换。如果为反面，则将自己的战斗宝可梦与备战宝可梦互换。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -50,7 +50,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14806/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/378.png',
   },
 };
 

@@ -1,4 +1,5 @@
 import { Card, SuperType, TrainerCard } from '@ptcg/common';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 import { EnergySearch } from '../../base-sets/set-fossil/energy-search';
 import { Switch } from '../set-black-and-white/switch';
@@ -342,7 +343,7 @@ function seedPokemonVariant<T extends PokemonVariantLike>(instance: T, options: 
       ...instance.rawData.raw_card,
       id: options.id,
       commodityCode: options.commodityCode,
-      image: `/api/v1/cards/${options.id}/image`,
+      image: getCardImageUrl(options.id),
       ...(options.illustratorNames ? { illustratorNames: options.illustratorNames } : {}),
       details: {
         ...instance.rawData.raw_card.details,
@@ -355,7 +356,7 @@ function seedPokemonVariant<T extends PokemonVariantLike>(instance: T, options: 
       commodityCode: options.commodityCode,
       name: options.collectionName,
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${options.id}/image`,
+    image_url: getR2CardImageUrl(options.id),
     logic_group_key: options.logicGroupKey,
     variant_group_key: options.variantGroupKey,
     variant_group_size: options.variantGroupSize,

@@ -38,7 +38,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/16395/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/574.png',
       ruleLines: [
         '双方玩家，各将自己所有的手牌反面朝上重洗，放回牌库下方。然后，双方玩家各抛掷1次硬币，如果为正面则从牌库上方抽取6张卡牌，如果为反面，则抽取3张卡牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -46,7 +46,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16395/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/574.png',
   },
 };
 

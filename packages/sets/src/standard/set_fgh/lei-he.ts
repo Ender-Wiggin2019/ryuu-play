@@ -79,7 +79,7 @@ export class LeiHe extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/15581/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/203.png',
       ruleLines: [
         '查看自己牌库上方5张卡牌，选择其中任意数量的卡牌，放于弃牌区。将剩余的卡牌以任意顺序重新排列，放回牌库上方。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -99,7 +99,7 @@ export class LeiHe extends VariantTrainerCard {
       commodityCode: 'CSVE2C2',
       name: '对战派对 耀梦 下',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15581/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/203.png',
   };
 
   public set: string = 'set_g';

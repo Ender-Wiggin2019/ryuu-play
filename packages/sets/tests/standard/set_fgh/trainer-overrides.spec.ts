@@ -75,7 +75,7 @@ describe('PokeBall set_fgh', () => {
       trainerType: TrainerType.ITEM,
       rawData: {
         raw_card: { id: 1, name: '精灵球' },
-        image_url: 'http://localhost:3000/api/v1/cards/1/image'
+        image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/26/46.png'
       }
     });
     const target = new DummyPokemon('Target', Stage.BASIC, 60);
@@ -110,7 +110,7 @@ describe('BuddyBuddyPoffin set_fgh', () => {
       trainerType: TrainerType.ITEM,
       rawData: {
         raw_card: { id: 2, name: '友好宝芬' },
-        image_url: 'http://localhost:3000/api/v1/cards/2/image'
+        image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/25/50.png'
       }
     });
     const eligibleA = new DummyPokemon('Eligible A', Stage.BASIC, 60);
@@ -143,7 +143,7 @@ describe('CapturingAroma set_fgh', () => {
       trainerType: TrainerType.ITEM,
       rawData: {
         raw_card: { id: 3, name: '捕获香氛' },
-        image_url: 'http://localhost:3000/api/v1/cards/3/image'
+        image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/24/50.png'
       }
     });
     const basic = new DummyPokemon('Basic', Stage.BASIC, 60);
@@ -172,7 +172,7 @@ describe('CapturingAroma set_fgh', () => {
       trainerType: TrainerType.ITEM,
       rawData: {
         raw_card: { id: 4, name: '捕获香氛' },
-        image_url: 'http://localhost:3000/api/v1/cards/4/image'
+        image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/22/42.png'
       }
     });
     const basic = new DummyPokemon('Basic', Stage.BASIC, 60);

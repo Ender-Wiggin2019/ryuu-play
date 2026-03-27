@@ -82,7 +82,7 @@ export class YeZeiSanJieMei extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/10751/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/273.png',
       ruleLines: [
         '查看对手牌库上方5张卡牌，选择其中任意数量的物品，放于弃牌区。将剩余的卡牌放回牌库并重洗牌库。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -102,7 +102,7 @@ export class YeZeiSanJieMei extends VariantTrainerCard {
       commodityCode: 'CS6aC',
       name: '补充包 碧海暗影 啸',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10751/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/273.png',
   };
 
   public set: string = 'set_f';

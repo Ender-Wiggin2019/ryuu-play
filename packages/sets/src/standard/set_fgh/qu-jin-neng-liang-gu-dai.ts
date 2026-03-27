@@ -68,7 +68,7 @@ export class QuJinNengLiangGuDai extends EnergyCard {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/15970/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/327.png',
       ruleLines: [
         '身上放有这张卡牌的「古代」宝可梦，最大HP「+60」，那只宝可梦，不会陷入特殊状态，已经处于的特殊状态，也全部恢复。',
         '将这张卡牌附着于「古代」宝可梦以外的宝可梦身上时，将这张卡牌舍弃。',
@@ -89,7 +89,7 @@ export class QuJinNengLiangGuDai extends EnergyCard {
       name: '补充包 真实玄虚',
       commodityNames: ['补充包 真实玄虚'],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15970/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/327.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

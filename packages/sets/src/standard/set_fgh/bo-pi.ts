@@ -135,7 +135,7 @@ export class BoPi extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/14816/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/388.png',
       ruleLines: [
         '选择自己场上1只宝可梦身上附着的最多2个能量，转附于自己的1只其他宝可梦身上。',
         '在自己的回合只可以使用1张支援者卡。'
@@ -155,7 +155,7 @@ export class BoPi extends VariantTrainerCard {
       commodityCode: 'CSV5C',
       name: '补充包 黑晶炽诚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14816/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/388.png',
   };
 
   public set: string = 'set_g';

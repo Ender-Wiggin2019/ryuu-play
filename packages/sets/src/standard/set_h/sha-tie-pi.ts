@@ -30,7 +30,7 @@ export class ShaTiePi extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/16714/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/363.png',
       ruleLines: [],
       attacks: [
         {
@@ -62,7 +62,7 @@ export class ShaTiePi extends PokemonCard {
       commodityCode: 'CSV7C',
       name: '补充包 利刃猛醒',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16714/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/363.png',
   };
 
   public stage: Stage = Stage.BASIC;

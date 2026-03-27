@@ -31,7 +31,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/17612/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/586.png',
       ruleLines: [
         '从自己牌库上方抽取2张卡牌。然后，如果场上有「公民馆」的话，则不将这张「管理员」放于弃牌区，而是放回牌库并重洗牌库。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -51,7 +51,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV8C',
       name: '补充包 璀璨诡幻',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17612/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/586.png',
   },
 };
 

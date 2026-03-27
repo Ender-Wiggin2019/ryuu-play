@@ -90,7 +90,7 @@ export class HeiLianDeGuanZhao extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/15575/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/188.png',
       ruleLines: [
         '选择自己的身上放置有伤害指示物的1只【无】宝可梦，将被选择的宝可梦，以及放于其身上的所有卡牌，放回手牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -110,7 +110,7 @@ export class HeiLianDeGuanZhao extends VariantTrainerCard {
       commodityCode: 'CSVE2C2',
       name: '对战派对 耀梦 下',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15575/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/188.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

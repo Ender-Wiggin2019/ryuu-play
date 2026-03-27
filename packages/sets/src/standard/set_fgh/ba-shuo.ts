@@ -43,7 +43,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/16399/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/578.png',
       ruleLines: [
         '这张卡牌，只有在上一个对手的回合，自己的宝可梦【昏厥】时才可使用。',
         '查看自己牌库上方8张卡牌，选择其中最多3张卡牌，加入手牌。将剩余的卡牌放回牌库并重洗牌库。',
@@ -52,7 +52,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16399/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/578.png',
   },
 };
 

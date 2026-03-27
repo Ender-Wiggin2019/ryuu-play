@@ -32,7 +32,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/17632/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/606.png',
       ruleLines: [
         '这张卡牌，即使是先攻玩家的最初回合也可以使用。',
         '将自己的手牌全部放于弃牌区，从牌库上方抽取5张卡牌。',
@@ -53,7 +53,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV8C',
       name: '补充包 璀璨诡幻',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17632/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/606.png',
   },
 };
 

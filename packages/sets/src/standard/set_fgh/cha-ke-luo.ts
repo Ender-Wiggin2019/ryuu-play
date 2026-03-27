@@ -45,7 +45,7 @@ export class ChaKeLuo extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/14219/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/182.png',
       ruleLines: [
         '在这个回合，自己的【斗】宝可梦所使用的招式，给对手战斗宝可梦造成的伤害「+30」。',
         '在自己的回合，如果将2张自己的手牌（除「查克洛」外）放于弃牌区的话，则将这张「查克洛」从弃牌区，在给对手看过之后，加入手牌。（这个效果，不包含在自己的回合可以使用的支援者的张数内。）',
@@ -66,7 +66,7 @@ export class ChaKeLuo extends VariantTrainerCard {
       commodityCode: 'CSVE2C2',
       name: '对战派对 耀梦 下',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14219/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/182.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

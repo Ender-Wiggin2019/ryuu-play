@@ -47,7 +47,7 @@ export class AFeng extends VariantTrainerCard {
         cardTypeLabel: '训练家',
         trainerTypeLabel: '支援者',
       },
-      image: '/api/v1/cards/12804/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/375.png',
       ruleLines: [
         '如果使用了这张卡牌的话，则自己的回合结束。',
         '将自己的手牌全部放回牌库并重洗牌库。然后，从牌库上方抽取8张卡牌。',
@@ -68,7 +68,7 @@ export class AFeng extends VariantTrainerCard {
       commodityCode: 'CSV2C',
       name: '补充包 奇迹启程',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/12804/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/375.png',
   };
 
   public set: string = 'set_g';

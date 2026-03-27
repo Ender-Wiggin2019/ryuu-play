@@ -95,7 +95,7 @@ export class LaBenBoShi extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/10071/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/155.png',
       ruleLines: [
         '选择自己弃牌区中，名字中带有「洗翠」的宝可梦最多3张，在给对手看过之后，加入手牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -115,7 +115,7 @@ export class LaBenBoShi extends VariantTrainerCard {
       commodityCode: 'PROMO3',
       name: '特典卡·剑&盾',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10071/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/155.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

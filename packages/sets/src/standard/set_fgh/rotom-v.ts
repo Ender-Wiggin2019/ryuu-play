@@ -39,7 +39,7 @@ export class RotomV extends PokemonCard {
         resistance: null,
         retreatCost: 1,
       },
-      image: '/api/v1/cards/10957/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/38.png',
       ruleLines: ['当宝可梦V【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -63,7 +63,7 @@ export class RotomV extends PokemonCard {
       commodityCode: 'CS6.5C',
       name: '强化包 胜象星引',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10957/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/222/38.png',
   };
 
   public tags = [CardTag.POKEMON_V];

@@ -34,7 +34,7 @@ export class TyranitarEx extends PokemonCard {
       name: '补充包 利刃猛醒',
       salesDate: '2026-01-16',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16303/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/374.png',
   };
 
   public tags = [CardTag.POKEMON_EX, CardTag.TERA];

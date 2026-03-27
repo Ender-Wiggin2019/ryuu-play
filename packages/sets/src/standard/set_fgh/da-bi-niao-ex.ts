@@ -75,7 +75,7 @@ export class DaBiNiaoEx extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 0,
       },
-      image: '/api/v1/cards/14396/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/386.png',
       ruleLines: ['当宝可梦ex【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -99,7 +99,7 @@ export class DaBiNiaoEx extends PokemonCard {
       commodityCode: 'CSV4C',
       name: '补充包 嘉奖回合',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14396/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/386.png',
   };
 
   public tags = [CardTag.POKEMON_EX];

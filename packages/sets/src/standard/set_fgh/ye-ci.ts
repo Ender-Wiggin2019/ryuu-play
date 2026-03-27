@@ -45,7 +45,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/15744/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/386.png',
       ruleLines: [
         '在使用这张卡牌的回合结束前，自己所有的宝可梦，无法使用招式。（也包括新出场的宝可梦。）',
         '选择自己牌库中最多2张基本能量，附着于自己的1只宝可梦身上。并重洗牌库。',
@@ -54,7 +54,7 @@ const defaultSeed: VariantTrainerSeed = {
       attacks: [],
       features: [],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15744/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/386.png',
   },
 };
 

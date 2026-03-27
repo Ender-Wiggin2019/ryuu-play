@@ -29,14 +29,14 @@ export class Ledian extends PokemonCard {
         regulationMarkText: 'H',
         collectionNumber: '004/207',
       },
-      image: '/api/v1/cards/17381/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/9.png',
     },
     collection: {
       id: 458,
       commodityCode: 'CSV8C',
       name: '补充包 璀璨诡幻',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17381/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/9.png',
   };
 
   public stage: Stage = Stage.STAGE_1;

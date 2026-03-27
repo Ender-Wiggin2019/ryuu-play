@@ -68,7 +68,7 @@ export class QuJinNengLiangWeiLai extends EnergyCard {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/15971/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/330.png',
       ruleLines: [
         '身上放有这张卡牌的「未来」宝可梦，【撤退】所需能量全部消除，所使用的招式，给对手的战斗宝可梦造成的伤害「+20」。',
         '将这张卡牌附着于「未来」宝可梦以外的宝可梦身上时，将这张卡牌舍弃。',
@@ -89,7 +89,7 @@ export class QuJinNengLiangWeiLai extends EnergyCard {
       name: '补充包 真实玄虚',
       commodityNames: ['补充包 真实玄虚'],
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15971/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/330.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

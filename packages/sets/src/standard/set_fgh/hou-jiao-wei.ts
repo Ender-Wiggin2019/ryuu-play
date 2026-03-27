@@ -13,6 +13,7 @@ import {
   State,
   StoreLike,
 } from '@ptcg/common';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 type HouJiaoWeiVariantSeed = {
   id: number;
@@ -131,7 +132,7 @@ function createHouJiaoWeiRawData(seed: HouJiaoWeiVariantSeed): HouJiaoWeiRawData
         resistance: '斗 -30',
         retreatCost: 1,
       },
-      image: `/api/v1/cards/${seed.id}/image`,
+      image: getCardImageUrl(seed.id),
       ruleLines: [],
       attacks: [
         {
@@ -163,7 +164,7 @@ function createHouJiaoWeiRawData(seed: HouJiaoWeiVariantSeed): HouJiaoWeiRawData
       commodityCode: seed.commodityCode,
       name: seed.collectionName,
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${seed.id}/image`,
+    image_url: getR2CardImageUrl(seed.id),
     logic_group_key: HOU_JIAO_WEI_H_LOGIC_GROUP_KEY,
     variant_group_key: HOU_JIAO_WEI_H_LOGIC_GROUP_KEY,
     variant_group_size: HOU_JIAO_WEI_H_VARIANTS.length,

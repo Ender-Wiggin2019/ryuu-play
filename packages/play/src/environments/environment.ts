@@ -2,8 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const apiUrl = typeof window !== 'undefined'
+  ? window.location.origin
+  : 'http://127.0.0.1:12021';
+
 export const environment = {
-  apiUrl: 'http://127.0.0.1:12021',
+  apiUrl,
   timeout: 5000,
   production: false,
   apiVersion: 4,

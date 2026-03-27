@@ -123,7 +123,7 @@ export class YingHuoZhuanJia extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/14218/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/180.png',
       ruleLines: [
         '这张卡牌，只有将自己手牌中的1张【火】能量放于弃牌区后才可使用。',
         '查看自己牌库上方7张卡牌，选择其中最多2张卡牌，加入手牌。将剩余的卡牌放回牌库并重洗牌库。',
@@ -144,7 +144,7 @@ export class YingHuoZhuanJia extends VariantTrainerCard {
       commodityCode: 'CSVE2C2',
       name: '对战派对 耀梦 下',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14218/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/180.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

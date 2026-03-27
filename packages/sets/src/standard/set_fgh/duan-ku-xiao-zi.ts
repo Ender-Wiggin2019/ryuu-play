@@ -34,7 +34,7 @@ export class DuanKuXiaoZi extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/14223/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/187.png',
       ruleLines: [
         '将自己的手牌全部放回牌库并重洗牌库。然后，从牌库上方抽取5张卡牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -54,7 +54,7 @@ export class DuanKuXiaoZi extends VariantTrainerCard {
       commodityCode: 'CSVE2C2',
       name: '对战派对 耀梦 下',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14223/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/187.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

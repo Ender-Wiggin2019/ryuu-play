@@ -52,7 +52,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/16413/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/592.png',
       ruleLines: [
         '从自己牌库中选择1张，从自己场上的1只宝可梦进化而来的卡牌（除拥有特性的宝可梦外），放于那只宝可梦身上进行进化。并重洗牌库。（对在对战准备时放出的宝可梦，以及这回合刚被放出的宝可梦也可使用。）',
         '在自己的回合只可以使用1张支援者卡。',
@@ -72,7 +72,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV7C',
       name: '补充包 利刃猛醒',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/16413/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/324/592.png',
   },
 };
 

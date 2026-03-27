@@ -32,7 +32,7 @@ export class Ralts extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 1,
       },
-      image: '/api/v1/cards/12790/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/361.png',
       ruleLines: [],
       attacks: [
         {
@@ -57,7 +57,7 @@ export class Ralts extends PokemonCard {
       commodityCode: 'CSV2C',
       name: '补充包 奇迹启程',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/12790/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/253/361.png',
   };
 
   public stage: Stage = Stage.BASIC;

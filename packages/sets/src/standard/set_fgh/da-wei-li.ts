@@ -12,6 +12,7 @@ import {
   StateUtils,
   StoreLike,
 } from '@ptcg/common';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 type DaWeiLiDiggingMawFaceSeed = {
   id: number;
@@ -56,7 +57,7 @@ export function createDaWeiLiDiggingMawRawData(seed: DaWeiLiDiggingMawFaceSeed) 
         resistance: null,
         retreatCost: 2,
       },
-      image: `/api/v1/cards/${seed.id}/image`,
+      image: getCardImageUrl(seed.id),
       ruleLines: [],
       attacks: [
         {
@@ -80,7 +81,7 @@ export function createDaWeiLiDiggingMawRawData(seed: DaWeiLiDiggingMawFaceSeed) 
       commodityCode: seed.commodityCode,
       name: seed.collectionName,
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${seed.id}/image`,
+    image_url: getR2CardImageUrl(seed.id),
     logic_group_key: DIGGING_MAW_LOGIC_GROUP_KEY,
     variant_group_key: DIGGING_MAW_VARIANT_GROUP_KEY,
     variant_group_size: DIGGING_MAW_VARIANT_GROUP_SIZE,

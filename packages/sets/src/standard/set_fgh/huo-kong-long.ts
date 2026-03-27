@@ -32,7 +32,7 @@ export class HuoKongLong extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/15981/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/312/0.png',
       ruleLines: [],
       attacks: [
         {
@@ -57,7 +57,7 @@ export class HuoKongLong extends PokemonCard {
       commodityCode: 'MISSION05',
       name: '任务奖赏包 第五弹',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/15981/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/312/0.png',
     logic_group_key: 'pokemon:火恐龙:P005:G:hp90:高温冲撞70+self20',
     variant_group_key: 'pokemon:火恐龙:P005:G:hp90:高温冲撞70+self20',
     variant_group_size: 1,

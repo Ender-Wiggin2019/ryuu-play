@@ -20,6 +20,7 @@ import {
   StoreLike,
   SuperType,
 } from '@ptcg/common';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 export const PEN_HUO_LONG_EX_LOGIC_GROUP_KEY = 'pokemon:喷火龙ex:Y1181:G:hp330:烈炎支配:燃烧黑暗180+';
 export const PEN_HUO_LONG_EX_VARIANT_GROUP_KEY = 'pokemon:喷火龙ex:Y1181:G:hp330:烈炎支配:燃烧黑暗180+';
@@ -37,7 +38,7 @@ function seedPenHuoLongExVariant(card: PenHuoLongEx, seed: PenHuoLongExVariantSe
     raw_card: {
       ...card.rawData.raw_card,
       id: seed.id,
-      image: `/api/v1/cards/${seed.id}/image`,
+      image: getCardImageUrl(seed.id),
       ...(seed.illustratorNames ? { illustratorNames: seed.illustratorNames } : {}),
       details: {
         ...card.rawData.raw_card.details,
@@ -45,7 +46,7 @@ function seedPenHuoLongExVariant(card: PenHuoLongEx, seed: PenHuoLongExVariantSe
         rarityLabel: seed.rarityLabel,
       },
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${seed.id}/image`,
+    image_url: getR2CardImageUrl(seed.id),
     logic_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
     variant_group_key: PEN_HUO_LONG_EX_VARIANT_GROUP_KEY,
     variant_group_size: 4,
@@ -78,7 +79,7 @@ export class PenHuoLongEx extends PokemonCard {
         resistance: null,
         retreatCost: 2,
       },
-      image: '/api/v1/cards/14812/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/384.png',
       ruleLines: ['当宝可梦ex【昏厥】时，对手将拿取2张奖赏卡。'],
       attacks: [
         {
@@ -109,7 +110,7 @@ export class PenHuoLongEx extends PokemonCard {
       commodityCode: 'CSV5C',
       name: '补充包 黑晶炽诚',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/14812/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/384.png',
     logic_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
     variant_group_key: PEN_HUO_LONG_EX_VARIANT_GROUP_KEY,
     variant_group_size: 4,

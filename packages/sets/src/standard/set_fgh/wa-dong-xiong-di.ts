@@ -94,7 +94,7 @@ export class WaDongXiongDi extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/10918/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/192.png',
       ruleLines: [
         '抛掷1次硬币。如果为正面则查看自己牌库下方8张卡牌，如果为反面则查看自己牌库下方3张卡牌，选择其中1张卡牌，加入手牌。将剩余的卡牌放回牌库并重洗牌库。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -114,7 +114,7 @@ export class WaDongXiongDi extends VariantTrainerCard {
       commodityCode: 'PROMO3',
       name: '特典卡·剑&盾',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10918/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/192.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

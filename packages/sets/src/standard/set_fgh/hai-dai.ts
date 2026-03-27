@@ -41,7 +41,7 @@ const defaultSeed: VariantTrainerSeed = {
         resistance: null,
         retreatCost: null,
       },
-      image: '/api/v1/cards/17618/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/592.png',
       ruleLines: [
         '选择自己的2张手牌，以任意顺序重新排列，放回牌库下方。然后，从牌库上方抽取4张卡牌。（如果无法将自己的2张手牌放回牌库的话，则无法使用这张卡牌。）',
         '在自己的回合只可以使用1张支援者卡。',
@@ -61,7 +61,7 @@ const defaultSeed: VariantTrainerSeed = {
       commodityCode: 'CSV8C',
       name: '补充包 璀璨诡幻',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/17618/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/458/592.png',
   },
 };
 

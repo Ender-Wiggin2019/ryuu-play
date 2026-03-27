@@ -145,7 +145,7 @@ export class RadiantAlakazam extends PokemonCard {
         resistance: '斗 -30',
         retreatCost: 2,
       },
-      image: '/api/v1/cards/10331/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/51.png',
       ruleLines: ['1副卡组中只能放入1张光辉宝可梦卡。'],
       attacks: [
         {
@@ -170,7 +170,7 @@ export class RadiantAlakazam extends PokemonCard {
       commodityCode: 'CS6bC',
       name: '补充包 碧海暗影 逐',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10331/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/51.png',
   };
 
   public tags = [CardTag.RADIANT];

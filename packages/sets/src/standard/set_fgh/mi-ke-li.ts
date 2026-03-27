@@ -67,7 +67,7 @@ export class MiKeLi extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/10750/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/272.png',
       ruleLines: [
         '从自己牌库上方抽取3张卡牌。对手若希望，可从牌库上方抽取1张卡牌。在这种情况下，自己额外从牌库上方抽取1张卡牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -87,7 +87,7 @@ export class MiKeLi extends VariantTrainerCard {
       commodityCode: 'CS6aC',
       name: '补充包 碧海暗影 啸',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10750/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/208/272.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

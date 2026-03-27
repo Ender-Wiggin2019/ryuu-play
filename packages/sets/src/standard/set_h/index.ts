@@ -31,6 +31,7 @@ import { Timburr } from './timburr';
 import { TyranitarEx } from './tyranitar-ex';
 import { Venipede } from './venipede';
 import { WellspringMaskOgerponEx } from './wellspring-mask-ogerpon-ex';
+import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 type VariantPokemonLike = Card & {
   name: string;
@@ -63,7 +64,7 @@ function seedPokemonVariant<T extends VariantPokemonLike>(instance: T, options: 
     raw_card: {
       ...instance.rawData.raw_card,
       id: options.id,
-      image: `/api/v1/cards/${options.id}/image`,
+      image: getCardImageUrl(options.id),
       ...(options.illustratorNames ? { illustratorNames: options.illustratorNames } : {}),
       details: {
         ...instance.rawData.raw_card.details,
@@ -71,7 +72,7 @@ function seedPokemonVariant<T extends VariantPokemonLike>(instance: T, options: 
         rarityLabel: options.rarityLabel,
       },
     },
-    image_url: `http://212.52.0.192:3000/api/v1/cards/${options.id}/image`,
+    image_url: getR2CardImageUrl(options.id),
   };
   instance.fullName = `${instance.name} ${instance.rawData.raw_card.commodityCode || 'CSV8C'} ${options.collectionNumber}#${options.id}`;
   return instance;

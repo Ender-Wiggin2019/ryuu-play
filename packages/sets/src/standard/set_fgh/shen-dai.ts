@@ -34,7 +34,7 @@ export class ShenDai extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/10469/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/275.png',
       ruleLines: [
         '这张卡牌，只有在自己的手牌只剩这1张时才可使用。',
         '从自己牌库上方抽取与双方备战宝可梦合计数量相同数量的卡牌。',
@@ -55,7 +55,7 @@ export class ShenDai extends VariantTrainerCard {
       commodityCode: 'CS6bC',
       name: '补充包 碧海暗影 逐',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10469/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/206/275.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {

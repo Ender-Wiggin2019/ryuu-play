@@ -36,7 +36,7 @@ export class DaYaLi extends PokemonCard {
         resistance: null,
         retreatCost: 1,
       },
-      image: '/api/v1/cards/9768/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/196.png',
       ruleLines: [],
       attacks: [
         {
@@ -60,7 +60,7 @@ export class DaYaLi extends PokemonCard {
       commodityCode: 'CS5bC',
       name: '补充包 勇魅群星 勇',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/9768/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/196.png',
     logic_group_key: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
     variant_group_key: 'pokemon:P399:大牙狸:60:毫不在意:终结门牙',
     variant_group_size: 5,

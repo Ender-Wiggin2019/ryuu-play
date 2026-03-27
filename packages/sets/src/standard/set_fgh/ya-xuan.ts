@@ -93,7 +93,7 @@ export class YaXuan extends VariantTrainerCard {
         hp: null,
         evolveText: null,
       },
-      image: '/api/v1/cards/10077/image',
+      image: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/161.png',
       ruleLines: [
         '将自己牌库上方5张卡牌翻成正面，让对手选择其中2张卡牌。自己将被选择的卡牌放于弃牌区，将剩余的卡牌加入手牌。',
         '在自己的回合只可以使用1张支援者卡。',
@@ -113,7 +113,7 @@ export class YaXuan extends VariantTrainerCard {
       commodityCode: 'PROMO3',
       name: '特典卡·剑&盾',
     },
-    image_url: 'http://212.52.0.192:3000/api/v1/cards/10077/image',
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/32/161.png',
   };
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
