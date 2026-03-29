@@ -46,9 +46,13 @@ export class CardInfoPopupComponent {
       facedown: this.facedown
     };
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767;
     const dialog = this.dialog.open(CardListPopupComponent, {
-      maxWidth: '100%',
-      width: '670px',
+      maxWidth: isMobile ? '100vw' : '100%',
+      width: isMobile ? '100vw' : '670px',
+      height: isMobile ? '100vh' : undefined,
+      maxHeight: isMobile ? '100vh' : '92vh',
+      panelClass: ['ptcg-card-dialog', isMobile ? 'ptcg-card-dialog-mobile' : 'ptcg-card-dialog-desktop'],
       data
     });
 

@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 export class AppComponent implements OnInit {
 
   public isLoggedIn = false;
+  public isMobileLayout = false;
   public loggedUser: UserInfo | undefined;
   private authToken$: Observable<string>;
   private destroyRef = inject(DestroyRef);
@@ -88,14 +89,16 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.isMobileLayout = window.innerWidth <= 767;
     const element = this.elementRef.nativeElement;
-    const toolbarHeight = 64;
+    const toolbarHeight = this.isMobileLayout ? 56 : 64;
     const contentHeight = element.offsetHeight - toolbarHeight;
     const cardAspectRatio = 1.37;
-    const padding = 16;
-    const cardHeight = (contentHeight - (padding * 5)) / 7;
+    const padding = this.isMobileLayout ? 10 : 16;
+    const boardRows = this.isMobileLayout ? 8.5 : 7;
+    const cardHeight = (contentHeight - (padding * 5)) / boardRows;
     let cardSize = Math.floor(cardHeight / cardAspectRatio);
-    cardSize = Math.min(Math.max(cardSize, 50), 100);
+    cardSize = Math.min(Math.max(cardSize, this.isMobileLayout ? 42 : 50), 100);
     element.style.setProperty('--card-size', cardSize + 'px');
   }
 

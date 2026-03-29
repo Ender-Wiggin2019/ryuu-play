@@ -3,16 +3,218 @@
   height: 100%;
 }
 
-.ptcg-table {
+.ptcg-table-shell {
+  --battle-ink: oklch(0.25 0.03 250);
+  --battle-panel: oklch(0.18 0.02 250);
+  --battle-panel-2: oklch(0.24 0.03 250);
+  --battle-line: color-mix(in oklch, oklch(0.74 0.11 72), transparent 65%);
+  --battle-soft: oklch(0.95 0.02 95);
+  background:
+    radial-gradient(circle at top, color-mix(in oklch, oklch(0.72 0.14 80), transparent 82%), transparent 38%),
+    linear-gradient(180deg, oklch(0.28 0.04 250), oklch(0.2 0.02 250));
+  color: var(--battle-soft);
+  height: 100%;
+  overflow: hidden;
+  padding: clamp(12px, 2vw, 22px);
+}
+
+.ptcg-table-layout {
+  display: grid;
+  gap: clamp(12px, 1.6vw, 20px);
+  grid-template-columns: minmax(0, 1fr) 320px;
+  height: calc(100% - 94px);
+}
+
+.ptcg-table-main {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+}
+
+.ptcg-table-panel {
+  background:
+    linear-gradient(180deg, color-mix(in oklch, var(--battle-panel-2), transparent 12%), color-mix(in oklch, var(--battle-panel), black 8%));
+  border: 1px solid var(--battle-line);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ptcg-battle-header {
+  align-items: flex-end;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: clamp(12px, 2vw, 18px);
+}
+
+.ptcg-battle-header-copy h1 {
+  font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.ptcg-battle-header-copy p {
+  color: color-mix(in oklch, var(--battle-soft), transparent 28%);
+  margin: 0;
+}
+
+.ptcg-battle-kicker,
+.eyebrow {
+  color: oklch(0.86 0.13 82);
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.ptcg-battle-actions {
+  background: rgba(7, 10, 22, 0.35);
+  border: 1px solid var(--battle-line);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+}
+
+.ptcg-battle-actions button {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: color-mix(in oklch, var(--battle-soft), transparent 30%);
+  min-width: 74px;
+  padding: 10px 14px;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.ptcg-battle-actions button.active {
+  background: linear-gradient(135deg, oklch(0.76 0.17 82), oklch(0.7 0.16 50));
+  color: oklch(0.2 0.03 250);
+  font-weight: 700;
+}
+
+.ptcg-board-panel,
+.ptcg-hand-panel,
+.ptcg-players-panel,
+.ptcg-logs-panel {
   display: flex;
   flex-direction: column;
-  height: 100%;
+}
+
+.ptcg-board-intro {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 14px 18px 0;
+}
+
+.ptcg-board-hint {
+  color: color-mix(in oklch, var(--battle-soft), transparent 38%);
+  font-size: 12px;
+  max-width: 360px;
+  text-align: right;
 }
 
 ptcg-board {
   flex: 1 1 auto;
 }
 
-ptcg-hand {
-  flex: 0 0 auto;
+.ptcg-table-sidebar-desktop {
+  min-height: 0;
+}
+
+.ptcg-table-sidebar-desktop > ptcg-table-sidebar {
+  background:
+    linear-gradient(180deg, color-mix(in oklch, var(--battle-panel-2), transparent 6%), color-mix(in oklch, var(--battle-panel), black 10%));
+  border: 1px solid var(--battle-line);
+  border-radius: 24px;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ptcg-players-panel,
+.ptcg-logs-panel {
+  padding: 12px;
+}
+
+.ptcg-hand-panel {
+  padding: 12px;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+@media (min-width: 961px) {
+  .ptcg-battle-actions {
+    display: none;
+  }
+
+  .ptcg-hand-panel,
+  .ptcg-players-panel,
+  .ptcg-logs-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .ptcg-table-layout {
+    display: block;
+    height: calc(100% - 118px);
+  }
+
+  .ptcg-table-main,
+  .ptcg-table-panel {
+    height: 100%;
+  }
+
+  .ptcg-table-sidebar-desktop {
+    display: none;
+  }
+
+  .ptcg-battle-header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .ptcg-battle-actions {
+    width: 100%;
+  }
+
+  .ptcg-battle-actions button {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .ptcg-board-intro {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .ptcg-board-hint {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (max-width: 767px) {
+  .ptcg-table-shell {
+    padding: 10px;
+  }
+
+  .ptcg-battle-header-copy h1 {
+    font-size: 24px;
+  }
+
+  .ptcg-table-layout {
+    height: calc(100% - 134px);
+  }
 }

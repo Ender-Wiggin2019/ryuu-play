@@ -29,7 +29,11 @@ import { PlayerTimeComponent } from './player-time/player-time.component';
         PlayerTimeComponent
     ],
     exports: [
-        TableSidebarComponent
+        TableSidebarComponent,
+        GameLogsComponent,
+        PlayerActionsComponent,
+        PlayerBarComponent,
+        ReplayControlsComponent
     ]
 })
 export class TableSidebarModule { }

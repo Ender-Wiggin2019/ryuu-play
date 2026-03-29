@@ -19,6 +19,7 @@ import { SessionService } from '../shared/session/session.service';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  public activeView: 'board' | 'hand' | 'players' | 'logs' = 'board';
 
   public gameState: LocalGameState;
   public gameStates$: Observable<LocalGameState[]>;
@@ -111,6 +112,10 @@ export class TableComponent implements OnInit {
         },
         error: (error: ApiError) => {}
       });
+  }
+
+  public setActiveView(view: 'board' | 'hand' | 'players' | 'logs') {
+    this.activeView = view;
   }
 
   private updatePlayers(gameState: LocalGameState, clientId: number) {

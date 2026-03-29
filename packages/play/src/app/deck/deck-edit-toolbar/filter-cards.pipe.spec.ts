@@ -112,4 +112,52 @@ describe('FilterCardsPipe', () => {
 
     expect(result.length).toBe(1);
   });
+
+  it('should filter standard cards by regulation marks F, G and H', () => {
+    const pipe = new FilterCardsPipe({
+      isCardFromFormat: () => false
+    } as any);
+    const filter: DeckEditToolbarFilter = {
+      formatName: 'Standard',
+      superTypes: [],
+      cardTypes: [],
+      searchValue: ''
+    };
+
+    const result = pipe.transform([
+      {
+        card: {
+          name: '奇树',
+          fullName: '奇树 CSV2D',
+          rawData: {
+            raw_card: {
+              details: { regulationMarkText: 'G' }
+            }
+          }
+        } as any,
+        count: 1,
+        pane: DeckEditPane.LIBRARY,
+        scanUrl: '',
+        spec: {} as any
+      },
+      {
+        card: {
+          name: '博士的研究',
+          fullName: '博士的研究 SWSH',
+          rawData: {
+            raw_card: {
+              details: { regulationMarkText: 'E' }
+            }
+          }
+        } as any,
+        count: 1,
+        pane: DeckEditPane.LIBRARY,
+        scanUrl: '',
+        spec: {} as any
+      }
+    ] as any, filter);
+
+    expect(result.length).toBe(1);
+    expect(result[0].card.fullName).toBe('奇树 CSV2D');
+  });
 });

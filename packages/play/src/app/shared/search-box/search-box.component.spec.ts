@@ -36,4 +36,13 @@ describe('SearchBoxComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit the latest value on change', () => {
+    const spy = spyOn(component.search, 'next');
+
+    component.onChange('奇树');
+
+    expect(component.searchValue).toBe('奇树');
+    expect(spy).toHaveBeenCalledWith('奇树');
+  });
 });

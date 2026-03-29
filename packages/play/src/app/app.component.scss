@@ -19,3 +19,9 @@
 .ptcg-app-sidenav {
   width: map-get($ptcg-size, nav-menu);
 }
+
+@media (max-width: 767px) {
+  .ptcg-app-sidenav {
+    width: min(84vw, 320px);
+  }
+}

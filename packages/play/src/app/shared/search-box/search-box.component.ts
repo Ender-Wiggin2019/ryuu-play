@@ -20,8 +20,9 @@ export class SearchBoxComponent {
     }
   }
 
-  public onChange() {
-    this.search.next(this.searchValue);
+  public onChange(value: string) {
+    this.searchValue = value;
+    this.search.next(value);
   }
 
 }

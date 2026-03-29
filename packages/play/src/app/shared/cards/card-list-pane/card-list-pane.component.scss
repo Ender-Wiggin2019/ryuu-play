@@ -8,9 +8,10 @@ $ptcg-card-list-pane-max-height: 3 * map-get($ptcg-size, card) * $card-aspect-ra
 
 .ptcg-card-list-pane {
   border-radius: $ptcg-card-list-pane-border-radius;
-  display: flex;
-  flex-wrap: wrap;
-  max-height: $ptcg-card-list-pane-max-height;
+  display: grid;
+  gap: map-get($padding, small);
+  grid-template-columns: repeat(auto-fill, minmax(min(92px, 100%), 1fr));
+  max-height: min(72vh, $ptcg-card-list-pane-max-height + 220px);
   min-height: $ptcg-card-list-pane-min-height;
   overflow: auto;
   padding: $ptcg-card-list-pane-padding;
@@ -18,6 +19,7 @@ $ptcg-card-list-pane-max-height: 3 * map-get($ptcg-size, card) * $card-aspect-ra
 
 ptcg-card {
   cursor: pointer;
-  margin: map-get($padding, small);
-  width: map-get($ptcg-size, card);
+  margin: 0 auto;
+  max-width: map-get($ptcg-size, card);
+  width: 100%;
 }

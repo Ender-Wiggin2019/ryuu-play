@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>
+<h2 mat-dialog-title class="ptcg-card-dialog-title">
   <span *ngIf="facedown" translate>CARDS_UNKNOWN</span>
   <span *ngIf="!facedown">{{ card | localizedCardName }}</span>
 </h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="ptcg-card-dialog-content">
   <ptcg-card-info-pane
     [card]="card"
     [facedown]="facedown"
@@ -12,7 +12,7 @@
   </ptcg-card-info-pane>
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions class="ptcg-card-dialog-actions">
   <button mat-raised-button color="primary" *ngIf="cardList"
     [disabled]="!card"
     (click)="showCardList()">

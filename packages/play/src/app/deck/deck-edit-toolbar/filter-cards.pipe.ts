@@ -10,6 +10,8 @@ import { CardsBaseService } from '../../shared/cards/cards-base.service';
 })
 export class FilterCardsPipe implements PipeTransform {
 
+  private readonly standardRegulationMarks = new Set(['F', 'G', 'H']);
+
   constructor(private cardBaseService: CardsBaseService) { }
 
   transform(items: LibraryItem[], filter: DeckEditToolbarFilter): any {
@@ -29,7 +31,7 @@ export class FilterCardsPipe implements PipeTransform {
 
     return items.filter(item => {
       const card = item.card;
-      if (filter.formatName !== '' && !this.cardBaseService.isCardFromFormat(card.fullName, filter.formatName)) {
+      if (filter.formatName !== '' && !this.matchesFormat(card, filter.formatName)) {
         return false;
       }
 
@@ -47,6 +49,14 @@ export class FilterCardsPipe implements PipeTransform {
 
       return true;
     });
+  }
+
+  private matchesFormat(card: Card, formatName: string): boolean {
+    if (formatName === 'Standard') {
+      return this.matchesStandardRegulationMark(card);
+    }
+
+    return this.cardBaseService.isCardFromFormat(card.fullName, formatName);
   }
 
   private matchesSearch(card: Card, searchValue: string): boolean {
@@ -82,6 +92,15 @@ export class FilterCardsPipe implements PipeTransform {
       return (card as EnergyCard).provides;
     }
     return []
+  }
+
+  private matchesStandardRegulationMark(card: Card): boolean {
+    const rawCard = (card.rawData?.raw_card as Record<string, unknown> | undefined) || {};
+    const rawDetails = (rawCard.details as Record<string, unknown> | undefined) || {};
+    const regulationMarkText = rawDetails.regulationMarkText;
+
+    return typeof regulationMarkText === 'string'
+      && this.standardRegulationMarks.has(regulationMarkText.toUpperCase());
   }
 
 }

@@ -21,6 +21,8 @@ export class HandComponent implements OnChanges {
   @Input() clientId: number;
 
   public cards: Card[] = [];
+  public selectedCard: Card | undefined;
+  public selectedIndex = 0;
   public isFaceDown: boolean;
   public isDeleted: boolean;
   public handSpec: SortableSpec<HandItem>;
@@ -66,8 +68,11 @@ export class HandComponent implements OnChanges {
       this.list = this.buildHandList(hand);
       this.tempList = this.list;
       this.isFaceDown = hand.isSecret || (!hand.isPublic && !this.isOwner);
+      this.syncSelectedCard();
     } else {
       this.cards = [];
+      this.selectedCard = undefined;
+      this.selectedIndex = 0;
       this.list = [];
       this.tempList = [];
     }
@@ -77,6 +82,11 @@ export class HandComponent implements OnChanges {
     const facedown = this.isFaceDown;
     const allowReveal = facedown && !!this.gameState.replay;
     this.cardsBaseService.showCardInfo({ card, allowReveal, facedown });
+  }
+
+  public selectCard(card: Card, index: number) {
+    this.selectedCard = card;
+    this.selectedIndex = index;
   }
 
   private dispatchAction(list: HandItem[]) {
@@ -103,6 +113,18 @@ export class HandComponent implements OnChanges {
       };
       return item;
     });
+  }
+
+  private syncSelectedCard() {
+    if (this.cards.length === 0) {
+      this.selectedCard = undefined;
+      this.selectedIndex = 0;
+      return;
+    }
+
+    const nextIndex = Math.min(this.selectedIndex, this.cards.length - 1);
+    this.selectedIndex = Math.max(nextIndex, 0);
+    this.selectedCard = this.cards[this.selectedIndex];
   }
 
 }

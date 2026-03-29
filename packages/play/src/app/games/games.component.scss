@@ -1,0 +1,166 @@
+.ptcg-games-lobby {
+  --lobby-bg: oklch(0.97 0.02 95);
+  --lobby-panel: oklch(0.99 0.01 95);
+  --lobby-accent: oklch(0.72 0.16 68);
+  --lobby-ink: oklch(0.28 0.03 48);
+  background:
+    radial-gradient(circle at top right, color-mix(in oklch, oklch(0.88 0.1 82), transparent 72%), transparent 28%),
+    linear-gradient(180deg, oklch(0.98 0.01 90), var(--lobby-bg));
+  min-height: 100%;
+  padding: clamp(14px, 2vw, 28px);
+}
+
+.ptcg-games-hero {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  margin-bottom: clamp(18px, 3vw, 28px);
+}
+
+.ptcg-games-kicker,
+.eyebrow {
+  color: oklch(0.62 0.15 70);
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.ptcg-games-hero-copy {
+  background:
+    linear-gradient(145deg, oklch(0.29 0.05 33), oklch(0.17 0.03 250));
+  border-radius: 30px;
+  color: oklch(0.97 0.02 95);
+  overflow: hidden;
+  padding: clamp(20px, 4vw, 40px);
+  position: relative;
+}
+
+.ptcg-games-hero-copy::after {
+  background:
+    linear-gradient(135deg, color-mix(in oklch, var(--lobby-accent), transparent 10%), transparent 62%);
+  content: '';
+  height: 240px;
+  inset: auto -18% -35% auto;
+  pointer-events: none;
+  position: absolute;
+  transform: rotate(-18deg);
+  width: min(320px, 46vw);
+}
+
+.ptcg-games-hero-copy h1 {
+  font-family: "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+  font-size: clamp(30px, 5vw, 58px);
+  line-height: .95;
+  margin-bottom: 12px;
+  max-width: 12ch;
+  position: relative;
+  z-index: 1;
+}
+
+.ptcg-games-hero-copy p {
+  color: color-mix(in oklch, white, transparent 20%);
+  font-size: clamp(14px, 1.5vw, 18px);
+  margin-bottom: 20px;
+  max-width: 42ch;
+  position: relative;
+  z-index: 1;
+}
+
+.ptcg-games-hero-actions {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.ptcg-games-hero-panels {
+  display: grid;
+  gap: 12px;
+}
+
+.ptcg-hero-panel,
+.ptcg-lobby-panel {
+  background: var(--lobby-panel);
+  border: 1px solid color-mix(in oklch, var(--lobby-accent), transparent 72%);
+  border-radius: 24px;
+  box-shadow: 0 18px 42px rgba(48, 37, 18, 0.08);
+}
+
+.ptcg-hero-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 132px;
+  padding: 18px;
+}
+
+.ptcg-hero-panel strong {
+  color: var(--lobby-ink);
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1;
+}
+
+.ptcg-hero-panel p {
+  color: color-mix(in oklch, var(--lobby-ink), transparent 28%);
+  margin: 0;
+}
+
+.ptcg-lobby-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+}
+
+.ptcg-lobby-column {
+  display: grid;
+  gap: 18px;
+}
+
+.ptcg-lobby-panel {
+  overflow: hidden;
+  padding: 18px;
+}
+
+.ptcg-lobby-panel-header {
+  margin-bottom: 12px;
+}
+
+.ptcg-lobby-panel-header h2 {
+  color: var(--lobby-ink);
+  font-size: clamp(20px, 2vw, 28px);
+}
+
+.ptcg-online-panel mat-nav-list {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+@media (max-width: 960px) {
+  .ptcg-games-hero,
+  .ptcg-lobby-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .ptcg-games-lobby {
+    padding: 12px;
+  }
+
+  .ptcg-games-hero-copy {
+    border-radius: 24px;
+    padding: 18px;
+  }
+
+  .ptcg-games-hero-actions {
+    flex-direction: column;
+  }
+
+  .ptcg-lobby-panel {
+    border-radius: 20px;
+    padding: 14px;
+  }
+}

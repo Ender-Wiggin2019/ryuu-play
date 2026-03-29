@@ -119,6 +119,44 @@ mat-dialog-content {
   }
 }
 
+.ptcg-card-dialog .mat-dialog-container {
+  border-radius: 28px;
+  padding: 0;
+}
+
+.ptcg-card-dialog-mobile .mat-dialog-container {
+  border-radius: 0;
+  height: 100vh;
+}
+
+.ptcg-card-dialog .mat-dialog-title {
+  margin: 0;
+  padding: 18px 20px 0;
+}
+
+.ptcg-card-dialog .mat-dialog-content {
+  margin: 0;
+  max-height: unset;
+  min-height: 0;
+  padding: 16px 20px;
+}
+
+.ptcg-card-dialog .mat-dialog-actions {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 0;
+  min-height: 0;
+  padding: 12px 20px 18px;
+}
+
+.ptcg-card-dialog-mobile .mat-dialog-content {
+  height: calc(100vh - 132px);
+  overflow: auto;
+}
+
+.ptcg-card-dialog-mobile .mat-dialog-actions {
+  justify-content: space-between;
+}
+
 .ptcg-no-padding-list-item {
   > .mat-list-item-content {
     padding: 0 !important;

@@ -7,6 +7,7 @@ import { CardInfoPopupData, CardInfoPopupComponent } from './card-info-popup/car
 import { CardInfoListPopupComponent } from './card-info-list-popup/card-info-list-popup.component';
 import { CardInfoPaneAction } from './card-info-pane/card-info-pane.component';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { SessionService } from '../session/session.service';
 import { CardsData } from '../../api/interfaces/cards.interface';
 
@@ -309,11 +310,7 @@ export class CardsBaseService {
   }
 
   public showCardInfo(data: CardInfoPopupData = {}): Promise<CardInfoPaneAction> {
-    const dialog = this.dialog.open(CardInfoPopupComponent, {
-      maxWidth: '100%',
-      width: '650px',
-      data
-    });
+    const dialog = this.dialog.open(CardInfoPopupComponent, this.getCardDialogConfig(data, 650));
 
     return dialog.afterClosed().toPromise()
       .catch(() => undefined);
@@ -325,13 +322,24 @@ export class CardsBaseService {
     }
 
     const dialog = this.dialog.open(CardInfoListPopupComponent, {
-      maxWidth: '100%',
-      width: '670px',
-      data
+      ...this.getCardDialogConfig(data, 670)
     });
 
     return dialog.afterClosed().toPromise()
       .catch(() => undefined);
+  }
+
+  private getCardDialogConfig(data: CardInfoPopupData, width: number): MatDialogConfig<CardInfoPopupData> {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767;
+
+    return {
+      maxWidth: isMobile ? '100vw' : '100%',
+      width: isMobile ? '100vw' : `${width}px`,
+      height: isMobile ? '100vh' : undefined,
+      maxHeight: isMobile ? '100vh' : '92vh',
+      panelClass: ['ptcg-card-dialog', isMobile ? 'ptcg-card-dialog-mobile' : 'ptcg-card-dialog-desktop'],
+      data
+    };
   }
 
 }

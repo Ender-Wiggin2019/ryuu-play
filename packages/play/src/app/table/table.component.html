@@ -1,41 +1,104 @@
-<ptcg-sidebar-container>
+<ptcg-content [loading]="loading || waiting">
+  <div class="ptcg-table-shell" *ngIf="gameState">
+    <header class="ptcg-battle-header">
+      <div class="ptcg-battle-header-copy">
+        <div class="ptcg-battle-kicker">Battle Focus</div>
+        <h1>{{ gameState.state.rules.formatName || ('GAMES_FORMAT_UNLIMITED' | translate) }}</h1>
+        <p>
+          {{ 'TABLE_TABLE_NAME' | translate: { id: gameState.gameId } }}
+          ·
+          {{ 'TABLE_TURN_NUMBER' | translate: { turn: gameState.state.turn } }}
+        </p>
+      </div>
 
-  <!-- Table sidebar -->
-  <ptcg-sidebar>
-    <ptcg-table-sidebar
-      [clientId]="clientId"
+      <div class="ptcg-battle-actions">
+        <button type="button" [class.active]="activeView === 'board'" (click)="setActiveView('board')">
+          战场
+        </button>
+        <button type="button" [class.active]="activeView === 'hand'" (click)="setActiveView('hand')">
+          手牌
+        </button>
+        <button type="button" [class.active]="activeView === 'players'" (click)="setActiveView('players')">
+          玩家
+        </button>
+        <button type="button" [class.active]="activeView === 'logs'" (click)="setActiveView('logs')">
+          记录
+        </button>
+      </div>
+    </header>
+
+    <section class="ptcg-table-layout">
+      <div class="ptcg-table-main">
+        <section class="ptcg-table-panel ptcg-board-panel" [class.is-hidden]="activeView !== 'board'">
+          <div class="ptcg-board-intro">
+            <div>
+              <span class="eyebrow">Arena</span>
+              <strong>战场总览</strong>
+            </div>
+            <div class="ptcg-board-hint">点击牌库、弃牌区、放逐区、奖赏卡或宝可梦可进入全屏查看。</div>
+          </div>
+
+          <ptcg-board
+            [clientId]="clientId"
+            [gameState]="gameState"
+            [topPlayer]="topPlayer"
+            [bottomPlayer]="bottomPlayer">
+          </ptcg-board>
+        </section>
+
+        <section class="ptcg-table-panel ptcg-hand-panel" [class.is-hidden]="activeView !== 'hand'">
+          <ptcg-hand
+            [clientId]="clientId"
+            [gameState]="gameState"
+            [player]="bottomPlayer">
+          </ptcg-hand>
+        </section>
+
+        <section class="ptcg-table-panel ptcg-players-panel" [class.is-hidden]="activeView !== 'players'">
+          <ptcg-player-bar
+            [gameState]="gameState"
+            [clientId]="clientId"
+            [player]="topPlayer"
+            [active]="gameState?.state?.players[gameState?.state?.activePlayer] === topPlayer">
+          </ptcg-player-bar>
+
+          <ptcg-player-bar
+            [gameState]="gameState"
+            [clientId]="clientId"
+            [player]="bottomPlayer"
+            [active]="gameState?.state?.players[gameState?.state?.activePlayer] === bottomPlayer">
+          </ptcg-player-bar>
+
+          <ptcg-player-actions
+            [gameState]="gameState"
+            [clientId]="clientId"
+            (join)="play()">
+          </ptcg-player-actions>
+
+          <ptcg-replay-controls *ngIf="gameState?.replay"
+            [gameState]="gameState">
+          </ptcg-replay-controls>
+        </section>
+
+        <section class="ptcg-table-panel ptcg-logs-panel" [class.is-hidden]="activeView !== 'logs'">
+          <ptcg-game-logs [gameState]="gameState"></ptcg-game-logs>
+        </section>
+      </div>
+
+      <aside class="ptcg-table-sidebar-desktop">
+        <ptcg-table-sidebar
+          [clientId]="clientId"
+          [gameState]="gameState"
+          [topPlayer]="topPlayer"
+          [bottomPlayer]="bottomPlayer"
+          (join)="play()">
+        </ptcg-table-sidebar>
+      </aside>
+    </section>
+
+    <ptcg-prompt
       [gameState]="gameState"
-      [topPlayer]="topPlayer"
-      [bottomPlayer]="bottomPlayer"
-      (join)="play()">
-    </ptcg-table-sidebar>
-  </ptcg-sidebar>
-
-  <ptcg-content [loading]="loading || waiting">
-    <div class="ptcg-table" *ngIf="gameState">
-
-      <!-- Table board -->
-      <ptcg-board
-        [clientId]="clientId"
-        [gameState]="gameState"
-        [topPlayer]="topPlayer"
-        [bottomPlayer]="bottomPlayer">
-      </ptcg-board>
-
-      <!-- Player's hand -->
-      <ptcg-hand
-        [clientId]="clientId"
-        [gameState]="gameState"
-        [player]="bottomPlayer">
-      </ptcg-hand>
-
-      <!-- Player prompt -->
-      <ptcg-prompt
-        [gameState]="gameState"
-        [clientId]="clientId">
-      </ptcg-prompt>
-
-    </div>
-  </ptcg-content>
-
-</ptcg-sidebar-container>
+      [clientId]="clientId">
+    </ptcg-prompt>
+  </div>
+</ptcg-content>

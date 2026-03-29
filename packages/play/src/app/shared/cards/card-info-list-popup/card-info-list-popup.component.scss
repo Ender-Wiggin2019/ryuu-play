@@ -1,0 +1,17 @@
+.ptcg-card-dialog-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ptcg-dialog-count {
+  opacity: .72;
+}
+
+.ptcg-card-dialog-content {
+  max-height: unset;
+}
+
+.ptcg-card-dialog-actions {
+  gap: 10px;
+}

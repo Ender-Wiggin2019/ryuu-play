@@ -3,3 +3,17 @@
 h2 {
   display: flex;
 }
+
+.ptcg-card-dialog-title {
+  align-items: center;
+  font-size: clamp(20px, 2vw, 28px);
+  margin-bottom: 0;
+}
+
+.ptcg-card-dialog-content {
+  max-height: unset;
+}
+
+.ptcg-card-dialog-actions {
+  gap: 10px;
+}

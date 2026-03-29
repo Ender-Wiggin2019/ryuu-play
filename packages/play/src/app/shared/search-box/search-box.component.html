@@ -3,7 +3,7 @@
     <mat-form-field floatLabel="never" appearance="legacy">
       <input
         name="searchValue"
-        (input)="onChange()"
+        (ngModelChange)="onChange($event)"
         [(ngModel)]="searchValue"
         type="text" matInput [placeholder]="'BUTTON_SEARCH' | translate">
     </mat-form-field>

@@ -1,57 +1,97 @@
-<ptcg-sidebar-container>
+<ptcg-content [loading]="loading">
+  <div class="ptcg-games-lobby">
+    <section class="ptcg-games-hero">
+      <div class="ptcg-games-hero-copy">
+        <span class="ptcg-games-kicker">Browser Battle Hub</span>
+        <h1>手机和电脑都能直接开打的 Ryuu 大厅</h1>
+        <p>首页优先服务“继续对局”和“快速创建”，把在线玩家、活跃牌桌和近期战绩压成可扫读的战斗面板。</p>
 
-  <ptcg-sidebar>
-    <mat-nav-list>
-      <a mat-list-item *ngFor="let client of (clients$ | async)"
-        class="ptcg-no-padding-list-item"
-        [matMenuTriggerFor]="menu">
-        <ptcg-user-bar
-          [user]="client.user"
-          [marked]="clientId === client.clientId">
-        </ptcg-user-bar>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item
-            [routerLink]="['/profile', client.user.userId]">
-            {{ 'BUTTON_SHOW_PROFILE' | translate }}
+        <div class="ptcg-games-hero-actions">
+          <button mat-raised-button color="primary" [disabled]="loading" (click)="createGame()">
+            {{ 'GAMES_CREATE_GAME_BUTTON' | translate }}
           </button>
-          <button mat-menu-item
-            *ngIf="clientId !== client.clientId"
-            [disabled]="loading"
-            (click)="createGame(client.clientId)">
-            {{ 'BUTTON_INVITE' | translate }}
-          </button>
-          <button mat-menu-item
-            *ngIf="loggedUserId !== client.user.userId"
-            [routerLink]="['/message', client.user.userId]">
-            {{ 'BUTTON_SEND_MESSAGE' | translate }}
-          </button>
-        </mat-menu>
-      </a>
-    </mat-nav-list>
-  </ptcg-sidebar>
+          <a mat-stroked-button routerLink="/deck">管理卡组</a>
+        </div>
+      </div>
 
-  <ptcg-content [loading]="loading">
-    <mat-toolbar>
-      <mat-toolbar-row>
-        <h1 translate>GAMES_TITLE</h1>
+      <div class="ptcg-games-hero-panels">
+        <article class="ptcg-hero-panel">
+          <span class="eyebrow">Live Tables</span>
+          <strong>{{ (games$ | async)?.length || 0 }}</strong>
+          <p>当前可加入或观战的牌桌数量</p>
+        </article>
+        <article class="ptcg-hero-panel">
+          <span class="eyebrow">Pilots Online</span>
+          <strong>{{ (clients$ | async)?.length || 0 }}</strong>
+          <p>在线玩家列表支持直接邀请或查看资料</p>
+        </article>
+        <article class="ptcg-hero-panel">
+          <span class="eyebrow">Quick Flow</span>
+          <strong>3 步</strong>
+          <p>选格式、选卡组、立刻进入对局</p>
+        </article>
+      </div>
+    </section>
 
-        <span class="ptcg-u-spacer"></span>
+    <section class="ptcg-lobby-grid">
+      <div class="ptcg-lobby-column">
+        <section class="ptcg-lobby-panel">
+          <div class="ptcg-lobby-panel-header">
+            <div>
+              <span class="eyebrow">Active</span>
+              <h2>进行中的牌桌</h2>
+            </div>
+          </div>
+          <ptcg-games-table></ptcg-games-table>
+        </section>
 
-        <button mat-raised-button color="primary"
-          [disabled]="loading"
-          (click)="createGame()">
-          {{ 'GAMES_CREATE_GAME_BUTTON' | translate }}
-        </button>
-      </mat-toolbar-row>
-    </mat-toolbar>
+        <section class="ptcg-lobby-panel">
+          <div class="ptcg-lobby-panel-header">
+            <div>
+              <span class="eyebrow">Recent</span>
+              <h2>最近战绩</h2>
+            </div>
+          </div>
+          <ptcg-match-table></ptcg-match-table>
+        </section>
+      </div>
 
-    <div class="ptcg-active-games">
-      <ptcg-games-table></ptcg-games-table>
-    </div>
+      <aside class="ptcg-lobby-panel ptcg-online-panel">
+        <div class="ptcg-lobby-panel-header">
+          <div>
+            <span class="eyebrow">Pilots</span>
+            <h2>在线玩家</h2>
+          </div>
+        </div>
 
-    <div class="ptcg-recent-matches">
-      <ptcg-match-table></ptcg-match-table>
-    </div>
-  </ptcg-content>
-
-</ptcg-sidebar-container>
+        <mat-nav-list>
+          <a mat-list-item *ngFor="let client of (clients$ | async)"
+            class="ptcg-no-padding-list-item"
+            [matMenuTriggerFor]="menu">
+            <ptcg-user-bar
+              [user]="client.user"
+              [marked]="clientId === client.clientId">
+            </ptcg-user-bar>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item
+                [routerLink]="['/profile', client.user.userId]">
+                {{ 'BUTTON_SHOW_PROFILE' | translate }}
+              </button>
+              <button mat-menu-item
+                *ngIf="clientId !== client.clientId"
+                [disabled]="loading"
+                (click)="createGame(client.clientId)">
+                {{ 'BUTTON_INVITE' | translate }}
+              </button>
+              <button mat-menu-item
+                *ngIf="loggedUserId !== client.user.userId"
+                [routerLink]="['/message', client.user.userId]">
+                {{ 'BUTTON_SEND_MESSAGE' | translate }}
+              </button>
+            </mat-menu>
+          </a>
+        </mat-nav-list>
+      </aside>
+    </section>
+  </div>
+</ptcg-content>

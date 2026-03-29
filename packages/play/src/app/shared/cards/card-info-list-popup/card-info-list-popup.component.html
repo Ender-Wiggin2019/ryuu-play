@@ -1,8 +1,9 @@
-<h2 mat-dialog-title translate>
-  CARDS_LIST_OF_CARDS
+<h2 mat-dialog-title class="ptcg-card-dialog-title">
+  <span translate>CARDS_LIST_OF_CARDS</span>
+  <span class="ptcg-dialog-count" *ngIf="cardList?.cards?.length">{{ cardList.cards.length }}</span>
 </h2>
 
-<mat-dialog-content>
+<mat-dialog-content class="ptcg-card-dialog-content">
   <ptcg-card-list-pane
     [selected]="card"
     [cardList]="cardList"
@@ -11,7 +12,7 @@
   </ptcg-card-list-pane>
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions class="ptcg-card-dialog-actions">
   <section class="ptcg-card-info-reveal-cards" *ngIf="allowReveal">
     <mat-checkbox color="primary" name="reveal-card"
       [checked]="!facedown" (change)="facedown = !facedown">

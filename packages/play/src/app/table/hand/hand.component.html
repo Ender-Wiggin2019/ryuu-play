@@ -1,26 +1,52 @@
 <div class="ptcg-hand">
+  <div class="ptcg-hand-hero" *ngIf="selectedCard">
+    <div class="ptcg-hand-hero-copy">
+      <span class="ptcg-hand-kicker">Hand Focus</span>
+      <h3>{{ selectedCard | localizedCardName }}</h3>
+      <p>共 {{ cards.length }} 张手牌，左右滑动浏览，点选后查看或操作当前聚焦卡。</p>
+    </div>
 
-  <div class="ptcg-hand-container">
-
-    <dnd-sortable-list
-      [spec]="handSpec"
-      hoverTrigger="fixed"
-      [children]="tempList"
-      [listId]="handListId">
-      <ng-template dndSortableTemplate let-context>
-        <ptcg-card
-          [dndSortableRender]="context"
-          #render="dndSortableRender"
-          [dragSource]="render.source" [noHTML5Preview]="true"
-          [card]="context.data.card"
-          (click)="showCardInfo(context.data.card)"
-          [class.draggable]="!gameState.deleted && player?.id === clientId"
-          [ptcgCardPlaceholder]="render.isDragging$"
-          [class.cardback]="isFaceDown">
-        </ptcg-card>
-      </ng-template>
-    </dnd-sortable-list>
-
+    <button mat-stroked-button type="button" (click)="showCardInfo(selectedCard)">
+      查看详情
+    </button>
   </div>
 
+  <div class="ptcg-hand-container">
+    <div class="ptcg-hand-preview" *ngIf="selectedCard">
+      <ptcg-card
+        [card]="selectedCard"
+        [class.cardback]="isFaceDown"
+        (click)="showCardInfo(selectedCard)">
+      </ptcg-card>
+    </div>
+
+    <div class="ptcg-hand-rail">
+      <div class="ptcg-hand-rail-header">
+        <div>
+          <span class="ptcg-hand-kicker">Card Rail</span>
+          <strong>{{ cards.length }} / {{ selectedIndex + 1 || 0 }}</strong>
+        </div>
+      </div>
+
+      <dnd-sortable-list
+        [spec]="handSpec"
+        hoverTrigger="fixed"
+        [children]="tempList"
+        [listId]="handListId">
+        <ng-template dndSortableTemplate let-context>
+          <ptcg-card
+            [dndSortableRender]="context"
+            #render="dndSortableRender"
+            [dragSource]="render.source" [noHTML5Preview]="true"
+            [card]="context.data.card"
+            (click)="selectCard(context.data.card, context.data.index)"
+            [class.draggable]="!gameState.deleted && player?.id === clientId"
+            [class.selected]="selectedIndex === context.data.index"
+            [ptcgCardPlaceholder]="render.isDragging$"
+            [class.cardback]="isFaceDown">
+          </ptcg-card>
+        </ng-template>
+      </dnd-sortable-list>
+    </div>
+  </div>
 </div>
