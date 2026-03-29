@@ -1,0 +1,71 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["花疗环环 134/131#10437"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": ["基本草能量 GRA#16862", "轰鸣月ex 161/128#15748", "土龙弟弟 161/204#16327"]
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "clearPrompts"
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "选花",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        1
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "轰鸣月ex 161/128#15748"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "lostzone",
+          "cardName": "基本草能量 GRA#16862"
+        }
+      ]
+    }
+  ]
+}

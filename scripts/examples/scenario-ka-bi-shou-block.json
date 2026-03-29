@@ -1,0 +1,41 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 1 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["卡比兽 093/127"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["怨影娃娃 053/127"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["达克莱伊ex CSVSC"]
+        }
+      ]
+    },
+    {
+      "type": "export",
+      "scope": "full"
+    }
+  ],
+  "expects": [
+    {
+      "type": "cardInZone",
+      "player": "PLAYER_1",
+      "zone": "active.pokemons",
+      "cardName": "卡比兽 093/127"
+    }
+  ]
+}

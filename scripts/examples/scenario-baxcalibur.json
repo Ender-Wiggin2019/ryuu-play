@@ -1,0 +1,51 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 1, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "prize", "slotIndex": 0 }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "prize", "slotIndex": 0 }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["戟脊龙 133/130#13296"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 }, "cards": ["凉脊龙 131/130#13294"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "hand" }, "cards": ["基本水能量 428/414#8981"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "极低温",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        {
+          "to": { "player": 2, "slot": 2, "index": 0 },
+          "index": 0
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "energyAttached", "player": "PLAYER_1", "slot": "BENCH", "slotIndex": 0, "expected": 1 }
+      ]
+    }
+  ]
+}

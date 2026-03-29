@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content class="scenario-dialog-content">
+  <div class="scenario-grid">
+    <mat-form-field>
+      <mat-label translate>SCENARIO_DIALOG_PHASE</mat-label>
+      <input matInput type="number" min="0" [(ngModel)]="phase" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label translate>SCENARIO_DIALOG_TURN</mat-label>
+      <input matInput type="number" min="0" [(ngModel)]="turn" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label translate>SCENARIO_DIALOG_ACTIVE_PLAYER_INDEX</mat-label>
+      <input matInput type="number" min="0" max="1" [(ngModel)]="activePlayer" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label translate>SCENARIO_DIALOG_WINNER</mat-label>
+      <input matInput type="number" min="-1" [(ngModel)]="winner" />
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox [(ngModel)]="clearPrompts" translate>SCENARIO_DIALOG_CLEAR_PROMPTS</mat-checkbox>
+
+  <div class="scenario-section" *ngFor="let actor of actorOptions">
+    <h3>{{ actor }} Turn Markers</h3>
+    <div class="scenario-grid">
+      <mat-form-field *ngFor="let marker of turnMarkerOptions">
+        <mat-label>{{ marker }}</mat-label>
+        <input matInput type="number" min="0" [(ngModel)]="markers[actor][marker]" />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">{{ 'BUTTON_CANCEL' | translate }}</button>
+  <button mat-raised-button color="primary" type="button" (click)="confirm()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

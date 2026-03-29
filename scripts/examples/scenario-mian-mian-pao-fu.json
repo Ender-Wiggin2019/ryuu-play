@@ -1,0 +1,54 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["绵绵泡芙 085/207#17462"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.energies" }, "cards": ["基本超能量 430/414#8983"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "stadium" }, "cards": ["祭典会场 201/207#17578"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["怨影娃娃 053/127"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "轻轻放置"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "player": 1, "slot": 1, "index": 0 }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "player": 1, "slot": 1, "index": 0 }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 40 }
+      ]
+    }
+  ]
+}

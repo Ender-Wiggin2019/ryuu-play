@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { DraggedItem } from '@ng-dnd/sortable';
 import { DropTarget, DndService } from '@ng-dnd/core';
 import { Observable } from 'rxjs';
@@ -10,11 +10,27 @@ import { BoardCardItem, BoardCardType } from './board-item.interface';
 import { CardsBaseService } from '../../shared/cards/cards-base.service';
 import { GameService } from '../../api/services/game.service';
 import { LocalGameState } from 'src/app/shared/session/session.interface';
+import { BoardDeckZoneClickEvent } from './board-deck/board-deck.component';
+import { BoardPrizeClickEvent } from './board-prizes/board-prizes.component';
+import { CardInfoPaneOptions } from '../../shared/cards/card-info-pane/card-info-pane.component';
 
 const MAX_BENCH_SIZE = 8;
 const DEFAULT_BENCH_SIZE = 5;
 
 type DropTargetType = DropTarget<DraggedItem<HandItem> | BoardCardItem, any>;
+export type SandboxScenarioSide = 'PLAYER_1' | 'PLAYER_2';
+
+export interface BoardSandboxSlotEditEvent {
+  side: SandboxScenarioSide;
+  slot: 'ACTIVE' | 'BENCH';
+  index: number;
+}
+
+export interface BoardSandboxZoneEditEvent {
+  side: SandboxScenarioSide;
+  zone: 'deck' | 'discard' | 'lostzone' | 'stadium' | 'supporter' | 'prize';
+  index?: number;
+}
 
 @Component({
   selector: 'ptcg-board',
@@ -27,6 +43,12 @@ export class BoardComponent implements OnDestroy {
   @Input() gameState: LocalGameState;
   @Input() topPlayer: Player;
   @Input() bottomPlayer: Player;
+  @Input() sandboxMode = false;
+  @Input() sandboxReadonly = false;
+  @Input() topPlayerSide: SandboxScenarioSide = 'PLAYER_2';
+  @Input() bottomPlayerSide: SandboxScenarioSide = 'PLAYER_1';
+  @Output() editPokemonSlot = new EventEmitter<BoardSandboxSlotEditEvent>();
+  @Output() editZone = new EventEmitter<BoardSandboxZoneEditEvent>();
 
   public readonly defaultBenchSize = DEFAULT_BENCH_SIZE;
   public topBench = new Array(MAX_BENCH_SIZE);
@@ -78,6 +100,9 @@ export class BoardComponent implements OnDestroy {
         if (!this.gameState) {
           return false;
         }
+        if (this.sandboxMode) {
+          return false;
+        }
         const isFromHand = (item as DraggedItem<HandItem>).type === HandCardType;
         if (slot === SlotType.BOARD) {
           return isFromHand;
@@ -118,10 +143,16 @@ export class BoardComponent implements OnDestroy {
   }
 
   private handlePlayFromHand(item: HandItem, target: CardTarget): void {
+    if (this.sandboxMode) {
+      return;
+    }
     this.gameService.playCardAction(this.gameState.gameId, item.index, target);
   }
 
   private handleMoveBoardCard(item: BoardCardItem, target: CardTarget): void {
+    if (this.sandboxMode) {
+      return;
+    }
     const gameId = this.gameState.gameId;
 
     // ReorderBenchAction
@@ -189,7 +220,7 @@ export class BoardComponent implements OnDestroy {
         const isOwner = isBottomOwner || isTopOwner;
         const isDeleted = this.gameState.deleted;
         const isMinimized = this.gameState.promptMinimized;
-        return !isDeleted && isOwner && !isMinimized && this.getScanUrl(boardCardItem) !== undefined;
+        return !this.sandboxMode && !isDeleted && isOwner && !isMinimized && this.getScanUrl(boardCardItem) !== undefined;
       },
       beginDrag: () => {
         return { ...boardCardItem, scanUrl: this.getScanUrl(boardCardItem) };
@@ -221,12 +252,18 @@ export class BoardComponent implements OnDestroy {
   }
 
   public onDeckClick(card: Card, cardList: CardList) {
+    if (this.sandboxMode) {
+      return;
+    }
     const facedown = true;
     const allowReveal = !!this.gameState.replay;
     this.cardsBaseService.showCardInfoList({ card, cardList, allowReveal, facedown });
   }
 
   public onDiscardClick(card: Card, cardList: CardList) {
+    if (this.sandboxMode) {
+      return;
+    }
     const isBottomOwner = this.bottomPlayer && this.bottomPlayer.id === this.clientId;
     const isDeleted = this.gameState.deleted;
 
@@ -256,6 +293,14 @@ export class BoardComponent implements OnDestroy {
   }
 
   public onActiveClick(card: Card, cardList: CardList) {
+    if (this.sandboxMode) {
+      this.editPokemonSlot.next({
+        side: this.bottomPlayerSide,
+        slot: 'ACTIVE',
+        index: 0
+      });
+      return;
+    }
     const isBottomOwner = this.bottomPlayer && this.bottomPlayer.id === this.clientId;
     const isDeleted = this.gameState.deleted;
 
@@ -268,7 +313,7 @@ export class BoardComponent implements OnDestroy {
     const target: CardTarget = { player, slot, index: 0 };
 
     const options = { enableAbility: { useWhenInPlay: true }, enableAttack: true, enableTrainer: true };
-    this.cardsBaseService.showCardInfo({ card, cardList, options })
+    this.showPokemonSlotInfo(card, cardList, options)
       .then(result => {
         if (!result) {
           return;
@@ -295,6 +340,14 @@ export class BoardComponent implements OnDestroy {
   }
 
   public onBenchClick(card: Card, cardList: CardList, index: number) {
+    if (this.sandboxMode) {
+      this.editPokemonSlot.next({
+        side: this.bottomPlayerSide,
+        slot: 'BENCH',
+        index
+      });
+      return;
+    }
     const isBottomOwner = this.bottomPlayer && this.bottomPlayer.id === this.clientId;
     const isDeleted = this.gameState.deleted;
 
@@ -307,7 +360,7 @@ export class BoardComponent implements OnDestroy {
     const target: CardTarget = { player, slot, index };
 
     const options = { enableAbility: { useWhenInPlay: true }, enableAttack: false, enableTrainer: true };
-    this.cardsBaseService.showCardInfo({ card, cardList, options })
+    this.showPokemonSlotInfo(card, cardList, options)
       .then(result => {
         if (!result) {
           return;
@@ -324,7 +377,32 @@ export class BoardComponent implements OnDestroy {
       });
   }
 
+  private showPokemonSlotInfo(card: Card, cardList: CardList, options: CardInfoPaneOptions) {
+    const usableTrainers = cardList.cards.filter((item): item is TrainerCard =>
+      item instanceof TrainerCard && item.useWhenInPlay
+    );
+
+    if (!(card instanceof TrainerCard) && usableTrainers.length === 1) {
+      return this.cardsBaseService.showCardInfo({ card: usableTrainers[0], cardList, options });
+    }
+
+    if (!(card instanceof TrainerCard) && usableTrainers.length > 1) {
+      const popupCardList = Object.assign(new CardList(), cardList);
+      popupCardList.cards = [card, ...usableTrainers];
+      return this.cardsBaseService.showCardInfoList({ card, cardList: popupCardList, options });
+    }
+
+    return this.cardsBaseService.showCardInfo({ card, cardList, options });
+  }
+
   public onStadiumClick(card: Card) {
+    if (this.sandboxMode) {
+      this.editZone.next({
+        side: this.bottomPlayerSide,
+        zone: 'stadium'
+      });
+      return;
+    }
     const isBottomOwner = this.bottomPlayer && this.bottomPlayer.id === this.clientId;
     const isDeleted = this.gameState.deleted;
 
@@ -344,6 +422,69 @@ export class BoardComponent implements OnDestroy {
           this.gameService.stadium(this.gameState.gameId);
         }
       });
+  }
+
+  public onTopActiveClick(): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editPokemonSlot.next({
+      side: this.topPlayerSide,
+      slot: 'ACTIVE',
+      index: 0
+    });
+  }
+
+  public onTopBenchClick(index: number): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editPokemonSlot.next({
+      side: this.topPlayerSide,
+      slot: 'BENCH',
+      index
+    });
+  }
+
+  public onZoneClick(side: SandboxScenarioSide, event: BoardDeckZoneClickEvent): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editZone.next({
+      side,
+      zone: event.zone
+    });
+  }
+
+  public onPrizeSlotClick(side: SandboxScenarioSide, event: BoardPrizeClickEvent): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editZone.next({
+      side,
+      zone: 'prize',
+      index: event.index
+    });
+  }
+
+  public onSupporterClick(side: SandboxScenarioSide): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editZone.next({
+      side,
+      zone: 'supporter'
+    });
+  }
+
+  public onTopStadiumClick(): void {
+    if (!this.sandboxMode) {
+      return;
+    }
+    this.editZone.next({
+      side: this.topPlayerSide,
+      zone: 'stadium'
+    });
   }
 
 }

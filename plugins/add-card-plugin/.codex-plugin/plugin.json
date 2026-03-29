@@ -1,0 +1,38 @@
+{
+  "name": "add-card-plugin",
+  "version": "0.1.0",
+  "description": "Resolve card lists, scaffold implementation inputs, and define Scenario Lab regression completion for adding cards to Ryuu Play.",
+  "author": {
+    "name": "Ryuu Play",
+    "email": "easygod3780@example.com",
+    "url": "https://github.com/keeshii/ryuu-play"
+  },
+  "homepage": "http://localhost:3000/api/docs",
+  "repository": "https://github.com/keeshii/ryuu-play",
+  "license": "MIT",
+  "keywords": [
+    "ptcg",
+    "cards"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Add Card Plugin",
+    "shortDescription": "查询卡牌列表、筛 printings、输出实现与 Scenario 回归闭环。",
+    "longDescription": "面向 Ryuu Play 二开。输入一个宝可梦列表后，插件会查询 localhost:3000 的逻辑卡 API、筛选最多 10 张最高稀有度 printings、给出实现落点和原始数据 seed，并要求通过 scenario-lab-testing 的终端回归才算完成。",
+    "developerName": "Ryuu Play",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "http://localhost:3000/api/docs",
+    "privacyPolicyURL": "https://github.com/keeshii/ryuu-play",
+    "termsOfServiceURL": "https://github.com/keeshii/ryuu-play",
+    "defaultPrompt": [
+      "输入一个宝可梦列表，输出每张卡的逻辑卡详情与回归计划。",
+      "为某张新卡输出 packages/sets 所需的 scaffold 输入与 Scenario 回归目标。",
+      "列出同逻辑多卡图 variant，并把完成条件设为 scenario-lab-testing 通过。"
+    ],
+    "brandColor": "#1F7A8C"
+  }
+}

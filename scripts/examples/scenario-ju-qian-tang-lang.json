@@ -1,0 +1,70 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "巨钳螳螂 081/129#14320"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": [
+            "Metal Energy EVO"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_2",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "Gholdengo ex CSV4C"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "惩罚巨钳"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 60
+        }
+      ]
+    }
+  ]
+}

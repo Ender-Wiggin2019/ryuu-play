@@ -1,0 +1,43 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 1 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["谜拟丘 062/130#13225"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["阿尔宙斯V 106/127#9890"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.energies" },
+          "cards": ["基本火能量 427/414#8980", "基本水能量 428/414#8981", "基本钢能量 433/414#8986"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_2",
+      "actionType": "attack",
+      "payload": {
+        "attack": "力量利刃"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_1", "slot": "ACTIVE", "expected": 0 }
+      ]
+    }
+  ]
+}

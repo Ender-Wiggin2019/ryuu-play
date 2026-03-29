@@ -4,7 +4,9 @@
   "description": "Pokemon TCG game simulator",
   "scripts": {
     "start": "node start.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scenario:debug": "node scripts/scenario-debug.js",
+    "restart:app": "bash scripts/restart-app.sh"
   },
   "private": true,
   "workspaces": [
@@ -18,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@ptcg/server": "*",
-    "@ptcg/sets": "*"
+    "@ptcg/sets": "*",
+    "js-yaml": "^4.1.1"
   }
 }

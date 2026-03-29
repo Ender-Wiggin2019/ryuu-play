@@ -1,0 +1,72 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["猛雷鼓ex CSV7C"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本雷能量 429/414#8982"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "hand" },
+          "cards": ["基本雷能量 429/414#8982", "基本斗能量 431/414#8984", "基本草能量 426/414#8979"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": [
+            "基本水能量 428/414#8981",
+            "基本火能量 427/414#8980",
+            "基本恶能量 432/414#8985",
+            "基本超能量 430/414#8983",
+            "基本钢能量 433/414#8986",
+            "基本草能量 426/414#8979",
+            "基本雷能量 429/414#8982"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["智挥猩V 150/128#9654"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "飞溅咆哮"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "expected": 6
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "discard",
+          "expected": 3
+        }
+      ]
+    }
+  ]
+}

@@ -90,7 +90,7 @@ export class PokemonProgressTracker {
   constructor(private readonly baseDir: string = process.cwd()) { }
 
   public getCsvPath(): string {
-    return path.join(this.baseDir, 'tracking', 'fgh-pokemon-progress.csv');
+    return path.join(this.baseDir, 'tracking', 'set-f-pokemon-progress.csv');
   }
 
   public getSummary(): PokemonProgressSummary {
@@ -157,7 +157,7 @@ export class PokemonProgressTracker {
   }
 
   public regenerate(): { outputPath?: string, totalRows?: number, summary?: unknown } {
-    const scriptPath = path.join(this.baseDir, 'scripts', 'generate-fgh-pokemon-progress.js');
+    const scriptPath = path.join(this.baseDir, 'scripts', 'generate-set-f-pokemon-progress.js');
     const output = execFileSync('node', [scriptPath], {
       cwd: this.baseDir,
       encoding: 'utf8'

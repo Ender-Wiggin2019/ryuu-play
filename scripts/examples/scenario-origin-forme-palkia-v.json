@@ -1,0 +1,91 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "Origin Forme Palkia V SSH"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": [
+            "Water Energy BS"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "deck"
+          },
+          "cards": [
+            "Giant Hearth UNM",
+            "Grass Energy BS"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "Rule the Region"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": 1,
+      "result": [
+        0
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_2",
+      "promptId": 2,
+      "result": true
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "Giant Hearth UNM"
+        }
+      ]
+    }
+  ]
+}

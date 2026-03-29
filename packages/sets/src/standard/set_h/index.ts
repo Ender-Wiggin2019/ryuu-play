@@ -16,21 +16,39 @@ import { Duskull } from './duskull';
 import { Ekans } from './ekans';
 import { FezandipitiEx } from './fezandipiti-ex';
 import { Foongus } from './foongus';
+import { HuoKongLong } from './huo-kong-long';
+import { KaBiShouH } from './ka-bi-shou-h';
 import { CornerstoneMaskOgerponEx } from './cornerstone-mask-ogerpon-ex';
+import { createChouChouYuVariants } from './chou-chou-yu';
 import { HearthflameMaskOgerponEx } from './hearthflame-mask-ogerpon-ex';
+import { createHongLeiJinGangXingVariants } from './hong-lei-jin-gang-xing';
 import { IronBundle } from './iron-bundle';
 import { Ledyba } from './ledyba';
 import { Ledian } from './ledian';
 import { Lechonk } from './lechonk';
+import { jiaHeRenWaExTeraVariants } from './jia-he-ren-wa-ex-tera';
+import { createMeiNaSiExVariants } from './mei-na-si-ex';
+import { miLiLongDragonVariants } from './mi-li-long-dragon';
+import { Miraidon } from './miraidon';
+import { PenHuoLongEx } from './pen-huo-long-ex';
+import { createPoKongYanExVariants } from './po-kong-yan-ex';
+import { QiLinQi } from './qi-lin-qi';
+import { QiLinQiEx } from './qi-lin-qi-ex';
 import { SandyShocks } from './sandy-shocks';
 import { ShaTiePi } from './sha-tie-pi';
+import { RagingBolt } from './raging-bolt';
 import { RagingBoltEx } from './raging-bolt-ex';
+import { ShuangFuZhanLong } from './shuang-fu-zhan-long';
 import { simpleHCards } from './simple-generated';
 import { TealMaskOgerponEx } from './teal-mask-ogerpon-ex';
 import { Timburr } from './timburr';
+import { tuLongDiDiVariants } from './tu-long-di-di';
 import { TyranitarEx } from './tyranitar-ex';
 import { Venipede } from './venipede';
 import { WellspringMaskOgerponEx } from './wellspring-mask-ogerpon-ex';
+import { XiaoHuoLong } from './xiao-huo-long';
+import { XueTongZi } from './xue-tong-zi';
+import { XueYaoNv } from './xue-yao-nv';
 import { getCardImageUrl, getR2CardImageUrl } from '../card-image-r2';
 
 type VariantPokemonLike = Card & {
@@ -156,6 +174,9 @@ export const setH: Card[] = [
     { id: 17648, collectionNumber: '007/207', rarityLabel: 'C★' },
     { id: 17824, collectionNumber: '007/207', rarityLabel: 'C★★' },
   ]),
+  new HuoKongLong(),
+  new KaBiShouH(),
+  ...miLiLongDragonVariants,
   new Ledyba(),
   ...seedPokemonVariants(() => new Ledyba(), [
     { id: 17644, collectionNumber: '003/207', rarityLabel: 'C★' },
@@ -167,6 +188,10 @@ export const setH: Card[] = [
     { id: 17821, collectionNumber: '004/207', rarityLabel: 'R★★' },
   ]),
   new Lechonk(),
+  ...jiaHeRenWaExTeraVariants,
+  new Miraidon(),
+  new PenHuoLongEx(),
+  new RagingBolt(),
   new RagingBoltEx(),
   ...seedPokemonVariants(() => new RagingBoltEx(), [
     { id: 16393, collectionNumber: '227/204', rarityLabel: 'SR' },
@@ -176,6 +201,9 @@ export const setH: Card[] = [
   new IronLeaves(),
   new SandyShocks(),
   new ShaTiePi(),
+  new QiLinQi(),
+  new QiLinQiEx(),
+  new ShuangFuZhanLong(),
   new IronCrownEx(),
   new IronThornsEx(),
   new HearthflameMaskOgerponEx(),
@@ -195,11 +223,16 @@ export const setH: Card[] = [
     { id: 17600, collectionNumber: '223/207', rarityLabel: 'SR' },
     { id: 17623, collectionNumber: '246/207', rarityLabel: 'SAR' },
   ]),
+  ...createChouChouYuVariants(),
+  ...createMeiNaSiExVariants(),
+  ...createPoKongYanExVariants(),
+  ...createHongLeiJinGangXingVariants(),
   new Timburr(),
   ...seedPokemonVariants(() => new Timburr(), [
     { id: 17739, collectionNumber: '110/207', rarityLabel: 'C★' },
     { id: 17915, collectionNumber: '110/207', rarityLabel: 'C★★' },
   ]),
+  ...tuLongDiDiVariants,
   new TyranitarEx(),
   new Venipede(),
   ...seedPokemonVariants(() => new Venipede(), [
@@ -210,5 +243,23 @@ export const setH: Card[] = [
   ...seedPokemonVariants(() => new WellspringMaskOgerponEx(), [
     { id: 17597, collectionNumber: '220/207', rarityLabel: 'SR' },
     { id: 17622, collectionNumber: '245/207', rarityLabel: 'SAR' },
+  ]),
+  new XiaoHuoLong(),
+  new XueTongZi(),
+  ...seedPokemonVariants(() => new XueTongZi(), [
+    { id: 16476, collectionNumber: '057/204', rarityLabel: 'C☆★' },
+    { id: 16649, collectionNumber: '057/204', rarityLabel: 'C★★★' },
+  ]),
+  new XueYaoNv(),
+  ...seedPokemonVariants(() => new XueYaoNv(), [
+    { id: 17148, collectionNumber: '12 01/07', rarityLabel: '●' },
+    { id: 17149, collectionNumber: '12 02/07', rarityLabel: '●' },
+    { id: 17150, collectionNumber: '12 03/07', rarityLabel: '◆' },
+    { id: 17151, collectionNumber: '12 04/07', rarityLabel: '◆' },
+    { id: 17152, collectionNumber: '12 05/07', rarityLabel: '★' },
+    { id: 17153, collectionNumber: '12 06/07', rarityLabel: '★★' },
+    { id: 17154, collectionNumber: '12 07/07', rarityLabel: '★★★' },
+    { id: 16478, collectionNumber: '059/204', rarityLabel: 'R☆★' },
+    { id: 16651, collectionNumber: '059/204', rarityLabel: 'R★★★' },
   ]),
 ];

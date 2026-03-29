@@ -15,6 +15,8 @@ export class CardManager {
 
   private cardFormats: { [name: string]: Format[] } = {};
 
+  private cardAliases: { [name: string]: string } = {};
+
   public static getInstance(): CardManager {
     if (!CardManager.instance) {
       CardManager.instance = new CardManager();
@@ -50,6 +52,7 @@ export class CardManager {
           index = this.cards.length;
           this.cardIndex[card.fullName] = index;
           this.cardFormats[card.fullName] = [];
+          this.registerAliases(card.fullName);
           this.cards.push(card);
         }
 
@@ -74,6 +77,7 @@ export class CardManager {
         index = this.cards.length;
         this.cardIndex[card.fullName] = index;
         this.cardFormats[card.fullName] = [];
+        this.registerAliases(card.fullName);
         this.cards.push(card);
       }
     }
@@ -82,11 +86,13 @@ export class CardManager {
   public loadCardsInfo(cardsInfo: CardsInfo, cards: Card[]) {
     this.cardIndex = {};
     this.cardFormats = {};
+    this.cardAliases = {};
 
     this.cards = cards;
     for (let i = 0; i < this.cards.length; i++) {
       this.cardIndex[this.cards[i].fullName] = i;
       this.cardFormats[this.cards[i].fullName] = [];
+      this.registerAliases(this.cards[i].fullName);
     }
 
     this.formats = cardsInfo.formats.map(f => ({
@@ -107,18 +113,19 @@ export class CardManager {
   }
 
   public getCardByName(name: string): Card | undefined {
-    const index = this.cardIndex[name];
+    const index = this.lookupCardIndex(name);
     if (index !== undefined) {
       return deepClone(this.cards[index]);
     }
   }
 
   public isCardDefined(name: string): boolean {
-    return this.cardIndex[name] !== undefined;
+    return this.lookupCardIndex(name) !== undefined;
   }
 
   public getCardFormats(name: string): Format[] {
-    return this.cardFormats[name] || [];
+    const canonicalName = this.cardAliases[name] || name;
+    return this.cardFormats[canonicalName] || [];
   }
 
   public getAllCards(): Card[] {
@@ -147,6 +154,21 @@ export class CardManager {
     }
 
     format.ranges = ranges;
+  }
+
+  private lookupCardIndex(name: string): number | undefined {
+    const canonicalName = this.cardAliases[name] || name;
+    return this.cardIndex[canonicalName];
+  }
+
+  private registerAliases(fullName: string): void {
+    const legacyMatch = /^(.+?) [A-Za-z0-9.-]+ (\S+#\d+)$/.exec(fullName);
+    if (!legacyMatch) {
+      return;
+    }
+
+    const legacyName = `${legacyMatch[1]} ${legacyMatch[2]}`;
+    this.cardAliases[legacyName] = fullName;
   }
 
 }

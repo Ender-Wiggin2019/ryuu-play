@@ -1,0 +1,23 @@
+{
+  "skill_name": "scenario-lab-testing",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我想在 Scenario Lab 沙盘里快速验证一个卡效：吼叫尾带勇气护符后，能不能在被精神拥抱贴满 6 个基本超能量后，用凶暴吼叫打掉后排 220HP 的洛奇亚V。先告诉我怎么用沙盘 UI 构这个局，再给我一条可复跑的终端方案。",
+      "expected_output": "应先给沙盘 UI 构局思路，再补可复现的 CLI/API 回归链路，不应把答案写成旧的 JSON 面板操作说明。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我刚在人测时用沙盘构出了一个 trainer 效果复现，现在想把这次复现沉淀成回归脚本。请按 Scenario Lab 的推荐方式整理成 scenario:debug 可执行脚本，顺便加 2 个结构化断言。",
+      "expected_output": "应明确从沙盘 UI 复现沉淀到 CLI 脚本的路径，输出可执行场景脚本结构，并使用 export/assert，而不是只写手测步骤。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我只想知道这个效果结算后，对手备战区有没有吃到伤害、弃牌区有没有新增目标宝可梦。请给我最适合 LLM 直接读结论的 Scenario Lab 测法，必要时再说 UI 上怎么查看，不要默认扔 full state。",
+      "expected_output": "应优先选择最小导出范围和结构化 assert，默认走终端回归思路；如果补 UI，也应是辅助查看路径，不应回到原始接口面板。",
+      "files": []
+    }
+  ]
+}

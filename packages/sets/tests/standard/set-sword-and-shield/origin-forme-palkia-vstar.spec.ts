@@ -1,5 +1,6 @@
 import {
   AttackAction,
+  AttackEffect,
   CardType,
   ChooseCardsPrompt,
   ChoosePokemonPrompt,
@@ -8,6 +9,7 @@ import {
   ResolvePromptAction,
   Simulator,
   SlotType,
+  UseAttackEffect,
   UseAbilityAction,
 } from '@ptcg/common';
 
@@ -137,5 +139,19 @@ describe('Origin Forme Palkia V / VSTAR set-sword-and-shield', () => {
     sim.dispatch(new AttackAction(1, 'Subspace Swell'));
 
     expect(opponent.active.damage).toBe(160);
+  });
+
+  it('blocks Hydro Break on the next turn after use', () => {
+    const palkiaV = new OriginFormePalkiaV();
+    const { player, opponent, state } = TestUtils.getAll(sim);
+
+    TestUtils.setActive(sim, [palkiaV], [CardType.WATER, CardType.WATER, CardType.COLORLESS]);
+    opponent.active.pokemons.cards = [new TestPokemon()];
+
+    const attackEffect = new AttackEffect(player, opponent, palkiaV.attacks[1]);
+    palkiaV.reduceEffect(sim.store, state, attackEffect);
+
+    const blockedAttack = new UseAttackEffect(player, palkiaV.attacks[1]);
+    expect(() => palkiaV.reduceEffect(sim.store, state, blockedAttack)).toThrow();
   });
 });

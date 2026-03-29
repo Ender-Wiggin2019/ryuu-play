@@ -1,0 +1,50 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 1, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["炭小侍 CSVL2C 064/052#16057"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["Fire Energy BS", "Fire Energy BS", "Fire Energy BS"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["Pikachu BS"]
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "高温爆破"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "zoneCount", "player": "PLAYER_2", "zone": "active.pokemons", "expected": 0 },
+        { "type": "cardInZone", "player": "PLAYER_2", "zone": "discard", "cardName": "Pikachu BS" }
+      ]
+    }
+  ]
+}

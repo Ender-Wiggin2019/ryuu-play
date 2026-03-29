@@ -36,7 +36,7 @@ describe('CardProgress', () => {
   it('returns pokemon summary', async () => {
     tracker.getSummary.and.returnValue({
       total: 10,
-      csvPath: '/tmp/fgh.csv',
+      csvPath: '/tmp/set-f.csv',
       byMark: { H: 4 },
       byImplementationStatus: { todo: 7 },
       byBackendStatus: { todo: 7 },
@@ -65,7 +65,7 @@ describe('CardProgress', () => {
   });
 
   it('updates a pokemon progress row', async () => {
-    tracker.getCsvPath.and.returnValue('/tmp/fgh.csv');
+    tracker.getCsvPath.and.returnValue('/tmp/set-f.csv');
     tracker.update.and.returnValue({
       phase_mark: 'H',
       source_marks: 'H',

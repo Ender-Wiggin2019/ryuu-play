@@ -1,0 +1,43 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["破空焰ex 051/204#16217"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本火能量 427/414#8980", "基本火能量 427/414#8980", "基本火能量 427/414#8980"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["阿尔宙斯V 106/127#9890"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "烈火猛冲"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 260 }
+      ]
+    }
+  ]
+}

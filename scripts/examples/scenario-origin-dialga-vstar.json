@@ -1,0 +1,43 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["起源帝牙卢卡VSTAR 096/128#9600"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本钢能量 433/414#8986", "基本钢能量 433/414#8986", "基本钢能量 433/414#8986"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["阿尔宙斯V 106/127#9890"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "金属爆破"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 160 }
+      ]
+    }
+  ]
+}

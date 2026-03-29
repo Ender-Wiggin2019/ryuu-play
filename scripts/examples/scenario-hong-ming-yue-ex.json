@@ -1,0 +1,78 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["轰鸣月ex 161/128#15748"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本草能量 GRA#16862", "基本草能量 GRA#16862", "基本草能量 GRA#16862"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "stadium" },
+          "cards": ["祝庆村 174/127#9958"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["土龙弟弟 161/204#16327"]
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "clearPrompts"
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "灾厄风暴"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": 1
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 220
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "stadium",
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

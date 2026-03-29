@@ -29,18 +29,25 @@ export class GholdengoEx extends PokemonCard {
       commodityCode: 'CSV4C',
       details: {
         regulationMarkText: 'G',
-        collectionNumber: '089/129'
+        collectionNumber: '089/129',
       },
       image: 'img\\285\\246.png',
-      hash: '9822cad43fac8f9589f095fdd9d0271e'
+      hash: '9822cad43fac8f9589f095fdd9d0271e',
+      features: [
+        {
+          id: 181,
+          name: '嘉奖硬币',
+          text: '在自己的回合可以使用1次。从自己牌库上方抽取1张卡牌。如果这只宝可梦在战斗场上的话，则额外抽取1张卡牌。',
+        },
+      ],
     },
     collection: {
       id: 285,
       name: '补充包 嘉奖回合',
       commodityCode: 'CSV4C',
-      salesDate: '2025-07-18'
+      salesDate: '2025-07-18',
     },
-    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/246.png'
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/246.png',
   };
 
   public tags = [CardTag.POKEMON_EX];

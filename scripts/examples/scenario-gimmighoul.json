@@ -1,0 +1,77 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "Gimmighoul CSV4C"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": [
+            "Double Colorless Energy BS"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_2",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "Pikachu BS"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "Continuous Coin Toss"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "active.pokemons",
+          "cardName": "Gimmighoul CSV4C"
+        },
+        {
+          "type": "promptPending",
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

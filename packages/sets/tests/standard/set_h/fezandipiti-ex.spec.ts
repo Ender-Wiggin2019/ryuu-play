@@ -14,6 +14,10 @@ import { TestCard } from '../../test-cards/test-card';
 import { TestPokemon } from '../../test-cards/test-pokemon';
 import { TestUtils } from '../../test-utils';
 
+class DarkWeakPokemon extends TestPokemon {
+  public weakness = [{ type: CardType.DARK }];
+}
+
 describe('Fezandipiti ex set_h', () => {
   let sim: Simulator;
 
@@ -68,5 +72,20 @@ describe('Fezandipiti ex set_h', () => {
 
     expect(opponent.bench[0].damage).toEqual(100);
     expect(opponent.active.damage).toEqual(0);
+  });
+
+  it('applies weakness when 残忍箭矢 targets opponent active', () => {
+    const fezandipitiEx = new FezandipitiEx();
+    const opponentActive = new DarkWeakPokemon();
+    const { opponent } = TestUtils.getAll(sim);
+    TestUtils.setActive(sim, [fezandipitiEx], [CardType.DARK, CardType.DARK, CardType.DARK]);
+    opponent.active.pokemons.cards = [opponentActive];
+
+    sim.dispatch(new AttackAction(1, '残忍箭矢'));
+    const prompt = TestUtils.getLastPrompt(sim) as ChoosePokemonPrompt;
+    expect(prompt).toBeTruthy();
+    sim.dispatch(new ResolvePromptAction(prompt.id, [opponent.active]));
+
+    expect(opponent.active.damage).toEqual(200);
   });
 });

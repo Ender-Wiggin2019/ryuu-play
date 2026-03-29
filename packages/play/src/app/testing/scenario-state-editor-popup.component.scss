@@ -1,0 +1,32 @@
+.scenario-state-popup {
+  width: min(760px, 92vw);
+}
+
+.scenario-state-popup__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.scenario-state-popup__markers {
+  margin-top: 16px;
+}
+
+.scenario-state-popup__markers h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+}
+
+.scenario-state-popup__marker-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 120px;
+  gap: 12px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .scenario-state-popup__grid,
+  .scenario-state-popup__marker-row {
+    grid-template-columns: 1fr;
+  }
+}

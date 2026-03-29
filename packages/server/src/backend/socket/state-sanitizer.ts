@@ -8,6 +8,7 @@ import { SocketCache } from './socket-cache';
 import { State } from '@ptcg/common';
 import { SuperType } from '@ptcg/common';
 import { deepClone } from '@ptcg/common';
+import { ScenarioLabService } from '../services/scenario-lab';
 
 export class StateSanitizer {
 
@@ -21,6 +22,10 @@ export class StateSanitizer {
    */
   public sanitize(state: State, gameId: number): State {
     state = deepClone(state, [ Card ]);
+    if (ScenarioLabService.isScenarioGame(gameId)) {
+      state = this.removeLogs(state, gameId);
+      return state;
+    }
     state = this.filterPrompts(state);
     state = this.removeLogs(state, gameId);
     state = this.hideSecretCards(state);

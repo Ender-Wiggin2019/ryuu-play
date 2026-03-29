@@ -1,0 +1,74 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["百变怪 168/151#11531"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": ["炎帝V 154/131#10739"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "discard" },
+          "cards": []
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "变身启动",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": 1,
+      "result": [0]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "active.pokemons",
+          "cardName": "炎帝V"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "discard",
+          "cardName": "百变怪"
+        }
+      ]
+    }
+  ]
+}

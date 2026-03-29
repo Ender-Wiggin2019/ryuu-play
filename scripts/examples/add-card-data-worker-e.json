@@ -1,0 +1,75 @@
+{
+  "generatedBy": "python3 plugins/add-card-plugin/scripts/resolve_add_card.py '铁武者ex' '猛恶菇' '音波龙ex' '古剑豹ex' '凉脊龙' '戟脊龙'",
+  "cards": [
+    {
+      "query": "铁武者ex",
+      "logicalCardId": 298,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 15747, "collectionNumber": "160/128", "rarityLabel": "UR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/389.png" },
+        { "id": 15740, "collectionNumber": "153/128", "rarityLabel": "SAR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/382.png" },
+        { "id": 15729, "collectionNumber": "142/128", "rarityLabel": "SR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/371.png" },
+        { "id": 15653, "collectionNumber": "066/128", "rarityLabel": "RR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/183.png" },
+        { "id": 17058, "collectionNumber": "161/SV-P", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/335/5.png" }
+      ]
+    },
+    {
+      "query": "猛恶菇",
+      "logicalCardId": 770,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 15722, "collectionNumber": "135/128", "rarityLabel": "AR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/364.png" },
+        { "id": 15951, "collectionNumber": "095/128", "rarityLabel": "R★★★", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/266.png" },
+        { "id": 15836, "collectionNumber": "095/128", "rarityLabel": "R☆★", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/265.png" },
+        { "id": 15682, "collectionNumber": "095/128", "rarityLabel": "R", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/311/264.png" }
+      ]
+    },
+    {
+      "query": "音波龙ex",
+      "logicalCardId": 1197,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 14384, "collectionNumber": "145/129", "rarityLabel": "SR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/374.png" },
+        { "id": 14334, "collectionNumber": "095/129", "rarityLabel": "RR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/285/324.png" },
+        { "id": 14044, "collectionNumber": "117/049", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/282/63.png" },
+        { "id": 13972, "collectionNumber": "045/049", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/281/45.png" }
+      ]
+    },
+    {
+      "query": "古剑豹ex",
+      "logicalCardId": 1232,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 13325, "collectionNumber": "162/130", "rarityLabel": "UR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/393.png" },
+        { "id": 13320, "collectionNumber": "157/130", "rarityLabel": "SAR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/388.png" },
+        { "id": 13307, "collectionNumber": "144/130", "rarityLabel": "SR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/375.png" },
+        { "id": 13206, "collectionNumber": "043/130", "rarityLabel": "RR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/114.png" },
+        { "id": 14050, "collectionNumber": "123/049", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/282/69.png" }
+      ]
+    },
+    {
+      "query": "凉脊龙",
+      "logicalCardIds": [822, 1115],
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 14089, "collectionNumber": "055/SV-P", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/284/24.png" },
+        { "id": 15263, "collectionNumber": "001/006", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/294/0.png" },
+        { "id": 13294, "collectionNumber": "131/130", "rarityLabel": "AR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/362.png" },
+        { "id": 13203, "collectionNumber": "040/130", "rarityLabel": "C", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/111.png" },
+        { "id": 14160, "collectionNumber": "044/207", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/50.png" }
+      ]
+    },
+    {
+      "query": "戟脊龙",
+      "logicalCardId": 824,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 13296, "collectionNumber": "133/130", "rarityLabel": "AR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/364.png" },
+        { "id": 14162, "collectionNumber": "046/207", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/308/52.png" },
+        { "id": 15265, "collectionNumber": "003/006", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/294/2.png" },
+        { "id": 14099, "collectionNumber": "002/024", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/282/1.png" },
+        { "id": 13205, "collectionNumber": "042/130", "rarityLabel": "R", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/270/113.png" }
+      ]
+    }
+  ]
+}

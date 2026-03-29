@@ -11,7 +11,7 @@ describe('PokemonProgressTracker', () => {
 
   beforeEach(() => {
     tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pokemon-progress-'));
-    csvPath = path.join(tempDir, 'tracking', 'fgh-pokemon-progress.csv');
+    csvPath = path.join(tempDir, 'tracking', 'set-f-pokemon-progress.csv');
     fs.mkdirSync(path.dirname(csvPath), { recursive: true });
     fs.writeFileSync(csvPath, [
       'phase_mark,source_marks,tracking_key,yoren_code,name_zh,attribute,stage,hp,deck_rule_limit,special_rules,interaction_flags,complexity,source_variant_count,collection_numbers,implemented_in_repo,implementation_status,backend_status,ui_status,ai_api_status,implemented_file,test_file,notes',

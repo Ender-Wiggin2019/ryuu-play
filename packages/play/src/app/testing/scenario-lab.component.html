@@ -1,0 +1,248 @@
+<ptcg-content>
+  <div class="scenario-lab-page">
+    <header class="scenario-lab-hero">
+      <div>
+        <h2 translate>SCENARIO_TITLE</h2>
+        <p translate>SCENARIO_DESCRIPTION</p>
+        <p class="scenario-lab-hint" translate>SCENARIO_CREATE_HINT</p>
+      </div>
+
+      <div class="scenario-lab-toolbar">
+        <mat-form-field>
+          <mat-label translate>LABEL_FORMAT</mat-label>
+          <mat-select [(value)]="format">
+            <mat-option *ngFor="let option of formats" [value]="option">
+              {{ option.name ? (option.name | localizedFormatName) : ('GAMES_ALL_CARDS_ALLOWED' | translate) }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="createScenario()" [disabled]="loading">
+          {{ 'SCENARIO_CREATE' | translate }}
+        </button>
+
+        <button mat-stroked-button color="warn" (click)="recycleScenario()" [disabled]="loading || !scenarioId">
+          {{ 'SCENARIO_RECYCLE' | translate }}
+        </button>
+
+        <button mat-stroked-button (click)="toggleViewSide()" [disabled]="!hasSandboxState()">
+          {{ 'SCENARIO_ACTION_SWITCH_VIEW' | translate }}: {{ currentViewSide }}
+        </button>
+
+        <button mat-stroked-button (click)="openBoardStateEditor()" [disabled]="!hasSandboxState()">
+          {{ 'SCENARIO_EDITOR_STATE_TITLE' | translate }}
+        </button>
+
+        <button mat-stroked-button (click)="showTerminalHelp = !showTerminalHelp">
+          {{ 'SCENARIO_TERMINAL_HELP' | translate }}
+        </button>
+      </div>
+    </header>
+
+    <section class="scenario-empty" *ngIf="!hasSandboxState()">
+      <mat-card>
+        <mat-card-content>
+          <p translate>SCENARIO_EDITOR_HINT</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <div class="scenario-layout" *ngIf="hasSandboxState()">
+      <section class="scenario-main">
+        <mat-card class="scenario-board-card">
+          <mat-card-header>
+            <mat-card-title translate>SCENARIO_BOARD_TITLE</mat-card-title>
+            <mat-card-subtitle>
+              #{{ scenarioId }} · turn {{ localGameState?.state?.turn }} · phase {{ localGameState?.state?.phase }}
+            </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <ptcg-board
+              [sandboxMode]="true"
+              [clientId]="boardClientId"
+              [gameState]="localGameState!"
+              [topPlayer]="topPlayer"
+              [bottomPlayer]="bottomPlayer"
+              [topPlayerSide]="topPlayerSide"
+              [bottomPlayerSide]="bottomPlayerSide"
+              (editPokemonSlot)="openPokemonSlotEditorFromBoard($event)"
+              (editZone)="openZoneEditorFromBoard($event)">
+            </ptcg-board>
+          </mat-card-content>
+        </mat-card>
+      </section>
+
+      <aside class="scenario-sidebar">
+        <mat-card class="scenario-status-card">
+          <mat-card-title translate>SCENARIO_EDITOR_TITLE</mat-card-title>
+          <mat-card-content>
+            <div class="scenario-status-row">
+              <span translate>SCENARIO_RESULT_PENDING_PROMPTS</span>
+              <strong>{{ pendingPrompts.length }}</strong>
+            </div>
+            <div class="scenario-status-row" *ngFor="let prompt of pendingPrompts">
+              <span>{{ prompt.id }}</span>
+              <strong>{{ prompt.type }}</strong>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="scenario-resource-card" *ngFor="let side of actorOptions">
+          <mat-card-title>{{ side }}</mat-card-title>
+          <mat-card-content>
+            <button mat-stroked-button (click)="openHandEditor(side)">
+              {{ 'SCENARIO_ZONE_HAND' | translate }} · {{ getZoneCount(side, 'hand') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'deck' })">
+              {{ 'SCENARIO_ZONE_DECK' | translate }} · {{ getZoneCount(side, 'deck') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'discard' })">
+              {{ 'SCENARIO_ZONE_DISCARD' | translate }} · {{ getZoneCount(side, 'discard') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'lostzone' })">
+              {{ 'SCENARIO_ZONE_LOSTZONE' | translate }} · {{ getZoneCount(side, 'lostzone') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'stadium' })">
+              {{ 'SCENARIO_ZONE_STADIUM' | translate }} · {{ getZoneCount(side, 'stadium') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'supporter' })">
+              {{ 'SCENARIO_ZONE_SUPPORTER' | translate }} · {{ getZoneCount(side, 'supporter') }}
+            </button>
+            <button mat-stroked-button (click)="openZoneEditor({ side, zone: 'prize', index: 0 })">
+              {{ 'SCENARIO_ZONE_PRIZE' | translate }} · {{ getPrizeCount(side) }}
+            </button>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="scenario-result-card">
+          <mat-card-title translate>SCENARIO_RESULT_TITLE</mat-card-title>
+          <mat-card-content>
+            <div class="scenario-panel-block">
+              <h3 translate>SCENARIO_EDITOR_EXPORT_TITLE</h3>
+              <mat-form-field>
+                <mat-label translate>SCENARIO_EXPORT_SCOPE</mat-label>
+                <mat-select [(ngModel)]="exportScope" name="exportScope">
+                  <mat-option value="board">{{ 'SCENARIO_EXPORT_SCOPE_BOARD' | translate }}</mat-option>
+                  <mat-option value="full">{{ 'SCENARIO_EXPORT_SCOPE_FULL' | translate }}</mat-option>
+                  <mat-option value="player">{{ 'SCENARIO_EXPORT_SCOPE_PLAYER' | translate }}</mat-option>
+                  <mat-option value="active">{{ 'SCENARIO_EXPORT_SCOPE_ACTIVE' | translate }}</mat-option>
+                  <mat-option value="bench">{{ 'SCENARIO_EXPORT_SCOPE_BENCH' | translate }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="requiresScopedPlayer(exportScope)">
+                <mat-label translate>LABEL_PLAYER</mat-label>
+                <mat-select [(ngModel)]="exportPlayer" name="exportPlayer">
+                  <mat-option *ngFor="let actor of actorOptions" [value]="actor">{{ actor }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-stroked-button (click)="exportScenario()" [disabled]="loading">
+                {{ 'SCENARIO_EXPORT' | translate }}
+              </button>
+            </div>
+
+            <div class="scenario-panel-block">
+              <h3 translate>SCENARIO_EDITOR_ASSERT_TITLE</h3>
+              <mat-form-field>
+                <mat-label translate>SCENARIO_ASSERT_TEMPLATE</mat-label>
+                <mat-select [(ngModel)]="assertTemplate" name="assertTemplate">
+                  <mat-option value="promptPending" translate>SCENARIO_ASSERT_TEMPLATE_PROMPT_PENDING</mat-option>
+                  <mat-option value="damage" translate>SCENARIO_ASSERT_TEMPLATE_DAMAGE</mat-option>
+                  <mat-option value="cardInZone" translate>SCENARIO_ASSERT_TEMPLATE_CARD_IN_ZONE</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="assertTemplate === 'promptPending'" class="scenario-assert-grid">
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_EXPECTED</mat-label>
+                  <input matInput type="number" [(ngModel)]="promptPendingExpected" name="promptPendingExpected" />
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="assertTemplate === 'damage'" class="scenario-assert-grid">
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_PLAYER</mat-label>
+                  <mat-select [(ngModel)]="damagePlayer" name="damagePlayer">
+                    <mat-option *ngFor="let actor of actorOptions" [value]="actor">{{ actor }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_SLOT</mat-label>
+                  <mat-select [(ngModel)]="damageSlot" name="damageSlot">
+                    <mat-option value="ACTIVE" translate>SCENARIO_ZONE_ACTIVE</mat-option>
+                    <mat-option value="BENCH" translate>SCENARIO_ZONE_BENCH</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="damageSlot === 'BENCH'">
+                  <mat-label translate>SCENARIO_ASSERT_INDEX</mat-label>
+                  <input matInput type="number" [(ngModel)]="damageSlotIndex" name="damageSlotIndex" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_EXPECTED</mat-label>
+                  <input matInput type="number" [(ngModel)]="damageExpected" name="damageExpected" />
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="assertTemplate === 'cardInZone'" class="scenario-assert-grid">
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_PLAYER</mat-label>
+                  <mat-select [(ngModel)]="cardInZonePlayer" name="cardInZonePlayer">
+                    <mat-option *ngFor="let actor of actorOptions" [value]="actor">{{ actor }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_ZONE</mat-label>
+                  <mat-select [(ngModel)]="cardInZoneName" name="cardInZoneName">
+                    <mat-option value="deck" translate>SCENARIO_ZONE_DECK</mat-option>
+                    <mat-option value="hand" translate>SCENARIO_ZONE_HAND</mat-option>
+                    <mat-option value="discard" translate>SCENARIO_ZONE_DISCARD</mat-option>
+                    <mat-option value="lostzone" translate>SCENARIO_ZONE_LOSTZONE</mat-option>
+                    <mat-option value="stadium" translate>SCENARIO_ZONE_STADIUM</mat-option>
+                    <mat-option value="supporter" translate>SCENARIO_ZONE_SUPPORTER</mat-option>
+                    <mat-option value="prize" translate>SCENARIO_ZONE_PRIZE</mat-option>
+                    <mat-option value="active.pokemons">{{ ('SCENARIO_ZONE_ACTIVE' | translate) }} · Pokemon</mat-option>
+                    <mat-option value="active.energies">{{ ('SCENARIO_ZONE_ACTIVE' | translate) }} · Energy</mat-option>
+                    <mat-option value="active.trainers">{{ ('SCENARIO_ZONE_ACTIVE' | translate) }} · Trainers</mat-option>
+                    <mat-option value="bench.pokemons">{{ ('SCENARIO_ZONE_BENCH' | translate) }} · Pokemon</mat-option>
+                    <mat-option value="bench.energies">{{ ('SCENARIO_ZONE_BENCH' | translate) }} · Energy</mat-option>
+                    <mat-option value="bench.trainers">{{ ('SCENARIO_ZONE_BENCH' | translate) }} · Trainers</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="cardInZoneName === 'prize' || cardInZoneName.startsWith('bench.')">
+                  <mat-label translate>SCENARIO_ASSERT_INDEX</mat-label>
+                  <input matInput type="number" [(ngModel)]="cardInZoneSlotIndex" name="cardInZoneSlotIndex" />
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label translate>SCENARIO_ASSERT_CARD_NAME</mat-label>
+                  <input matInput [(ngModel)]="cardInZoneCardName" name="cardInZoneCardName" />
+                </mat-form-field>
+              </div>
+
+              <button mat-stroked-button (click)="runAssertTemplate()" [disabled]="loading">
+                {{ 'SCENARIO_ASSERT_RUN' | translate }}
+              </button>
+            </div>
+
+            <div class="scenario-panel-block">
+              <h3 translate>SCENARIO_RESULT_SUMMARY</h3>
+              <p>{{ resultSummary || '-' }}</p>
+              <button mat-button (click)="showRawResult = !showRawResult" [disabled]="!rawResult">
+                {{ (showRawResult ? 'SCENARIO_RESULT_COLLAPSE' : 'SCENARIO_RESULT_EXPAND') | translate }}
+              </button>
+              <pre *ngIf="showRawResult && rawResult" class="scenario-raw">{{ rawResult }}</pre>
+            </div>
+
+            <div class="scenario-panel-block" *ngIf="showTerminalHelp">
+              <h3 translate>SCENARIO_TERMINAL_HELP_TITLE</h3>
+              <p translate>SCENARIO_TERMINAL_HELP_BODY</p>
+              <code>{{ 'SCENARIO_TERMINAL_HELP_COMMAND' | translate }}</code>
+              <p translate>SCENARIO_TERMINAL_HELP_HINT</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </aside>
+    </div>
+  </div>
+</ptcg-content>

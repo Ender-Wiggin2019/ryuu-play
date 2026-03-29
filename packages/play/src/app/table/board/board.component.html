@@ -20,7 +20,7 @@
     <ptcg-board-card
       [value]="topPlayer?.lostzone"
       [owner]="topPlayer?.id === clientId"
-      (cardClick)="onCardListClick($event.card, topPlayer?.lostzone)"
+      (cardClick)="sandboxMode ? onZoneClick(topPlayerSide, { zone: 'lostzone' }) : onCardListClick($event.card, topPlayer?.lostzone)"
       showCardCount="true">
     </ptcg-board-card>
     <ptcg-badge class="ptcg-board-lost-zone-label">
@@ -33,7 +33,7 @@
     <div class="ptcg-board-row ptcg-board-active">
       <ptcg-board-card
         [value]="topPlayer?.active" [owner]="topPlayer?.id === clientId"
-        (cardClick)="onCardClick($event.card, $event.cardList)">
+        (cardClick)="sandboxMode ? onTopActiveClick() : onCardClick($event.card, $event.cardList)">
       </ptcg-board-card>
     </div>
 
@@ -42,7 +42,7 @@
       <ptcg-board-card *ngFor="let slot of topBench
         | slice:0:(topPlayer?.bench.length || defaultBenchSize); index as i"
         [value]="topPlayer?.bench[i]" [owner]="topPlayer?.id === clientId"
-        (cardClick)="onCardClick($event.card, $event.cardList)">
+        (cardClick)="sandboxMode ? onTopBenchClick(i) : onCardClick($event.card, $event.cardList)">
       </ptcg-board-card>
     </div>
 
@@ -50,7 +50,7 @@
     <div class="ptcg-board-row ptcg-board-supporter">
       <ptcg-board-card class="stadium-card"
         [value]="topPlayer?.stadium" [owner]="topPlayer?.id === clientId"
-        (cardClick)="onStadiumClick($event.card)">
+        (cardClick)="sandboxMode ? onTopStadiumClick() : onStadiumClick($event.card)">
       </ptcg-board-card>
     </div>
 
@@ -58,22 +58,26 @@
     <div class="ptcg-board-row ptcg-board-stadium">
       <ptcg-board-card
         [value]="topPlayer?.supporter" [owner]="topPlayer?.id === clientId"
-        (cardClick)="onCardClick($event.card)">
+        (cardClick)="sandboxMode ? onSupporterClick(topPlayerSide) : onCardClick($event.card)">
       </ptcg-board-card>
     </div>
 
     <!-- Top Deck -->
     <ptcg-board-deck
+      [sandboxMode]="sandboxMode"
       [player]="topPlayer" [clientId]="clientId"
       (deckClick)="onDeckClick($event, topPlayer?.deck)"
       (discardClick)="onCardListClick($event, topPlayer?.discard)"
-      (lostZoneClick)="onCardListClick($event, topPlayer?.lostzone)">
+      (lostZoneClick)="onCardListClick($event, topPlayer?.lostzone)"
+      (zoneClick)="onZoneClick(topPlayerSide, $event)">
     </ptcg-board-deck>
 
     <!-- Top Prizes -->
     <ptcg-board-prizes
+      [sandboxMode]="sandboxMode"
       [player]="topPlayer" [clientId]="clientId"
-      (prizeClick)="onPrizeClick(topPlayer, $event)">
+      (prizeClick)="onPrizeClick(topPlayer, $event)"
+      (prizeSlotClick)="onPrizeSlotClick(topPlayerSide, $event)">
     </ptcg-board-prizes>
   </div>
 
@@ -120,22 +124,26 @@
     <div class="ptcg-board-row ptcg-board-supporter">
       <ptcg-board-card
         [value]="bottomPlayer?.supporter" [owner]="bottomPlayer?.id === clientId"
-        (cardClick)="onCardClick($event.card)">
+        (cardClick)="sandboxMode ? onSupporterClick(bottomPlayerSide) : onCardClick($event.card)">
       </ptcg-board-card>
     </div>
 
     <!-- Deck -->
     <ptcg-board-deck
+      [sandboxMode]="sandboxMode"
       [player]="bottomPlayer" [clientId]="clientId"
       (deckClick)="onDeckClick($event, bottomPlayer?.deck)"
       (discardClick)="onDiscardClick($event, bottomPlayer?.discard)"
-      (lostZoneClick)="onCardListClick($event, bottomPlayer?.lostzone)">
+      (lostZoneClick)="onCardListClick($event, bottomPlayer?.lostzone)"
+      (zoneClick)="onZoneClick(bottomPlayerSide, $event)">
     </ptcg-board-deck>
 
     <!-- Prizes -->
     <ptcg-board-prizes
+      [sandboxMode]="sandboxMode"
       [player]="bottomPlayer" [clientId]="clientId"
-      (prizeClick)="onPrizeClick(bottomPlayer, $event)">
+      (prizeClick)="onPrizeClick(bottomPlayer, $event)"
+      (prizeSlotClick)="onPrizeSlotClick(bottomPlayerSide, $event)">
     </ptcg-board-prizes>
   </div>
 
@@ -144,7 +152,7 @@
     <ptcg-board-card
       [value]="bottomPlayer?.lostzone"
       [owner]="bottomPlayer?.id === clientId"
-      (cardClick)="onCardListClick($event.card, bottomPlayer?.lostzone)"
+      (cardClick)="sandboxMode ? onZoneClick(bottomPlayerSide, { zone: 'lostzone' }) : onCardListClick($event.card, bottomPlayer?.lostzone)"
       showCardCount="true">
     </ptcg-board-card>
     <ptcg-badge class="ptcg-board-lost-zone-label">

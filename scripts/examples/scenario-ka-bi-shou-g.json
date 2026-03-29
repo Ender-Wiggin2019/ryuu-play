@@ -1,0 +1,53 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["卡比兽 093/177"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "discard" },
+          "cards": ["吃剩的东西 133/177#12600", "吃剩的东西 117/128#13040"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["怨影娃娃 053/127"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "贪嘴",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "promptPending",
+          "expected": 1
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "active.pokemons",
+          "expected": 1
+        }
+      ]
+    }
+  ]
+}

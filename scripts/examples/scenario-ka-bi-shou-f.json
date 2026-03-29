@@ -1,0 +1,59 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["卡比兽 001/023"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": [
+            "基本草能量 426/414#8979",
+            "基本草能量 426/414#8979",
+            "基本草能量 426/414#8979",
+            "基本草能量 426/414#8979"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["达克莱伊ex CSVSC"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "轰隆鼾声"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 180
+        },
+        {
+          "type": "specialCondition",
+          "player": "PLAYER_1",
+          "slot": "ACTIVE",
+          "condition": "ASLEEP"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["土龙节节 138/130#13301"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本草能量 GRA#16862", "基本草能量 GRA#16862", "基本草能量 GRA#16862", "基本草能量 GRA#16862"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["土龙弟弟 161/204#16327"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["古月鸟 25 05/07#17243"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "deck" },
+          "cards": []
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "clearPrompts"
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "掘遁闪光"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_2",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "player": 2, "slot": 2, "index": 0 }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_2",
+          "zone": "deck",
+          "cardName": "土龙弟弟 161/204#16327"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_2",
+          "zone": "active.pokemons",
+          "cardName": "古月鸟 25 05/07#17243"
+        }
+      ]
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 
   <div class="ptcg-board-prizes-container">
     <ptcg-board-card
-      *ngFor="let cardList of prizes"
-      (click)="onPrizeClick(cardList)"
+      *ngFor="let cardList of prizes; index as i"
+      (click)="onPrizeClick(cardList, i)"
       [value]="cardList"
       [owner]="isOwner">
     </ptcg-board-card>

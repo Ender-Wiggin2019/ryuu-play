@@ -1,0 +1,44 @@
+<h2 mat-dialog-title translate>SCENARIO_EDITOR_BOARD_STATE</h2>
+
+<mat-dialog-content class="scenario-state-popup">
+  <div class="scenario-state-popup__grid">
+    <mat-form-field appearance="outline">
+      <mat-label translate>SCENARIO_EDITOR_PHASE</mat-label>
+      <input matInput type="number" [(ngModel)]="phase" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label translate>SCENARIO_EDITOR_TURN</mat-label>
+      <input matInput type="number" [(ngModel)]="turn" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label translate>SCENARIO_EDITOR_ACTIVE_PLAYER</mat-label>
+      <mat-select [(ngModel)]="activePlayer">
+        <mat-option *ngFor="let actor of actors" [value]="actor">{{ actor }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label translate>SCENARIO_EDITOR_WINNER</mat-label>
+      <input matInput type="number" [(ngModel)]="winner" />
+    </mat-form-field>
+  </div>
+
+  <div class="scenario-state-popup__markers">
+    <h3 translate>SCENARIO_EDITOR_MARKERS</h3>
+    <div class="scenario-state-popup__marker-row" *ngFor="let row of markerRows">
+      <span>{{ row.player }}</span>
+      <span>{{ row.marker }}</span>
+      <mat-form-field appearance="outline">
+        <input matInput type="number" [(ngModel)]="row.value" />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="ptcg-u-spacer"></span>
+  <button mat-stroked-button (click)="close()">{{ 'BUTTON_CLOSE' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

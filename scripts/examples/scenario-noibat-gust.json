@@ -1,0 +1,55 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 2,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["嗡蝠 094/129#14602"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本超能量 430/414#8983", "基本恶能量 432/414#8985"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["毛崖蟹 080/128#15938"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "起风"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 40
+        }
+      ]
+    }
+  ]
+}

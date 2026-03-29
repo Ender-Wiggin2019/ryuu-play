@@ -1,0 +1,45 @@
+.scenario-dialog-content {
+  min-width: min(760px, 88vw);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scenario-dialog-hint {
+  margin: 0;
+  opacity: 0.72;
+  font-size: 13px;
+}
+
+.scenario-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scenario-section h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.scenario-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scenario-textarea {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .scenario-dialog-content {
+    min-width: 0;
+  }
+}

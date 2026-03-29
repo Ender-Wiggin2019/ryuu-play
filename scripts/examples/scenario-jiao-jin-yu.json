@@ -1,0 +1,71 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["角金鱼 050/207#17427"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.energies" }, "cards": ["基本无色能量 298/414#9025", "基本无色能量 298/414#9025"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "stadium" }, "cards": ["祭典会场 201/207#17578"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["怨影娃娃 053/127"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.energies" }, "cards": ["基本水能量 428/414#8981", "基本水能量 428/414#8981"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "潮旋"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": true
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [0]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": true
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [0]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 20 },
+        { "type": "zoneCount", "player": "PLAYER_2", "zone": "discard", "expected": 2 },
+        { "type": "energyAttached", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 0 }
+      ]
+    }
+  ]
+}

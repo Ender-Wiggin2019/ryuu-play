@@ -1,6 +1,11 @@
 import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Player, CardList } from '@ptcg/common';
 
+export interface BoardPrizeClickEvent {
+  prize: CardList;
+  index: number;
+}
+
 @Component({
   selector: 'ptcg-board-prizes',
   templateUrl: './board-prizes.component.html',
@@ -10,7 +15,9 @@ export class BoardPrizesComponent implements OnChanges {
 
   @Input() player: Player;
   @Input() clientId: number;
+  @Input() sandboxMode = false;
   @Output() prizeClick = new EventEmitter<CardList>();
+  @Output() prizeSlotClick = new EventEmitter<BoardPrizeClickEvent>();
 
   public prizes: CardList[] = new Array(6);
   public isOwner: boolean;
@@ -27,7 +34,11 @@ export class BoardPrizesComponent implements OnChanges {
     }
   }
 
-  public onPrizeClick(cardList: CardList) {
+  public onPrizeClick(cardList: CardList, index: number) {
+    if (this.sandboxMode) {
+      this.prizeSlotClick.next({ prize: cardList, index });
+      return;
+    }
     this.prizeClick.next(cardList);
   }
 

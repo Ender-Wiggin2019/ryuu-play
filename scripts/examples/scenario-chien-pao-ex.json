@@ -1,0 +1,47 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 1, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "prize", "slotIndex": 0 }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "prize", "slotIndex": 0 }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["古剑豹ex 157/130#13320"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "hand" }, "cards": [] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "deck" }, "cards": ["基本水能量 428/414#8981", "基本水能量 171/131#10474", "凉脊龙 131/130#13294"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "战栗冷气",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [0, 1]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "zoneCount", "player": "PLAYER_1", "zone": "hand", "expected": 2 },
+        { "type": "zoneCount", "player": "PLAYER_1", "zone": "deck", "expected": 1 }
+      ]
+    }
+  ]
+}

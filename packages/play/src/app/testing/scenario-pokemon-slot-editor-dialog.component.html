@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content class="scenario-dialog-content">
+  <p class="scenario-dialog-hint">
+    {{ data.target.player }} / {{ data.target.slot }}<span *ngIf="data.target.index !== undefined"> / {{ data.target.index }}</span>
+  </p>
+
+  <div class="scenario-grid">
+    <mat-form-field>
+      <mat-label translate>SCENARIO_DIALOG_DAMAGE_COUNTERS</mat-label>
+      <input matInput type="number" min="0" [(ngModel)]="damage" />
+    </mat-form-field>
+  </div>
+
+  <div class="scenario-section">
+    <h3 translate>SCENARIO_DIALOG_SPECIAL_CONDITIONS</h3>
+    <div class="scenario-chip-grid">
+      <button
+        mat-stroked-button
+        type="button"
+        *ngFor="let condition of conditionOptions"
+        [color]="hasCondition(condition) ? 'primary' : undefined"
+        (click)="toggleCondition(condition)">
+        {{ condition }}
+      </button>
+    </div>
+  </div>
+
+  <div class="scenario-section">
+    <h3 translate>SCENARIO_DIALOG_POKEMON_CARDS</h3>
+    <mat-form-field appearance="outline" class="scenario-textarea">
+      <mat-label translate>SCENARIO_DIALOG_ONE_FULL_NAME_PER_LINE</mat-label>
+      <textarea matInput rows="4" [(ngModel)]="pokemonInput"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="scenario-section">
+    <h3 translate>SCENARIO_DIALOG_ATTACHED_ENERGIES</h3>
+    <mat-form-field appearance="outline" class="scenario-textarea">
+      <mat-label translate>SCENARIO_DIALOG_ONE_FULL_NAME_PER_LINE</mat-label>
+      <textarea matInput rows="5" [(ngModel)]="energyInput"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="scenario-section">
+    <h3 translate>SCENARIO_DIALOG_ATTACHED_TRAINERS</h3>
+    <mat-form-field appearance="outline" class="scenario-textarea">
+      <mat-label translate>SCENARIO_DIALOG_ONE_FULL_NAME_PER_LINE</mat-label>
+      <textarea matInput rows="3" [(ngModel)]="trainerInput"></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">{{ 'BUTTON_CANCEL' | translate }}</button>
+  <button mat-raised-button color="primary" type="button" (click)="confirm()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

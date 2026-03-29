@@ -14,6 +14,7 @@ import { ReplaysComponent } from './replays/replays.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { SetNewPasswordComponent } from './login/set-new-password/set-new-password.component';
 import { TableComponent } from './table/table.component';
+import { ScenarioLabComponent } from './testing/scenario-lab.component';
 import { TestingComponent } from './testing/testing.component';
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'reset-password/:token', component: SetNewPasswordComponent },
     { path: 'table/:gameId', component: TableComponent, canActivate: [ CanActivateService ] },
     { path: 'testing', component: TestingComponent, canActivate: [ CanActivateService ] },
+    { path: 'scenario', component: ScenarioLabComponent, canActivate: [ CanActivateService ] },
     { path: '', redirectTo: '/games', pathMatch: 'full' },
 ];
 

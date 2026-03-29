@@ -1,0 +1,38 @@
+{
+  "name": "chrome-card-testing-plugin",
+  "version": "0.1.0",
+  "description": "Structure Chrome DevTools MCP based real-page testing sessions for Ryuu Play.",
+  "author": {
+    "name": "Ryuu Play",
+    "email": "easygod3780@example.com",
+    "url": "https://github.com/keeshii/ryuu-play"
+  },
+  "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "repository": "https://github.com/keeshii/ryuu-play",
+  "license": "MIT",
+  "keywords": [
+    "chrome",
+    "testing"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Chrome Card Testing Plugin",
+    "shortDescription": "为 /testing、/scenario、/table 提供结构化浏览器测试模板。",
+    "longDescription": "基于 Chrome DevTools MCP 的真实页面测试插件说明层。它提供默认登录环境、测试步骤模板和证据采集结构，不把浏览器操作硬编码成唯一实现。",
+    "developerName": "Ryuu Play",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+    "privacyPolicyURL": "https://github.com/keeshii/ryuu-play",
+    "termsOfServiceURL": "https://github.com/keeshii/ryuu-play",
+    "defaultPrompt": [
+      "登录默认账号并打开 /scenario 观察 prompt 和战场变化。",
+      "在 /testing 或 /table/:id 复现卡牌问题并采集截图与网络证据。",
+      "生成一份结构化浏览器测试会话模板。"
+    ],
+    "brandColor": "#D95D39"
+  }
+}

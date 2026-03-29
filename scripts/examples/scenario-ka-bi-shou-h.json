@@ -1,0 +1,73 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["卡比兽 158/204"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本草能量 426/414#8979"]
+        },
+        {
+          "op": "setDamage",
+          "target": { "player": "PLAYER_1", "slot": "ACTIVE" },
+          "damage": 100
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "hand" },
+          "cards": ["基本火能量 427/414#8980"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["怨影娃娃 053/127"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "填饱肚子"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [0]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_1",
+          "slot": "ACTIVE",
+          "expected": 40
+        },
+        {
+          "type": "energyAttached",
+          "player": "PLAYER_1",
+          "slot": "ACTIVE",
+          "expected": 2
+        }
+      ]
+    }
+  ]
+}

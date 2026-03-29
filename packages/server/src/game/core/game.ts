@@ -53,7 +53,20 @@ export class Game implements StoreHandler {
 
     if (state.phase === GamePhase.FINISHED) {
       this.stopTimer();
-      this.core.deleteGame(this);
+      if (!this.isScenarioGame()) {
+        this.core.deleteGame(this);
+      }
+    }
+  }
+
+  private isScenarioGame(): boolean {
+    try {
+      const scenarioLab = require('../../backend/services/scenario-lab') as {
+        ScenarioLabService?: { isScenarioGame: (gameId: number) => boolean }
+      };
+      return !!scenarioLab?.ScenarioLabService?.isScenarioGame?.(this.id);
+    } catch (error) {
+      return false;
     }
   }
 

@@ -1,0 +1,55 @@
+.scenario-dialog-content {
+  min-width: min(760px, 88vw);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scenario-dialog-hint {
+  margin: 0;
+  opacity: 0.72;
+  font-size: 13px;
+}
+
+.scenario-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scenario-section h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.scenario-add-row,
+.scenario-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.scenario-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.scenario-textarea {
+  width: 100%;
+}
+
+.scenario-card-name {
+  flex: 1;
+  margin-right: 12px;
+  word-break: break-word;
+}
+
+@media (max-width: 720px) {
+  .scenario-dialog-content {
+    min-width: 0;
+  }
+
+  .scenario-add-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["起源帕路奇亚V 050/128#9554"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.energies" }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "deck" }, "cards": ["海滩场地 165/129#14404", "基本草能量 426/414#8979"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["毛崖蟹 080/128#15938"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "领域支配"
+      }
+    },
+    { "type": "createStateRefresh" },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [0]
+    },
+    { "type": "createStateRefresh" },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_2",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": true
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "cardInZone", "player": "PLAYER_1", "zone": "hand", "cardName": "海滩场地 165/129#14404" }
+      ]
+    }
+  ]
+}

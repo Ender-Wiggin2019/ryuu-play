@@ -8,6 +8,7 @@ import {
   ChoosePokemonPrompt,
   Effect,
   EnergyCard,
+  EnergyType,
   GameError,
   GameMessage,
   Player,
@@ -67,7 +68,7 @@ function* useStarPortal(
       player.id,
       GameMessage.CHOOSE_CARD_TO_ATTACH,
       player.discard,
-      { superType: SuperType.ENERGY, provides: [CardType.WATER] },
+      { superType: SuperType.ENERGY, energyType: EnergyType.BASIC, provides: [CardType.WATER] },
       { min: 1, max: maxEnergyToAttach, allowCancel: false }
     ),
     selected => {
@@ -111,18 +112,25 @@ export class OriginFormePalkiaVSTAR extends PokemonCard {
       commodityCode: 'CS5bC',
       details: {
         regulationMarkText: 'F',
-        collectionNumber: '051/128'
+        collectionNumber: '051/128',
       },
       image: 'img/182/91.png',
-      hash: '07fed544c1c1ae4e887aca65e8bd2930'
+      hash: '07fed544c1c1ae4e887aca65e8bd2930',
+      features: [
+        {
+          id: 1,
+          name: '星界传说',
+          text: '在自己的回合可以使用1次。从自己弃牌区将最多3张【水】能量卡，以任意方式附着于自己的【水】宝可梦身上。',
+        },
+      ],
     },
     collection: {
       id: 182,
       commodityCode: 'CS5bC',
       name: '补充包 勇魅群星 勇',
-      salesDate: '2024-06-18'
+      salesDate: '2024-06-18',
     },
-    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/91.png'
+    image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/182/91.png',
   };
 
   public tags = [CardTag.POKEMON_VSTAR];

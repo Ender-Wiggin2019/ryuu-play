@@ -1,0 +1,32 @@
+{
+  "name": "ryuu-play-local",
+  "interface": {
+    "displayName": "Ryuu Play Local Plugins"
+  },
+  "plugins": [
+    {
+      "name": "add-card-plugin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/add-card-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "chrome-card-testing-plugin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/chrome-card-testing-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

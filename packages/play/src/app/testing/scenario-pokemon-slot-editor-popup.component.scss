@@ -1,0 +1,29 @@
+.scenario-slot-popup__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+  gap: 16px;
+  width: min(1000px, 92vw);
+}
+
+.scenario-slot-popup__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.scenario-slot-popup__field,
+.scenario-slot-popup__field textarea {
+  width: 100%;
+}
+
+.scenario-slot-popup__forms {
+  display: grid;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .scenario-slot-popup__layout,
+  .scenario-slot-popup__meta {
+    grid-template-columns: 1fr;
+  }
+}

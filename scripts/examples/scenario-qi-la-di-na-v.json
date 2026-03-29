@@ -1,0 +1,110 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "骑拉帝纳V CS6bC"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": [
+            "Double Colorless Energy BS"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "deck"
+          },
+          "cards": [
+            "Water Energy BS",
+            "Grass Energy BS",
+            "Fire Energy BS",
+            "Psychic Energy BS",
+            "Metal Energy EVO"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "深渊探求"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        0,
+        1
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "Water Energy BS"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "Grass Energy BS"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "lostzone",
+          "cardName": "Fire Energy BS"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "lostzone",
+          "cardName": "Psychic Energy BS"
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "deck",
+          "expected": 1
+        }
+      ]
+    }
+  ]
+}

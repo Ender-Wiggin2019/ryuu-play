@@ -19,8 +19,8 @@
 
           <mat-form-field>
             <mat-label translate>TESTING_PLAYER_DECK</mat-label>
-            <mat-select [(value)]="playerDeck">
-              <mat-option *ngFor="let option of decks" [value]="option">
+            <mat-select [(value)]="playerDeckId">
+              <mat-option *ngFor="let option of decks" [value]="option.id">
                 {{ option.name }}
               </mat-option>
             </mat-select>
@@ -28,8 +28,8 @@
 
           <mat-form-field>
             <mat-label translate>TESTING_BOT_DECK</mat-label>
-            <mat-select [(value)]="botDeck">
-              <mat-option *ngFor="let option of decks" [value]="option">
+            <mat-select [(value)]="botDeckId">
+              <mat-option *ngFor="let option of decks" [value]="option.id">
                 {{ option.name }}
               </mat-option>
             </mat-select>

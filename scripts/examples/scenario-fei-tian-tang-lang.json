@@ -1,0 +1,78 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "飞天螳螂 001/052#15994"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": []
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "bench.pokemons",
+            "slotIndex": 0
+          },
+          "cards": [
+            "土龙弟弟 161/204#16327"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "retreat",
+      "payload": {
+        "to": 0
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "active.pokemons",
+          "cardName": "土龙弟弟 161/204#16327"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "bench.pokemons",
+          "cardName": "飞天螳螂 001/052#15994"
+        }
+      ]
+    }
+  ]
+}

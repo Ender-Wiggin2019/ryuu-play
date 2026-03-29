@@ -9,6 +9,7 @@ import { SocketCache } from './socket-cache';
 import { SocketWrapper, Response } from './socket-wrapper';
 import { deepCompare } from '@ptcg/common';
 import { Base64 } from '@ptcg/common';
+import { ScenarioLabService } from '../services/scenario-lab';
 
 export class CoreSocket {
 
@@ -40,18 +41,29 @@ export class CoreSocket {
   }
 
   public onGameAdd(game: Game): void {
+    if (ScenarioLabService.isScenarioGame(game.id)) {
+      return;
+    }
     this.cache.lastLogIdCache[game.id] = 0;
     this.cache.gameInfoCache[game.id] = CoreSocket.buildGameInfo(game);
     this.socket.emit('core:createGame', this.cache.gameInfoCache[game.id]);
   }
 
   public onGameDelete(game: Game): void {
+    if (ScenarioLabService.isScenarioGame(game.id)) {
+      delete this.cache.gameInfoCache[game.id];
+      delete this.cache.lastLogIdCache[game.id];
+      return;
+    }
     delete this.cache.gameInfoCache[game.id];
     delete this.cache.lastLogIdCache[game.id];
     this.socket.emit('core:deleteGame', game.id);
   }
 
   public onStateChange(game: Game, state: State): void {
+    if (ScenarioLabService.isScenarioGame(game.id)) {
+      return;
+    }
     const gameInfo = CoreSocket.buildGameInfo(game);
     if (!deepCompare(gameInfo, this.cache.gameInfoCache[game.id])) {
       this.cache.gameInfoCache[game.id] = gameInfo;
@@ -85,7 +97,9 @@ export class CoreSocket {
         userId: client.user.id
       })),
       users: this.core.clients.map(client => CoreSocket.buildUserInfo(client.user)),
-      games: this.core.games.map(game => CoreSocket.buildGameInfo(game))
+      games: this.core.games
+        .filter(game => !ScenarioLabService.isScenarioGame(game.id))
+        .map(game => CoreSocket.buildGameInfo(game))
     };
   }
 

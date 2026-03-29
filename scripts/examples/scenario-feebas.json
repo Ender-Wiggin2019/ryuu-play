@@ -1,0 +1,60 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["丑丑鱼 056/207#17433"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本水能量 428/414#8981"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["阿尔宙斯V 106/127#9890"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["妖火红狐V 012/072#10946"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "跃起逃脱"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "player": 2, "slot": 2, "index": 0 }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "cardInZone", "player": "PLAYER_1", "zone": "active.pokemons", "cardName": "阿尔宙斯V" },
+        { "type": "cardInZone", "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0, "cardName": "丑丑鱼" }
+      ]
+    }
+  ]
+}

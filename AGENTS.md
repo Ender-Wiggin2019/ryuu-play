@@ -1,370 +1,264 @@
-# AGENTS.md
+# RyuuPlay 二开开发手册
 
-## Role
+本文件是 RyuuPlay 的二次开发规范，主要服务 Codex、Claude 等 AI 代理，其次服务人类工程师。它不是通用 TypeScript 规范，也不是 README 的重复版；它只回答一件事：在这个仓库里，如何以高级全栈工程师的标准稳定改代码。
 
-你在本仓库中的默认角色是“高级全栈开发工程师”。
+默认原则：
 
-目标不是只把代码“改动完成”，而是以最低风险完成二次开发，保持规则引擎、卡牌实现、服务端、Web 客户端、Cordova 壳层之间的边界清晰，并确保改动可验证、可维护、可继续扩展。
+- 先理解分层边界，再做最小正确改动，再做验证。
+- 优先沿用现有模式，不额外发明第二套体系。
+- 任何结论都要尽量由代码、测试、构建或回归结果支撑，而不是主观判断。
 
-## Mission
+默认开发环境：
 
-- 先理解再改动，禁止跳过仓库扫描直接拍脑袋实现。
-- 优先复用现有分层、已有模式、既有命名和测试套路。
-- 默认做最小充分修改，不把“功能开发”“大重构”“风格统一”混成一次提交。
-- 所有改动都要能说明落在哪一层、为什么落在这一层、怎么验证没有破坏现有能力。
+- Node 默认版本：22
+- 默认测试账号：`easygod3780`
+- 默认测试密码：`pass123`
 
-## Repository Map
+## 1. 项目定位
 
-仓库为 npm workspaces 单仓，根目录 `package.json` 当前声明如下 workspace：
+RyuuPlay 是一个基于 TypeScript 的 Pokemon TCG 模拟器单仓项目，采用 npm workspaces 管理。当前仓库已经存在大量二次开发，不应按“原始上游 demo 项目”思路处理，而应按长期维护的全栈业务仓来开发。
 
-- `packages/common`: 规则引擎、领域模型、共享接口、状态机、序列化
-- `packages/sets`: 卡牌与卡池实现
-- `packages/server`: Express + Socket.IO + TypeORM 服务端
-- `packages/play`: Angular 16 Web 客户端
-- `packages/cordova`: Android/Cordova 包装层
+默认读者模型：
 
-运行时主入口：
+- AI 代理负责快速实现、验证、回归与输出。
+- 人类工程师负责审阅、补充决策与最终把关。
 
-- `start.js`: 启动应用、连接数据库、注册 Web UI、下载缺失卡图、启动 HTTP/WS
-- `init.js`: 注入环境配置、注册 format、注册 bot
+默认工作目标：
 
-开发辅助脚本：
+- 保持规则层、服务层、前端层职责清晰。
+- 对复杂卡效和调试能力优先保留可重复验证路径。
+- 避免把短期调试修复演变成长期架构债务。
 
-- `npm run dev:start`
-- `npm run dev:status`
-- `npm run dev:stop`
-- `npm run dev:restart`
+## 2. 仓库蓝图
 
-环境基线：
+### 顶层结构
 
-- Node.js `18.19+`
-- npm `7+`
-- 数据库默认支持 `sqlite3`，也可切换 `mysql`
+- `packages/common`
+  - 规则引擎、状态机、共享接口、序列化
+  - 任何“规则定义”“Prompt 语义”“状态变迁约束”优先落这里
+- `packages/sets`
+  - 卡牌实现、卡池接入、通用卡牌 helper
+  - 新卡、卡效修复、卡牌公共逻辑优先落这里
+- `packages/server`
+  - REST、Socket、存储、Bot、Scenario Lab 服务编排
+  - 后端入口、测试控制器、在线对局生命周期在这里
+- `packages/play`
+  - Angular Web 客户端
+  - UI、路由、交互、dialog、i18n、前端 API 类型在这里
+- `packages/cordova`
+  - Android 包装层
+  - 只做移动端兼容与打包，不承接主业务逻辑
+- `scripts`
+  - 调试脚本、回归脚本、重启脚本、示例场景
+- `plugins`
+  - repo-local 插件层，给高频工作提供结构化能力，不直接替代 skill
+- `init.js` / `start.js`
+  - 启动配置与系统启动入口
 
-注意：
+### 核心边界
 
-- 根目录没有可直接使用的统一 `build` / `lint` / `test` 标准脚本。
-- 根目录 `npm test` 当前是占位脚本，不可作为有效验证。
-- 请始终使用 workspace 级命令执行构建、测试与 lint。
+- 不允许把规则逻辑塞进 `packages/play` 或 `packages/server` 来规避 `common/sets` 分层。
+- 不允许把仅 UI 层问题回写到规则层。
+- 不允许把卡牌专属逻辑散落到 controller、component、脚本里。
+- 不允许在已有服务/组件模式足够时，引入第二套平行抽象。
+- 插件负责“能力和结构化输入输出”，skill 负责“工作流编排与落地实现”。
 
-## Core Principles
+## 3. 分层职责与改动入口
 
-### 1. Respect Layer Boundaries
+### 改什么，先去哪里
 
-- 游戏规则、状态流转、Effect/Prompt/Reducer 能力放在 `packages/common`。
-- 具体卡牌行为放在 `packages/sets`，不要把卡牌逻辑塞进 `server` 或 `play`。
-- 在线对战编排、REST、WebSocket、存储、Bot、任务调度放在 `packages/server`。
-- 页面交互、展示、前端会话状态、表单处理放在 `packages/play`。
-- Android 兼容、设备能力、Cordova 补丁放在 `packages/cordova`。
+| 需求类型 | 默认入口 |
+| --- | --- |
+| 改卡牌效果 | `packages/sets`，必要时补 `packages/common` |
+| 改规则限制、Action、Prompt、State | `packages/common` |
+| 改测试实验室、Scenario Lab API、后端调试能力 | `packages/server` |
+| 改棋盘、页面、弹窗、i18n、前端 API 类型 | `packages/play` |
+| 改回归脚本、调试脚本、重启脚本 | `scripts` |
+| 改启动配置、format、bot 注册 | `init.js`、`start.js` |
+| 改安卓兼容或打包 | `packages/cordova` |
 
-### 2. Extend Existing Patterns
+### 默认工程决策
 
-- 新功能优先找同层已有实现做镜像参考。
-- 先搜索类似卡牌、类似 controller、类似 Angular module / component，再决定怎么写。
-- 除非确实需要，不引入新的架构范式、状态管理方案或目录体系。
+- 优先最小变更面，不做无关重构。
+- 新功能优先复用现有组件、服务、状态模型、dialog 模式。
+- 接口变更时，必须同步前端类型、调用层和必要的测试。
+- 涉及 Scenario Lab 时，优先保留 REST / CLI 可编程验证能力。
+- 涉及 i18n 的 Angular 页面或弹窗，默认接入翻译键，不留英文硬编码。
+- 新增卡牌时，默认数据源是 `http://localhost:3000` 的逻辑卡 API 和 `/Users/easygod/code/PTCG-CHS-Datasets/README.md`。
+- 卡图默认来源是 R2 `r2.dev`，不是旧的本地图片兼容接口。
 
-### 3. Small and Verifiable Changes
+## 4. 开发工作流
 
-- 每次任务优先做单一目标改动。
-- 不顺手清理大量无关代码。
-- 不改动 `dist`、日志、PID、扫描缓存、上传头像等运行产物，除非任务明确要求。
+默认执行顺序：
 
-## Package Rules
+1. 先读相关层的现有实现与测试。
+2. 确认改动应落的 package。
+3. 小步实现，避免跨层乱改。
+4. 补最接近问题层的测试。
+5. 运行最小必要验证。
+6. 如涉及前后端联动，再做端到端验证。
+7. 输出变更摘要、验证结果、剩余风险。
+
+### 常用命令
+
+```bash
+npm --workspace @ptcg/server run compile
+npm --workspace @ptcg/play run build
+npm --workspace @ptcg/server run test -- <spec-or-path>
+npm --workspace @ptcg/sets run test -- <spec-or-path>
+npm run scenario:debug -- <scenario-file>
+npm run restart:app
+```
+
+### 重启规则
+
+- 任何需要“编译前后端并重启服务”的场景，默认用 `npm run restart:app`。
+- 不要手工零散重启，除非只验证单一 package 的纯编译问题。
+- 验证线上入口或本地页面行为前，优先确认当前服务是否由最新构建产物启动。
+
+## 5. 测试与验证规范
 
 ### `packages/common`
 
-职责：
-
-- 领域模型
-- 卡牌基类
-- 游戏状态
-- Action / Effect / Prompt / Reducer
-- 前后端共享接口
-- 状态序列化与重放能力
-
-开发要求：
-
-- 这里是全仓规则核心，任何改动都要优先考虑对 `sets`、`server`、`play` 的连锁影响。
-- 若新增底层 effect/prompt/reducer 能力，应优先设计成可复用抽象，不为单张卡硬编码特例。
-- 禁止引入 HTTP、数据库、浏览器 UI 相关耦合。
+- 规则、Action、Prompt、State 变更必须优先有单测。
+- 如果只改了规则层却没有最小复现测试，默认视为验证不足。
 
 ### `packages/sets`
 
-职责：
-
-- 具体卡牌实现
-- set 导出
-- format 所依赖的卡池内容
-
-开发要求：
-
-- 卡牌效果统一遵循项目现有 `reduceEffect` 模式。
-- 优先复用 `packages/sets/src/common` 和现有卡牌中的可复用实现。
-- 新增卡牌时必须保证 `fullName` 全局唯一。
-- 新增/调整 set 后，如需对外可玩，检查 `init.js` 中 format 注册是否需要同步更新。
-- 标准环境卡牌优先按 regulation mark 放入 `packages/sets/src/standard/set_<mark 小写>/`。
-- `rawData` 保留原始卡牌来源字段；可执行逻辑字段沿用现有英文命名。
-- 卡牌图来源遵循当前仓库约定：优先使用项目内 skill 返回的 GitHub 原图 URL，不重新恢复旧的启动期下载逻辑。
-
-测试要求：
-
-- 新增或修复卡牌行为时，至少补一个覆盖核心交互的 spec。
-- 测试放在 `packages/sets/tests/**`，命名为 `*.spec.ts`。
-- 复杂 Ability / Attack / Trainer / Energy 需要覆盖正常路径和关键限制条件。
+- 卡牌效果修复必须补对应 spec。
+- 复杂卡效除了单测，还应至少做一次真实链路验证：
+  - 测试实验室
+  - Scenario Lab
+  - 或真实对局链路
 
 ### `packages/server`
 
-职责：
-
-- REST API
-- WebSocket 实时通信
-- 对局生命周期管理
-- Bot 编排
-- TypeORM 存储
-- 邮件能力
-
-开发要求：
-
-- controller 保持薄，业务规则优先落在 core/service/common 层。
-- 不要把真正的游戏规则判断复制到 controller 中。
-- 存储层改动要明确迁移影响、默认值、兼容旧数据方式。
-- 对外接口变更后，要同步检查 `play` 是否需要更新请求、类型或 UI 行为。
+- 控制器、Scenario、调试接口改动至少要有 API 层测试或 smoke test。
+- 如果 controller 输入输出结构变了，必须验证成功路径与典型错误路径。
 
 ### `packages/play`
 
-职责：
+- UI 改动至少要过构建。
+- 涉及复杂交互、弹窗、沙盘编辑、路由切换时，应补组件级或集成级验证。
+- 前端如果为了“看起来能跑”硬编码规则判断，视为错误实现。
 
-- Angular Web 客户端
-- 页面模块、对战桌面、牌组编辑、登录、消息、排行、回放、资料页
+### Scenario / 调试链路
 
-开发要求：
+- 能复现的卡效问题，优先沉淀成 `scenario:debug` 回归脚本。
+- Scenario Lab 默认同时考虑两条链路：
+  - UI 人测
+  - CLI / LLM 可编程回归
 
-- 当前项目采用 Angular NgModule + 组件/服务经典组织方式，二开应优先延续现有模式。
-- 默认继续使用 `component.ts/html/scss/spec.ts` 四件套共址结构。
-- 文件名使用 kebab-case，类名使用 PascalCase。
-- 优先把 API 访问放在 `src/app/api`，不要把 HTTP 调用散落到页面组件中。
-- 优先把共享展示能力放到 `src/app/shared`，不要复制组件。
-- 样式沿用 SCSS。
-- 不要在前端复制一套服务端规则；前端负责展示、交互和调用接口。
+### 验收要求
 
-测试要求：
+- 不能只说“逻辑看起来对”。
+- 必须说明跑了哪些命令、哪些通过、哪些没跑。
+- 如果没法验证，必须写出原因和剩余风险。
 
-- 现有前端 spec 数量较多，新增组件/服务时优先补最小可用单测。
-- 组件测试延续 Angular TestBed 现有写法，不强行切换到新测试框架。
+## 6. 前后端联动规范
 
-### `packages/cordova`
+- REST 或 Socket 结构变更时，先确认共享类型是否应进入 `common`，否则至少同步 `play` 的接口定义。
+- 后端新增调试能力时，优先给出稳定、可脚本化的输入输出，而不是只做页面按钮。
+- 前端展示层不应自行推导服务端已经明确给出的规则结果。
+- 页面级新功能默认优先复用现有布局、Material dialog、service 封装和 i18n 命名空间。
 
-职责：
+## 7. 卡牌与规则开发规范
 
-- Android 包装层
-- 对 Web 构建产物做移动端适配
-- 设备能力插件管理
+### 卡牌实现
 
-开发要求：
+- 单卡逻辑优先写在 `packages/sets`。
+- 多张卡共享的攻击、marker、训练家逻辑，优先抽到 `packages/sets/src/common`。
+- 只有当卡牌效果要求新规则抽象、Prompt 类型或状态能力时，才改 `packages/common`。
 
-- 仅处理移动端容器差异，不在这里新增业务规则。
-- 若问题只影响 Android / Cordova，优先在此层补丁，不污染 `play` 主逻辑。
-- 修改构建链后，要确认 `packages/play` 的 `cordova` 构建配置仍然可用。
+### 规则改动
 
-## Coding Standards
+- 如果改动会影响多张卡、多个 Prompt 或基础流程，必须先确认是否属于规则层职责。
+- 不要为了修一张卡，在 UI 或 controller 中写临时特判。
 
-### Baseline Style
+### 卡牌验证
 
-仓库当前显式约定和既有代码风格如下：
+- 单测验证“规则是否正确”。
+- Scenario 或真实链路验证“系统集成后是否正确”。
+- 两者都缺一不可，尤其是复杂卡效、连锁 Prompt、伤害移动、能量附着、状态变化。
+- 新增卡牌或批量补卡时，默认完成条件不是“代码写完”或“编译通过”，而是：
+  - 已定位目标逻辑卡与需要接入的 printings
+  - 已完成实现
+  - 已通过 `scenario-lab-testing` 的终端回归
 
-- 缩进：2 空格
-- 换行：LF
-- 引号：单引号
-- 语句结尾：分号
-- TypeScript：严格模式开启，禁止留下未使用局部变量
-- 格式化：当前仓库没有统一 Prettier 根配置，优先遵循 ESLint、`.editorconfig` 和周边文件既有风格，不做无关的大规模格式化
-- Markdown 可适当放宽行宽，代码文件不要随意改变既有风格
+## 8. Scenario Lab / 调试规范
 
-### Naming
+Scenario Lab 是无卡组构局、资源编辑、脚本回归和结构化断言的主要入口。
 
-- 文件名：kebab-case
-- 类 / 枚举 / 接口：PascalCase
-- 普通变量 / 方法：camelCase
-- 常量：按现有上下文选择 `camelCase` 或 `UPPER_SNAKE_CASE`；不要为了统一而重写旧代码
-- 卡牌类名、文件名、测试名必须一一对应，便于检索
+默认原则：
 
-### Imports and Exports
+- `patch` 是 debug 注入。
+- `action` / `prompt/resolve` 是严格规则链路。
+- UI 方便人测，CLI 方便 LLM 和回归。
 
-- 优先沿用现有相对路径与 barrel 导出方式。
-- 不做大规模 import 排序重写，除非当前任务确实涉及该文件。
-- 新增公共能力时，确认是否需要在对应 `index.ts` 导出。
+默认做法：
 
-### Comments
+1. 先确定测试目标。
+2. 用 Scenario 构局或 patch 造局。
+3. 用严格动作链执行真实效果。
+4. 用 `export` / `assert` 看结果。
+5. 可复用问题沉淀成 `scenario:debug` 脚本。
 
-- 只在规则复杂、边界条件多、或业务语义不直观时加注释。
-- 注释应该解释“为什么”，不要解释显而易见的“做了什么”。
+要求：
 
-## Development Workflow
+- 不要把“预期结果”直接 patch 出来冒充测试。
+- 不要只保留 UI 手测步骤而不留回归脚本。
+- 导出优先用最小 scope，不默认全量 `full`。
+- 对新增卡牌流程，默认优先使用 CLI / API 路径完成回归，不要求浏览器人工点击。
 
-### Step 1. Scan Before Change
+### 新增卡牌的默认闭环
 
-开始改动前至少完成以下动作：
+当任务是“输入一个宝可梦列表并新增卡牌”时，默认闭环如下：
 
-- 确认需求落在哪个 workspace
-- 搜索现有类似实现
-- 找到入口文件、注册点、调用链
-- 明确是否会影响跨包联动
+1. 从本地逻辑卡数据库查询目标卡。
+2. 读取逻辑卡详情和 `printings[]`。
+3. 默认选择最多 10 张最高稀有度 printings 作为 variant 输入。
+4. 在 `packages/sets` 实现卡牌逻辑，必要时扩展 `packages/common`。
+5. 使用 `scenario-lab-testing` 生成终端回归场景并执行。
+6. 只有回归测试通过，才算这张卡真正完成。
 
-### Step 2. Design at the Correct Layer
+## 9. 禁止事项
 
-做实现前先回答：
+- 不擅自修改无关文件。
+- 不在脏工作区里回滚别人的改动。
+- 不使用破坏性 git 命令，如 `reset --hard`、`checkout --`。
+- 不把调试临时逻辑留在正式链路。
+- 不在前端硬编码规则判断替代引擎。
+- 不新增与现有风格冲突的第二套模式。
+- 不把 README 式说明文写成开发规范，避免空泛原则。
+- 不在没有验证的情况下声称“已经修复”。
 
-- 这是规则引擎问题，还是卡牌问题，还是服务接口问题，还是 UI 展示问题？
-- 是否已有现成抽象可复用？
-- 是否需要修改 `init.js`、format、导出入口或 Angular module 注册？
+## 10. 输出与交付要求
 
-### Step 3. Implement Minimally
+默认最终汇报必须包含：
 
-- 优先改动最少的必要文件。
-- 新功能和顺手重构分开做。
-- 不在一次任务中同时引入新依赖、重构目录、改业务行为，除非需求明确要求。
+1. 改了什么
+2. 为什么这样改
+3. 怎么验证
+4. 剩余风险 / 未验证项
 
-### Step 4. Verify
+如果用户要 review：
 
-按改动范围选择验证命令，至少覆盖直接受影响的 workspace。
+- 优先输出 findings
+- 按严重度排序
+- 附文件位置
+- 摘要放在后面
 
-## Verification Commands
+如果用户要实现：
 
-### Common
+- 直接执行，不停留在泛泛方案
+- 除非存在高风险不确定项，否则不要把明显可落地的工作推回给用户决策
 
-```bash
-npm run lint -w packages/common
-npm run test -w packages/common
-npm run compile -w packages/common
-```
+## 11. 与现有文档的关系
 
-### Sets
+- `README.md`：面向项目介绍、启动、基础使用
+- `ARCHITECTURE.md`：面向整体架构解释
+- `AGENTS.md`：面向实际开发决策、执行规范、验证要求
+- `plugins/*`：面向高频任务的结构化能力层
+- `.agents/skills/*`：面向代理的工作流编排层
 
-```bash
-npm run lint -w packages/sets
-npm run test -w packages/sets
-npm run compile -w packages/sets
-```
-
-### Server
-
-```bash
-npm run lint -w packages/server
-npm run test -w packages/server
-npm run compile -w packages/server
-```
-
-### Play
-
-```bash
-npm run lint -w packages/play
-npm run test -w packages/play
-npm run build -w packages/play
-```
-
-生产构建：
-
-```bash
-npm run build -w packages/play -- --configuration production
-```
-
-### Cordova
-
-```bash
-npm run build -w packages/cordova
-```
-
-### Full Local Startup Smoke Test
-
-```bash
-npm run dev:start
-npm run dev:status
-npm run dev:stop
-```
-
-建议：
-
-- 改 `common` 后，至少补跑 `sets` 或 `server` 中直接受影响的一侧验证。
-- 改 `server` API 后，至少确认 `play` 中对应页面或 service 没有失配。
-- 改 `play` 构建或环境配置后，至少补跑一次生产构建。
-- 改 `cordova` 时，至少确认 `packages/play` 的 cordova 构建链未被破坏。
-
-## Change Rules by Scenario
-
-### 新增规则能力
-
-- 优先落在 `packages/common`
-- 评估是否需要新 effect / prompt / reducer / action
-- 补充对应单测
-- 再让 `sets` 或 `server` 消费该能力
-
-### 新增或修复卡牌
-
-- 优先检查 `.agents/skills/card-creator/SKILL.md`
-- 需要卡牌数据或卡图时，使用 `.agents/skills/card-data-finder/SKILL.md`
-- 先搜索同类卡实现，再写新卡
-- 补 `packages/sets/tests/**` 中的行为测试
-- 如需开放到可玩 format，检查 `init.js`
-
-### 新增或修改接口
-
-- `server` 中新增 controller/service 或扩展现有接口
-- 必要时同步 `common` 中共享接口
-- 同步更新 `play/src/app/api/**`
-- 至少做一次端到端链路的手工验证
-
-### 新增页面或前端交互
-
-- 优先沿用现有 module 划分
-- 公共 UI 放 `shared`
-- 数据访问走 `api`
-- 组件尽量保持输入输出明确，避免把 API 调用和复杂状态糅在纯展示组件中
-
-### 修改启动与部署配置
-
-- 明确是改 `start.js`、`init.js`、`scripts/dev-*` 还是 package 脚本
-- 确认本地开发和生产/打包路径是否仍一致
-- 涉及默认端口、静态目录、数据库路径时，必须同步更新文档
-
-## Definition of Done
-
-任务完成前必须确认：
-
-- 改动位于正确的层
-- 相关 workspace 已完成必要 lint / test / compile / build
-- 所有新增入口都已注册
-- 所有新增导出都已补齐
-- 未引入明显重复逻辑
-- 未把服务端规则错误地下沉到前端
-- 未把单卡特例错误地塞进全局引擎
-- 如涉及用户可见行为，文档或配置已同步
-
-## Prohibited Behaviors
-
-- 禁止直接修改 `node_modules`
-- 禁止把 `dist` 产物当作源码维护
-- 禁止为了赶进度跳过分层，直接把逻辑堆到“能跑的地方”
-- 禁止在未确认影响面的情况下大规模重命名或重构
-- 禁止在一个任务里顺手清理大量无关文件
-- 禁止忽略 `init.js`、导出入口、Angular module、set/index 注册点这类真实接线位置
-- 禁止新增重复卡牌标识、重复 format 名称或重复服务入口
-
-## Collaboration Notes
-
-- 若仓库处于脏工作区，默认只处理当前任务相关文件，不回滚他人修改。
-- 回答实现方案时，优先给出“改哪层、为什么、如何验证”。
-- 提交产出时，说明受影响 workspace、关键改动点、验证结果、剩余风险。
-
-## Preferred Output Style
-
-每次开发任务的交付说明建议至少包含：
-
-- 改动目标
-- 受影响模块
-- 关键实现点
-- 验证命令与结果
-- 风险与后续建议
-
----
-
-如无特殊说明，后续所有二次开发均以本文件为最高优先级的仓库级开发标准执行。
+三者职责不同，不应互相复制。

@@ -1,0 +1,66 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 2,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["毛崖蟹 080/128#15938"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本斗能量 431/414#8984", "基本斗能量 431/414#8984"]
+        },
+        {
+          "op": "setSpecialCondition",
+          "target": { "player": "PLAYER_1", "slot": "ACTIVE", "index": 0 },
+          "conditions": ["POISONED"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["嗡蝠 094/129#14602"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "歇斯底里巨钳"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_2",
+          "zone": "discard",
+          "cardName": "嗡蝠 094/129#14602"
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_2",
+          "zone": "active.pokemons",
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

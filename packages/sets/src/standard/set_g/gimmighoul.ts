@@ -10,26 +10,28 @@ import {
   StoreLike,
 } from '@ptcg/common';
 
-function* useContinuousCoinToss(
-  next: Function,
+function useContinuousCoinToss(
   store: StoreLike,
   state: State,
   effect: AttackEffect
-): IterableIterator<State> {
+): State {
   const player = effect.player;
 
   let flipResult = false;
   let heads = 0;
-  do {
-    yield store.prompt(state, new CoinFlipPrompt(player.id, GameMessage.COIN_FLIP), result => {
+  const flip = (): State => {
+    return store.prompt(state, new CoinFlipPrompt(player.id, GameMessage.COIN_FLIP), result => {
       flipResult = result;
       heads += flipResult ? 1 : 0;
-      next();
+      if (flipResult) {
+        flip();
+      } else {
+        effect.damage = heads * 20;
+      }
     });
-  } while (flipResult);
+  };
 
-  effect.damage = heads * 20;
-  return state;
+  return flip();
 }
 
 export class Gimmighoul extends PokemonCard {
@@ -84,8 +86,7 @@ export class Gimmighoul extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      const generator = useContinuousCoinToss(() => generator.next(), store, state, effect);
-      return generator.next().value;
+      return useContinuousCoinToss(store, state, effect);
     }
 
     return state;

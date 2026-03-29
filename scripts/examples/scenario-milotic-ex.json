@@ -1,0 +1,44 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 1 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["美纳斯ex 057/207#17434"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["厄诡椪 火灶面具ex CSV8C"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.energies" },
+          "cards": ["基本火能量 427/414#8980", "基本火能量 427/414#8980", "基本火能量 427/414#8980"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_2",
+      "actionType": "attack",
+      "payload": {
+        "attack": "强劲烈焰"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_1", "slot": "ACTIVE", "expected": 0 },
+        { "type": "energyAttached", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 3 }
+      ]
+    }
+  ]
+}

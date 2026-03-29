@@ -1,0 +1,67 @@
+{
+  "create": {
+    "formatName": "WorkerC"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["阿尔宙斯V 106/127#9890"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本火能量 427/414#8980", "基本水能量 428/414#8981"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": ["基本钢能量 433/414#8986", "基本雷能量 429/414#8982", "基本超能量 430/414#8983"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["妖火红狐V 012/072#10946"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.energies" },
+          "cards": []
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "三重蓄能"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "index": 0, "to": { "player": 2, "slot": 1, "index": 0 } },
+        { "index": 1, "to": { "player": 2, "slot": 1, "index": 0 } },
+        { "index": 2, "to": { "player": 2, "slot": 1, "index": 0 } }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "energyAttached", "player": "PLAYER_1", "slot": "ACTIVE", "expected": 5 },
+        { "type": "zoneCount", "player": "PLAYER_1", "zone": "deck", "expected": 0 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 2,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["智挥猩V 150/128#9654"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": ["大气球 119/130#13549", "勇气护符 260/207#17637"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "hand" },
+          "cards": []
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "预订",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": 1,
+      "result": [0, 1]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "assert",
+        "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "大气球 119/130#13549"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_1",
+          "zone": "hand",
+          "cardName": "勇气护符 260/207#17637"
+        },
+        {
+          "type": "zoneCount",
+          "player": "PLAYER_1",
+          "zone": "deck",
+          "expected": 0
+        }
+      ]
+    }
+  ]
+}

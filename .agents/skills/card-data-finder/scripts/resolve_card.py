@@ -16,6 +16,24 @@ LIST_ENDPOINT = '/api/v1/cards'
 DETAIL_ENDPOINT = '/api/v1/cards/{card_id}'
 IMAGE_PREFIX = '/api/v1/cards/'
 PAGE_SIZE = 60
+DEFAULT_PRINTING_LIMIT = 10
+RARITY_PRIORITY = {
+    'ur': 100,
+    'sar': 95,
+    'csr': 90,
+    'chr': 88,
+    'sr': 85,
+    'ar': 80,
+    'rrr': 75,
+    'rr': 70,
+    'r': 60,
+    '★': 58,
+    'c★★': 57,
+    'c★': 56,
+    'u': 30,
+    'c': 20,
+    '无标记': 10,
+}
 
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = SKILL_ROOT / 'assets'
@@ -124,6 +142,45 @@ def build_raw_data(detail: Dict[str, Any]) -> Dict[str, Any]:
         'source': 'local-api',
         'api_card': detail,
     }
+
+
+def rarity_score(printing: Dict[str, Any]) -> int:
+    label = str(printing.get('rarityLabel') or '').strip().lower()
+    code = str(printing.get('rarityCode') or '').strip().lower()
+    return max(
+        RARITY_PRIORITY.get(label, 0),
+        RARITY_PRIORITY.get(code, 0)
+    )
+
+
+def select_top_printings(detail: Dict[str, Any], limit: int = DEFAULT_PRINTING_LIMIT) -> List[Dict[str, Any]]:
+    printings = list(detail.get('printings') or [])
+    printings.sort(
+        key=lambda item: (
+            rarity_score(item),
+            str(item.get('regulationMark') or ''),
+            str(item.get('collectionNumber') or ''),
+            int(item.get('id') or 0),
+        ),
+        reverse=True
+    )
+    return printings[:limit]
+
+
+def build_printing_variants(detail: Dict[str, Any], limit: int = DEFAULT_PRINTING_LIMIT) -> List[Dict[str, Any]]:
+    variants: List[Dict[str, Any]] = []
+    for printing in select_top_printings(detail, limit):
+        variants.append({
+            'id': printing.get('id'),
+            'imageUrl': build_absolute_image_url(printing.get('imageUrl') or ''),
+            'collectionNumber': printing.get('collectionNumber'),
+            'collectionName': printing.get('collectionName'),
+            'collectionId': printing.get('collectionId'),
+            'regulationMark': printing.get('regulationMark'),
+            'rarityCode': printing.get('rarityCode'),
+            'rarityLabel': printing.get('rarityLabel'),
+        })
+    return variants
 
 
 def fetch_card_detail(card_id: int) -> Dict[str, Any]:
@@ -330,6 +387,10 @@ def run_search(args: argparse.Namespace) -> int:
         selected['api_card'] = detail
         selected['card'] = build_raw_data(detail)
         selected['image_url'] = build_absolute_image_url(detail.get('imageUrl') or '')
+        selected['selectedLogicalCard'] = detail
+        selected['selectedPrintings'] = build_printing_variants(detail, args.limit_printings)
+        selected['r2ImageUrls'] = [item['imageUrl'] for item in selected['selectedPrintings']]
+        selected['rawDataSeed'] = selected['card']
         result['selected'] = selected
     elif len(candidates) == 1:
         detail = fetch_card_detail(int(candidates[0]['id']))
@@ -337,6 +398,10 @@ def run_search(args: argparse.Namespace) -> int:
         selected['api_card'] = detail
         selected['card'] = build_raw_data(detail)
         selected['image_url'] = build_absolute_image_url(detail.get('imageUrl') or '')
+        selected['selectedLogicalCard'] = detail
+        selected['selectedPrintings'] = build_printing_variants(detail, args.limit_printings)
+        selected['r2ImageUrls'] = [item['imageUrl'] for item in selected['selectedPrintings']]
+        selected['rawDataSeed'] = selected['card']
         result['selected'] = selected
 
     print(json.dumps(result, ensure_ascii=False, indent=2))
@@ -355,6 +420,7 @@ def build_parser() -> argparse.ArgumentParser:
     search_parser.add_argument('--limit', type=int, default=20, help='Max candidates to return.')
     search_parser.add_argument('--select', type=int, default=None, help='Select index from current candidates.')
     search_parser.add_argument('--refresh', action='store_true', help='Refresh cache before searching.')
+    search_parser.add_argument('--limit-printings', type=int, default=DEFAULT_PRINTING_LIMIT, help='Max printings to include when selecting a logical card.')
     search_parser.set_defaults(func=run_search)
 
     return parser

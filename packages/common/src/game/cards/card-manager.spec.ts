@@ -134,6 +134,16 @@ describe('CardManager', () => {
     expect(service.isCardDefined('Fire TEST')).toEqual(false);
   });
 
+  it('Should resolve legacy card names without commodity code', () => {
+    const card = new ExampleCard('Water');
+    card.fullName = '喷火龙ex CSV5C 155/129#14812';
+    card.name = '喷火龙ex';
+    service.defineSet([card]);
+
+    expect(service.isCardDefined('喷火龙ex 155/129#14812')).toEqual(true);
+    expect(service.getCardByName('喷火龙ex 155/129#14812')?.fullName).toEqual('喷火龙ex CSV5C 155/129#14812');
+  });
+
   it('Should return formats for given card', () => {
     service.defineFormat('Format 1', [set1, set2]);
     service.defineFormat('Format 2', [set1]);

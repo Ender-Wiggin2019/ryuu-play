@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content class="scenario-popup">
+  <div class="scenario-slot-popup__layout">
+    <div class="scenario-slot-popup__forms">
+      <div class="scenario-slot-popup__meta">
+        <mat-form-field appearance="outline">
+          <mat-label translate>SCENARIO_EDITOR_DAMAGE</mat-label>
+          <input matInput type="number" [(ngModel)]="damage" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label translate>SCENARIO_EDITOR_CONDITIONS</mat-label>
+          <mat-select [(ngModel)]="conditions" multiple>
+            <mat-option *ngFor="let condition of specialConditions" [value]="condition">
+              {{ condition }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="scenario-slot-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_POKEMON_LINES</mat-label>
+        <textarea matInput [(ngModel)]="pokemonLines" rows="4" spellcheck="false"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="scenario-slot-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_ENERGY_LINES</mat-label>
+        <textarea matInput [(ngModel)]="energyLines" rows="6" spellcheck="false"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="scenario-slot-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_TRAINER_LINES</mat-label>
+        <textarea matInput [(ngModel)]="trainerLines" rows="4" spellcheck="false"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="scenario-slot-popup__catalog">
+      <mat-form-field appearance="outline" class="scenario-slot-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_BUCKET</mat-label>
+        <mat-select [(ngModel)]="selectedBucket">
+          <mat-option value="pokemon" translate>SCENARIO_EDITOR_BUCKET_POKEMON</mat-option>
+          <mat-option value="energies" translate>SCENARIO_EDITOR_BUCKET_ENERGY</mat-option>
+          <mat-option value="trainers" translate>SCENARIO_EDITOR_BUCKET_TRAINER</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="scenario-slot-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_CARD_SEARCH</mat-label>
+        <input matInput [(ngModel)]="searchTerm" />
+      </mat-form-field>
+
+      <div class="scenario-popup__cards">
+        <button
+          type="button"
+          class="scenario-popup__card"
+          *ngFor="let card of filteredCards"
+          (click)="addCard(card)">
+          <ptcg-card [card]="card"></ptcg-card>
+          <div class="scenario-popup__card-meta">
+            <strong>{{ card | localizedCardName }}</strong>
+            <span>{{ card.fullName }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="ptcg-u-spacer"></span>
+  <button mat-stroked-button (click)="close()">{{ 'BUTTON_CLOSE' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

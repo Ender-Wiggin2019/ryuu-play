@@ -1,0 +1,37 @@
+{
+  "generatedBy": "python3 plugins/add-card-plugin/scripts/resolve_add_card.py '红莲铠骑' --select-id 640 && python3 plugins/add-card-plugin/scripts/resolve_add_card.py '红莲铠骑ex' --select-id 1000 && python3 plugins/add-card-plugin/scripts/resolve_add_card.py '炭小侍' --select-id 639",
+  "cards": [
+    {
+      "query": "红莲铠骑",
+      "logicalCardId": 640,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 11855, "collectionNumber": "028/127", "rarityLabel": "R", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/244/75.png" },
+        { "id": 16058, "collectionNumber": "065/052", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/314/64.png" },
+        { "id": 14065, "collectionNumber": "023/SV-P", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/277/4.png" },
+        { "id": 16010, "collectionNumber": "017/052", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/314/16.png" },
+        { "id": 15470, "collectionNumber": "015/024", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/307/2.png" },
+        { "id": 12132, "collectionNumber": "028/127", "rarityLabel": "R★★★", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/244/77.png" },
+        { "id": 12019, "collectionNumber": "028/127", "rarityLabel": "R☆★", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/244/76.png" }
+      ]
+    },
+    {
+      "query": "红莲铠骑ex",
+      "logicalCardId": 1000,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 14796, "collectionNumber": "139/129", "rarityLabel": "SR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/368.png" },
+        { "id": 14678, "collectionNumber": "021/129", "rarityLabel": "RR", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/54.png" }
+      ]
+    },
+    {
+      "query": "炭小侍",
+      "logicalCardId": 639,
+      "setTarget": "packages/sets/src/standard/set_g/",
+      "selectedPrintings": [
+        { "id": 16057, "collectionNumber": "064/052", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/314/63.png" },
+        { "id": 16009, "collectionNumber": "016/052", "rarityLabel": "无标记", "imageUrl": "https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/314/15.png" }
+      ]
+    }
+  ]
+}

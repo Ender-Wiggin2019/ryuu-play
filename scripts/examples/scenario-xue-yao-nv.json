@@ -1,0 +1,32 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "prize", "slotIndex": 0 }, "cards": ["基本草能量 426/414#8979"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "prize", "slotIndex": 0 }, "cards": ["基本水能量 428/414#8981"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["雪妖女 059/204#16225"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 }, "cards": ["谜拟丘 062/130#13225"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["光辉洗翠大狃拉 079/127"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "passTurn"
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_1", "slot": "ACTIVE", "expected": 0 },
+        { "type": "damage", "player": "PLAYER_1", "slot": "BENCH", "slotIndex": 0, "expected": 20 },
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 20 }
+      ]
+    }
+  ]
+}

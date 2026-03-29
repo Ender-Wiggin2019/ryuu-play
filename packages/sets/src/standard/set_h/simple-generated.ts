@@ -4,6 +4,7 @@ import {
   CardTag,
   CardType,
   CheckProvidedEnergyEffect,
+  EnergyType,
   Effect,
   PokemonCard,
   PowerType,
@@ -67,7 +68,7 @@ class GeneratedSimpleHPokemonCard extends PokemonCard {
       const checkProvidedEnergy = new CheckProvidedEnergyEffect(effect.player, effect.player.active);
       state = store.reduceEffect(state, checkProvidedEnergy);
       const specialEnergyCount = checkProvidedEnergy.energyMap
-        .filter(e => e.card.energyType === 'SPECIAL')
+        .filter(e => e.card.energyType === EnergyType.SPECIAL)
         .length;
       effect.damage = specialEnergyCount * 70;
       return state;

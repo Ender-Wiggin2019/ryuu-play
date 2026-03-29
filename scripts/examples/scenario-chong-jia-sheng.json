@@ -1,0 +1,66 @@
+{
+  "create": {
+    "formatName": "",
+    "playerDeckId": 5,
+    "botDeckId": 6
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 1 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["虫甲圣 031/204#16197"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["木木枭 014/207#17391"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["古月鸟 25 05/07#17243"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.energies" },
+          "cards": ["基本草能量 TEST", "基本草能量 TEST", "基本草能量 TEST"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["木木枭 014/207#17391"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_2",
+      "actionType": "attack",
+      "payload": {
+        "attack": "喷吐射击"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_2",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        { "player": 1, "slot": 2, "index": 0 }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "BENCH", "slotIndex": 0, "expected": 0 }
+      ]
+    }
+  ]
+}

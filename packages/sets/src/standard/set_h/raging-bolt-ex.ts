@@ -28,6 +28,7 @@ export class RagingBoltEx extends PokemonCard {
       details: {
         regulationMarkText: 'H',
         collectionNumber: '154/204',
+        specialCardLabel: '古代',
       },
       image: 'img/324/419.png',
       hash: '88bb8a843fd664b158b742c7d6e410e8',
@@ -45,11 +46,11 @@ export class RagingBoltEx extends PokemonCard {
 
   public stage: Stage = Stage.BASIC;
 
-  public cardTypes: CardType[] = [CardType.LIGHTNING];
+  public cardTypes: CardType[] = [CardType.DRAGON];
 
   public hp: number = 240;
 
-  public weakness = [{ type: CardType.FIGHTING }];
+  public weakness: { type: CardType }[] = [];
 
   public retreat = [CardType.COLORLESS, CardType.COLORLESS, CardType.COLORLESS];
 

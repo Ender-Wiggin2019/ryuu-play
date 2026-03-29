@@ -1,0 +1,125 @@
+.scenario-lab-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.scenario-lab-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px 24px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 216, 107, 0.18), transparent 40%),
+    linear-gradient(135deg, rgba(23, 35, 58, 0.96), rgba(10, 16, 30, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scenario-lab-hero h2,
+.scenario-lab-hero p {
+  margin: 0;
+}
+
+.scenario-lab-hint {
+  margin-top: 8px !important;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.scenario-lab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: 320px;
+}
+
+.scenario-empty mat-card,
+.scenario-board-card,
+.scenario-status-card,
+.scenario-resource-card,
+.scenario-result-card {
+  background:
+    linear-gradient(180deg, rgba(13, 21, 37, 0.96), rgba(8, 12, 24, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scenario-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(320px, 420px);
+  gap: 20px;
+}
+
+.scenario-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scenario-status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.scenario-resource-card mat-card-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.scenario-panel-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.scenario-panel-block h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.scenario-assert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.scenario-raw {
+  max-height: 320px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f7f4ea;
+  font-size: 12px;
+}
+
+code {
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 1080px) {
+  .scenario-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-lab-hero {
+    flex-direction: column;
+  }
+
+  .scenario-lab-toolbar {
+    width: 100%;
+    justify-content: flex-start;
+    min-width: 0;
+  }
+}

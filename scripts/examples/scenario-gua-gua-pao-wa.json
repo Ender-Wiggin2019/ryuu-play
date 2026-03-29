@@ -1,0 +1,72 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["呱呱泡蛙 028/128#12686"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本水能量 428/414#8981"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["土龙弟弟 161/204#16327"]
+        },
+        {
+          "op": "setDamage",
+          "target": { "player": "PLAYER_2", "slot": "ACTIVE" },
+          "damage": 20
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 2,
+          "activePlayer": 0
+        },
+        {
+          "op": "clearPrompts"
+        }
+      ]
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "跳一下"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": true
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 50
+        }
+      ]
+    }
+  ]
+}

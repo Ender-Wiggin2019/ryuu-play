@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const CSV_PATH = path.join(ROOT, 'tracking', 'fgh-pokemon-progress.csv');
+const CSV_PATH = path.join(ROOT, 'tracking', 'set-f-pokemon-progress.csv');
 const OUTPUT_PATH = path.join(ROOT, 'packages', 'sets', 'src', 'standard', 'set_h', 'simple-generated.ts');
 const CARD_IMAGE_BASE_URL = process.env.PTCG_CARD_IMAGE_BASE_URL
   || 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev';

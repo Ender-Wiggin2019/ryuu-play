@@ -1,0 +1,158 @@
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+/Users/easygod/code/ryuu-play/packages/common/dist/cjs/game/cards/card-manager.js:57
+                throw new Error('Multiple cards with the same name: ' + card.fullName);
+                ^
+
+Error: Multiple cards with the same name: 百变怪 168/151#11531
+    at CardManager.defineSet (/Users/easygod/code/ryuu-play/packages/common/dist/cjs/game/cards/card-manager.js:57:23)
+    at Object.<anonymous> (/Users/easygod/code/ryuu-play/init.js:36:13)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Module._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at require (node:internal/modules/helpers:147:16)
+
+Node.js v22.22.0
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+/Users/easygod/code/ryuu-play/init.js:41
+cardManager.defineSet(standardSets.baseSets.setBase);
+                                            ^
+
+TypeError: Cannot read properties of undefined (reading 'setBase')
+    at Object.<anonymous> (/Users/easygod/code/ryuu-play/init.js:41:45)
+    at Module._compile (node:internal/modules/cjs/loader:1706:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1839:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Module._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.require (node:internal/modules/cjs/loader:1463:12)
+    at require (node:internal/modules/helpers:147:16)
+    at Object.<anonymous> (/Users/easygod/code/ryuu-play/start.js:6:1)
+
+Node.js v22.22.0
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+TransactionNotStartedError: Transaction is not started yet, start transaction before committing or rolling it back.
+    at SqliteQueryRunner.commitTransaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite-abstract/AbstractSqliteQueryRunner.js:92:19)
+    at EntityManager.transaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/entity-manager/EntityManager.js:76:31)
+    at async MatchRecorder.saveMatch (/Users/easygod/code/ryuu-play/packages/server/dist/cjs/game/core/match-recorder.js:61:13)
+TransactionNotStartedError: Transaction is not started yet, start transaction before committing or rolling it back.
+    at SqliteQueryRunner.commitTransaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite-abstract/AbstractSqliteQueryRunner.js:92:19)
+    at EntityManager.transaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/entity-manager/EntityManager.js:76:31)
+    at async MatchRecorder.saveMatch (/Users/easygod/code/ryuu-play/packages/server/dist/cjs/game/core/match-recorder.js:61:13)
+QueryFailedError: SQLITE_ERROR: no such savepoint: typeorm_2
+    at Statement.handler (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite/SqliteQueryRunner.js:88:37)
+    at Statement.replacement (/Users/easygod/code/ryuu-play/node_modules/sqlite3/lib/trace.js:25:27)
+    at Statement.replacement (/Users/easygod/code/ryuu-play/node_modules/sqlite3/lib/trace.js:25:27) {
+  query: 'RELEASE SAVEPOINT typeorm_2',
+  parameters: undefined,
+  driverError: Error: SQLITE_ERROR: no such savepoint: typeorm_2
+  --> in Statement#all(undefined, [Function: replacement])
+      at Database.<anonymous> (/Users/easygod/code/ryuu-play/node_modules/sqlite3/lib/sqlite3.js:88:19)
+      at Database.<anonymous> (/Users/easygod/code/ryuu-play/node_modules/sqlite3/lib/sqlite3.js:20:19)
+      at execute (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite/SqliteQueryRunner.js:67:50)
+      at /Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite/SqliteQueryRunner.js:111:23
+      at new Promise (<anonymous>)
+      at SqliteQueryRunner.query (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite/SqliteQueryRunner.js:56:16)
+      at async SqliteQueryRunner.commitTransaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/driver/sqlite-abstract/AbstractSqliteQueryRunner.js:95:13)
+      at async EntityManager.transaction (/Users/easygod/code/ryuu-play/node_modules/typeorm/entity-manager/EntityManager.js:76:13) {
+    errno: 1,
+    code: 'SQLITE_ERROR',
+    __augmented: true
+  },
+  errno: 1,
+  code: 'SQLITE_ERROR',
+  __augmented: true
+}
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.
+Application started on 0.0.0.0:12021.
+Server listening on 0.0.0.0:12021.

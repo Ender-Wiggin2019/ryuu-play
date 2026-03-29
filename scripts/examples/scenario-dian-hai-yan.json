@@ -1,0 +1,32 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["电海燕 055/207#15509"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.energies" }, "cards": ["基本无色能量 298/414#9025", "基本无色能量 298/414#9025"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "discard" }, "cards": ["黑暗鸦 089/207#15526", "缠红鹤 134/207#15551"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["怨影娃娃 053/127"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "团结之翼"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "damage", "player": "PLAYER_2", "slot": "ACTIVE", "expected": 40 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 2, "activePlayer": 0 },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["猛雷鼓 161/207#17538"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["猛雷鼓ex CSV7C"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "discard" },
+          "cards": ["基本雷能量 429/414#8982", "基本斗能量 431/414#8984"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "hand" },
+          "cards": ["奥琳博士的气魄 238/SV-P#17375"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "deck" },
+          "cards": ["基本草能量 426/414#8979", "基本火能量 427/414#8980", "基本水能量 428/414#8981"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["嗡蝠 094/129#14602"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "playCard",
+      "payload": {
+        "handIndex": 0,
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        {
+          "to": { "player": 2, "slot": 1, "index": 0 },
+          "index": 0
+        },
+        {
+          "to": { "player": 2, "slot": 2, "index": 0 },
+          "index": 1
+        }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "energyAttached", "player": "PLAYER_1", "slot": "ACTIVE", "expected": 1 },
+        { "type": "energyAttached", "player": "PLAYER_1", "slot": "BENCH", "slotIndex": 0, "expected": 1 },
+        { "type": "zoneCount", "player": "PLAYER_1", "zone": "hand", "expected": 3 }
+      ]
+    }
+  ]
+}

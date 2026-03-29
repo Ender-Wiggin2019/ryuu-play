@@ -1,0 +1,45 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "appendLog",
+      "payload": {
+        "message": "scenario turn=${lastExport.turn}; player=${lastExport.players.0.name}; pendingPrompts=${lastExport.prompts.length}"
+      }
+    },
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "setTurnMarker",
+          "player": "${lastExport.players.0.side}",
+          "marker": "energyPlayedTurn",
+          "value": "${lastExport.turn}"
+        }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "turnMarker",
+          "player": "${lastExport.players.0.side}",
+          "marker": "energyPlayedTurn",
+          "expected": "${lastExport.turn}"
+        }
+      ]
+    },
+    {
+      "type": "export",
+      "scope": "player",
+      "player": "PLAYER_1"
+    }
+  ]
+}

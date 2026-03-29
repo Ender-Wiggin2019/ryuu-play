@@ -1,5 +1,6 @@
 import {
   AttackEffect,
+  DealDamageEffect,
   CardTag,
   CardType,
   ChoosePokemonPrompt,
@@ -109,6 +110,7 @@ export class FezandipitiEx extends PokemonCard {
 
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       const player = effect.player;
+      const opponent = effect.opponent;
       return store.prompt(
         state,
         new ChoosePokemonPrompt(
@@ -123,9 +125,17 @@ export class FezandipitiEx extends PokemonCard {
             return;
           }
 
-          const damageEffect = new PutDamageEffect(effect, 100);
-          damageEffect.target = targets[0];
-          store.reduceEffect(state, damageEffect);
+          const target = targets[0];
+          if (target === opponent.active) {
+            const damageEffect = new DealDamageEffect(effect, 100);
+            damageEffect.target = target;
+            store.reduceEffect(state, damageEffect);
+            return;
+          }
+
+          const benchDamage = new PutDamageEffect(effect, 100);
+          benchDamage.target = target;
+          store.reduceEffect(state, benchDamage);
         }
       );
     }

@@ -1,0 +1,104 @@
+{
+  "create": {
+    "formatName": ""
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 1,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "洗翠 黏美龙V CS5.5C"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_1",
+            "zone": "active.energies"
+          },
+          "cards": [
+            "Water Energy BS",
+            "Metal Energy EVO"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_2",
+            "zone": "active.pokemons"
+          },
+          "cards": [
+            "Pikachu BS"
+          ]
+        },
+        {
+          "op": "setZoneCards",
+          "target": {
+            "player": "PLAYER_2",
+            "zone": "bench.pokemons",
+            "slotIndex": 0
+          },
+          "cards": [
+            "Zapdos BS"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "滑溜打滚"
+      }
+    },
+    {
+      "type": "createStateRefresh"
+    },
+    {
+      "type": "resolvePrompt",
+      "actor": "PLAYER_1",
+      "promptId": "${lastExport.prompts.0.id}",
+      "result": [
+        {
+          "player": "PLAYER_2",
+          "slot": "BENCH",
+          "index": 0
+        }
+      ]
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_2",
+          "zone": "active.pokemons",
+          "cardName": "Zapdos BS"
+        },
+        {
+          "type": "cardInZone",
+          "player": "PLAYER_2",
+          "zone": "bench.pokemons",
+          "slotIndex": 0,
+          "cardName": "Pikachu BS"
+        }
+      ]
+    }
+  ]
+}

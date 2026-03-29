@@ -1,0 +1,65 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+
+<mat-dialog-content class="scenario-dialog-content">
+  <p class="scenario-dialog-hint">
+    {{ data.target.player }} / {{ data.target.zone }}<span *ngIf="data.target.slotIndex !== undefined"> / {{ data.target.slotIndex }}</span>
+  </p>
+
+  <div class="scenario-section">
+    <h3 translate>SCENARIO_DIALOG_ZONE_CARDS</h3>
+    <div class="scenario-add-row">
+      <mat-form-field>
+        <mat-label translate>SCENARIO_DIALOG_CARD_FULL_NAME</mat-label>
+        <input matInput [(ngModel)]="cardName" />
+      </mat-form-field>
+      <button mat-stroked-button type="button" (click)="addCard()" translate>SCENARIO_DIALOG_ADD</button>
+    </div>
+
+    <mat-form-field appearance="outline" class="scenario-textarea">
+      <mat-label translate>SCENARIO_DIALOG_BULK_ADD</mat-label>
+      <textarea matInput rows="4" [(ngModel)]="bulkCards"></textarea>
+    </mat-form-field>
+    <button mat-stroked-button type="button" (click)="addBulkCards()" translate>SCENARIO_DIALOG_ADD_LINES</button>
+
+    <mat-list>
+      <mat-list-item *ngFor="let card of cards; index as i; trackBy: trackByCard">
+        <span class="scenario-card-name">{{ i + 1 }}. {{ card }}</span>
+        <button mat-button color="warn" type="button" (click)="removeCard(i)" translate>SCENARIO_DIALOG_REMOVE</button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+  <div class="scenario-section">
+    <mat-checkbox [(ngModel)]="moveEnabled" translate>SCENARIO_DIALOG_MOVE_AFTER_SAVE</mat-checkbox>
+    <div class="scenario-grid" *ngIf="moveEnabled">
+      <mat-form-field>
+        <mat-label translate>SCENARIO_ASSERT_INDEX</mat-label>
+        <input matInput type="number" min="0" [(ngModel)]="moveCardIndex" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label translate>SCENARIO_DIALOG_TARGET_PLAYER</mat-label>
+        <mat-select [(ngModel)]="movePlayer">
+          <mat-option *ngFor="let actor of actorOptions" [value]="actor">{{ actor }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label translate>SCENARIO_DIALOG_TARGET_ZONE</mat-label>
+        <mat-select [(ngModel)]="moveZone">
+          <mat-option *ngFor="let zone of zoneOptions" [value]="zone">{{ zone }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="requiresSlotIndex(moveZone)">
+        <mat-label translate>SCENARIO_DIALOG_TARGET_SLOT_INDEX</mat-label>
+        <input matInput type="number" min="0" [(ngModel)]="moveSlotIndex" />
+      </mat-form-field>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">{{ 'BUTTON_CANCEL' | translate }}</button>
+  <button mat-raised-button color="primary" type="button" (click)="confirm()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

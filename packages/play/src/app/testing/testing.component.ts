@@ -20,8 +20,8 @@ export class TestingComponent implements OnInit {
   public loading = false;
   public allDecks: DeckListEntry[] = [];
   public decks: DeckListEntry[] = [];
-  public playerDeck: DeckListEntry | undefined;
-  public botDeck: DeckListEntry | undefined;
+  public playerDeckId: number | undefined;
+  public botDeckId: number | undefined;
   public formats: Format[] = [];
   public format: Format | undefined;
   private destroyRef = inject(DestroyRef);
@@ -62,12 +62,13 @@ export class TestingComponent implements OnInit {
       ? this.allDecks.filter(deck => deck.formatNames.includes(format.name))
       : this.allDecks.slice();
 
-    if (!this.playerDeck || !this.decks.some(deck => deck.id === this.playerDeck!.id)) {
-      this.playerDeck = this.decks[0];
+    if (!this.playerDeck || !this.decks.some(deck => deck.id === this.playerDeck.id)) {
+      this.playerDeckId = this.decks[0]?.id;
     }
 
-    if (!this.botDeck || !this.decks.some(deck => deck.id === this.botDeck!.id)) {
-      this.botDeck = this.playerDeck;
+    if (!this.botDeck || !this.decks.some(deck => deck.id === this.botDeck.id)) {
+      const fallbackBotDeck = this.decks.find(deck => deck.id !== this.playerDeckId) ?? this.decks[0];
+      this.botDeckId = fallbackBotDeck?.id;
     }
   }
 
@@ -94,5 +95,13 @@ export class TestingComponent implements OnInit {
           this.router.navigate(['/table', localId]);
         }
       });
+  }
+
+  public get playerDeck(): DeckListEntry | undefined {
+    return this.decks.find(deck => deck.id === this.playerDeckId);
+  }
+
+  public get botDeck(): DeckListEntry | undefined {
+    return this.decks.find(deck => deck.id === this.botDeckId);
   }
 }

@@ -21,6 +21,8 @@ import {
   SuperType,
 } from '@ptcg/common';
 
+const PEN_HUO_LONG_EX_LOGIC_GROUP_KEY = 'pokemon:喷火龙ex:Y1181:G:hp330:烈炎支配:燃烧黑暗180+';
+
 export class PenHuoLongEx extends PokemonCard {
   public rawData = {
     raw_card: {
@@ -78,6 +80,8 @@ export class PenHuoLongEx extends PokemonCard {
       name: '补充包 黑晶炽诚',
     },
     image_url: 'https://pub-a275b3fdda064fe5a8c45a3a5afb1266.r2.dev/298/202.png',
+    logic_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
+    variant_group_key: PEN_HUO_LONG_EX_LOGIC_GROUP_KEY,
   };
 
   public tags = [CardTag.POKEMON_EX, CardTag.TERA];

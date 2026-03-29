@@ -1,0 +1,32 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        { "op": "clearPrompts" },
+        { "op": "setState", "phase": 2, "turn": 1, "activePlayer": 0 },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.pokemons" }, "cards": ["猛恶菇 135/128#15722"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_1", "zone": "active.energies" }, "cards": ["驱劲能量 古代 118/128#15970"] },
+        { "op": "setZoneCards", "target": { "player": "PLAYER_2", "zone": "active.pokemons" }, "cards": ["凉脊龙 131/130#13294"] }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "ability",
+      "payload": {
+        "ability": "烈毒粉尘",
+        "target": { "player": 2, "slot": 1, "index": 0 }
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        { "type": "specialCondition", "player": "PLAYER_2", "slot": "ACTIVE", "condition": "POISONED" }
+      ]
+    }
+  ]
+}

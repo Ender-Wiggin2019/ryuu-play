@@ -1,0 +1,60 @@
+.scenario-popup {
+  width: min(960px, 92vw);
+}
+
+.scenario-popup__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 16px;
+}
+
+.scenario-popup__hint {
+  margin: 0 0 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+
+.scenario-popup__field,
+.scenario-popup__field textarea {
+  width: 100%;
+}
+
+.scenario-popup__cards {
+  display: grid;
+  gap: 10px;
+  max-height: 520px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.scenario-popup__card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.scenario-popup__card-meta {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.scenario-popup__card-meta span {
+  opacity: 0.7;
+  word-break: break-all;
+}
+
+@media (max-width: 900px) {
+  .scenario-popup__layout {
+    grid-template-columns: 1fr;
+  }
+}

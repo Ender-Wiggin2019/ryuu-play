@@ -77,10 +77,18 @@ describe('TestingComponent', () => {
 
   it('loads valid decks and creates a testing game', () => {
     expect(component.playerDeck?.name).toBe('Deck A');
-    expect(component.botDeck?.name).toBe('Deck A');
+    expect(component.botDeck?.name).toBe('Deck B');
 
     component.createGame();
 
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/table', 7]);
+  });
+
+  it('keeps player and bot selections independent', () => {
+    component.playerDeckId = 1;
+    component.botDeckId = 2;
+
+    expect(component.playerDeck?.name).toBe('Deck A');
+    expect(component.botDeck?.name).toBe('Deck B');
   });
 });

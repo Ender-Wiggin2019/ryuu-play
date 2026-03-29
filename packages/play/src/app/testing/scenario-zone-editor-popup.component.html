@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content class="scenario-popup">
+  <div class="scenario-popup__layout">
+    <div class="scenario-popup__editor">
+      <p class="scenario-popup__hint" translate>SCENARIO_EDITOR_ZONE_HINT</p>
+      <mat-form-field appearance="outline" class="scenario-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_ZONE_LINES</mat-label>
+        <textarea
+          matInput
+          [(ngModel)]="cardLines"
+          rows="16"
+          spellcheck="false"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="scenario-popup__catalog">
+      <mat-form-field appearance="outline" class="scenario-popup__field">
+        <mat-label translate>SCENARIO_EDITOR_CARD_SEARCH</mat-label>
+        <input matInput [(ngModel)]="searchTerm" />
+      </mat-form-field>
+
+      <div class="scenario-popup__cards">
+        <button
+          type="button"
+          class="scenario-popup__card"
+          *ngFor="let card of filteredCards"
+          (click)="addCard(card)">
+          <ptcg-card [card]="card"></ptcg-card>
+          <div class="scenario-popup__card-meta">
+            <strong>{{ card | localizedCardName }}</strong>
+            <span>{{ card.fullName }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <span class="ptcg-u-spacer"></span>
+  <button mat-stroked-button (click)="clearCards()">{{ 'BUTTON_DELETE' | translate }}</button>
+  <button mat-stroked-button (click)="close()">{{ 'BUTTON_CLOSE' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ 'BUTTON_SAVE' | translate }}</button>
+</mat-dialog-actions>

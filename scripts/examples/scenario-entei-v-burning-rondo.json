@@ -1,0 +1,75 @@
+{
+  "create": {
+    "formatName": "Standard"
+  },
+  "steps": [
+    {
+      "type": "patch",
+      "operations": [
+        {
+          "op": "clearPrompts"
+        },
+        {
+          "op": "setState",
+          "phase": 2,
+          "turn": 2,
+          "activePlayer": 0
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.pokemons" },
+          "cards": ["炎帝V 154/131#10739"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "active.energies" },
+          "cards": ["基本火能量 427/414#8980", "基本草能量 426/414#8979"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["嗡蝠 094/129#14602"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_1", "zone": "bench.pokemons", "slotIndex": 1 },
+          "cards": ["毛崖蟹 080/128#15938"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "active.pokemons" },
+          "cards": ["智挥猩V 150/128#9654"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "bench.pokemons", "slotIndex": 0 },
+          "cards": ["嗡蝠 094/129#14602"]
+        },
+        {
+          "op": "setZoneCards",
+          "target": { "player": "PLAYER_2", "zone": "bench.pokemons", "slotIndex": 1 },
+          "cards": ["毛崖蟹 080/128#15938"]
+        }
+      ]
+    },
+    {
+      "type": "action",
+      "actor": "PLAYER_1",
+      "actionType": "attack",
+      "payload": {
+        "attack": "燃烧回旋曲"
+      }
+    },
+    {
+      "type": "assert",
+      "checks": [
+        {
+          "type": "damage",
+          "player": "PLAYER_2",
+          "slot": "ACTIVE",
+          "expected": 100
+        }
+      ]
+    }
+  ]
+}
