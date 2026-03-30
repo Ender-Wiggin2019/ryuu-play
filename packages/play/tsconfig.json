@@ -8,9 +8,18 @@
     "declaration": false,
     "module": "es2020",
     "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
     "typeRoots": [
       "../../node_modules/@types",
       "node_modules/@types"

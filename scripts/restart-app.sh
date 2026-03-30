@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
+NODE_BIN="$(command -v node)"
 
 LOG_DIR="$ROOT_DIR/logs"
 PID_FILE="$ROOT_DIR/run/app.pid"
@@ -11,14 +12,21 @@ APP_PORT="$(node -e "console.log(require('@ptcg/server').config.backend.port)")"
 APP_HOST="$(node -e "console.log(require('@ptcg/server').config.backend.address || '127.0.0.1')")"
 
 mkdir -p "$LOG_DIR" "$ROOT_DIR/run"
+: >"$APP_LOG"
 
-echo "[restart-app] 1/5 Compile server"
+echo "[restart-app] 1/7 Compile common"
+npm --workspace @ptcg/common run compile
+
+echo "[restart-app] 2/7 Compile sets"
+npm --workspace @ptcg/sets run compile
+
+echo "[restart-app] 3/7 Compile server"
 npm --workspace @ptcg/server run compile
 
-echo "[restart-app] 2/5 Build play"
+echo "[restart-app] 4/7 Build play"
 npm --workspace @ptcg/play run build
 
-echo "[restart-app] 3/5 Stop existing start.js processes"
+echo "[restart-app] 5/7 Stop existing start.js processes"
 if [ -f "$PID_FILE" ]; then
   OLD_PID="$(cat "$PID_FILE" || true)"
   if [ -n "${OLD_PID:-}" ] && kill -0 "$OLD_PID" 2>/dev/null; then
@@ -32,15 +40,15 @@ fi
 
 pkill -f "node start.js" >/dev/null 2>&1 || true
 
-echo "[restart-app] 4/5 Start app"
-nohup bash -lc "exec node start.js" >>"$APP_LOG" 2>&1 &
+echo "[restart-app] 6/7 Start app"
+nohup "$NODE_BIN" start.js >>"$APP_LOG" 2>&1 &
 NEW_PID="$!"
 echo "$NEW_PID" >"$PID_FILE"
 disown || true
 
-echo "[restart-app] 5/5 Verify process"
+echo "[restart-app] 7/7 Verify health"
 READY=0
-for _ in {1..20}; do
+for _ in {1..60}; do
   if ! kill -0 "$NEW_PID" 2>/dev/null; then
     echo "[restart-app] process exited unexpectedly"
     tail -n 30 "$APP_LOG" || true

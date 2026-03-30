@@ -25,7 +25,7 @@ describe('AlertPrompt', () => {
     const prompt = new AlertPrompt(playerId, GameMessage.BLOCKED_BY_EFFECT);
     
     expect(prompt.decode(true, state)).toBe(true);
-    expect(prompt.decode(false, state)).toBe(false);
+    expect(prompt.decode(false as any, state) as any).toBe(false);
     expect(prompt.decode(null, state)).toBe(null);
   });
 

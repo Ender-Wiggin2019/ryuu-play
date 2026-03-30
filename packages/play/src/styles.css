@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 40 30% 98%;
+  --foreground: 213 32% 18%;
+  --card: 0 0% 100%;
+  --card-foreground: 213 32% 18%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 213 32% 18%;
+  --primary: 210 51% 44%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 45 32% 92%;
+  --secondary-foreground: 213 32% 18%;
+  --muted: 45 30% 94%;
+  --muted-foreground: 213 15% 40%;
+  --accent: 36 80% 56%;
+  --accent-foreground: 213 32% 18%;
+  --destructive: 12 75% 52%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 45 18% 84%;
+  --input: 45 18% 84%;
+  --ring: 210 51% 44%;
+  --radius: 0.5rem;
+
+  /* preserve key Angular-era layout sizes for migration parity */
+  --size-nav-menu: 200px;
+  --size-sidebar: 200px;
+  --size-card: 100px;
+  --size-avatar: 44px;
+  --size-profile-avatar: 100px;
+  --size-board-card: 50px;
+  --size-energy: 25px;
+  --size-toolbar: 44px;
+  --size-toolbar-desktop: var(--size-avatar);
+  --size-toolbar-mobile: var(--size-avatar);
+
+  --padding-small: 8px;
+  --padding-normal: 16px;
+  --padding-large: 32px;
+
+  --card-border-radius: 3.5%;
+  --card-aspect-ratio: 1.37;
+
+  --bench-slots: 8;
+  --disabled-opacity: 0.5;
+
+  --sidebar-tiny-padding: calc(var(--padding-small) / 2);
+  --board-tiny-padding: calc(var(--padding-small) / 4);
+
+  --prompt-padding: 24px;
+  --prompt-border-radius: 4px;
+  --prompt-max-height: 65vh;
+  --prompt-button-margin: 8px;
+}
+
+:root[data-theme='dark'],
+.dark {
+  --background: 221 26% 15%;
+  --foreground: 45 20% 96%;
+  --card: 221 24% 18%;
+  --card-foreground: 45 20% 96%;
+  --popover: 221 24% 18%;
+  --popover-foreground: 45 20% 96%;
+  --primary: 205 70% 62%;
+  --primary-foreground: 221 40% 12%;
+  --secondary: 218 16% 24%;
+  --secondary-foreground: 45 20% 96%;
+  --muted: 218 16% 22%;
+  --muted-foreground: 45 10% 72%;
+  --accent: 42 88% 64%;
+  --accent-foreground: 221 40% 12%;
+  --destructive: 12 80% 58%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 218 14% 30%;
+  --input: 218 14% 30%;
+  --ring: 205 70% 62%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100%;
+}
+
+.app-sidebar {
+  width: var(--size-nav-menu);
+  border-right: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  padding: 16px;
+}
+
+.app-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.app-sidebar nav a {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 6px 8px;
+  text-decoration: none;
+}
+
+.app-sidebar nav a:hover {
+  background: hsl(var(--secondary));
+}
+
+.app-sidebar nav a.active {
+  background: hsl(var(--secondary));
+  border-color: hsl(var(--border));
+}
+
+.app-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.app-header {
+  height: var(--size-toolbar-desktop);
+  border-bottom: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
+}
+
+.app-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.app-content {
+  flex: 1 1 auto;
+  padding: var(--padding-normal);
+}
+
+.route-page {
+  border: 1px dashed hsl(var(--border));
+  border-radius: 12px;
+  background: hsl(var(--card));
+  padding: 20px;
+}
+
+.route-page-title {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.route-page-description {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.app-panel {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 14px;
+  padding: var(--padding-normal);
+}
+
+.app-page-title {
+  font-size: 1.5rem;
+  margin: 0 0 var(--padding-normal);
+}
+
+.app-form {
+  display: grid;
+  gap: var(--padding-normal);
+  max-width: 600px;
+}
+
+.app-form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.app-inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--padding-small);
+}
+
+.app-table-wrap {
+  overflow-x: auto;
+}
+
+.app-toolbar {
+  align-items: center;
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex;
+  gap: var(--padding-small);
+  min-height: var(--size-toolbar-desktop);
+  padding: var(--padding-small) var(--padding-normal);
+}
+
+.app-toolbar h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.app-toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.app-search-input {
+  min-width: 200px;
+  width: min(280px, 100%);
+}
+
+.app-pagination {
+  align-items: center;
+  display: flex;
+  gap: var(--padding-small);
+  justify-content: flex-end;
+  margin-top: var(--padding-normal);
+}
+
+.messages-pane {
+  border: 1px solid hsl(var(--border));
+  border-radius: 10px;
+  display: grid;
+  gap: 8px;
+  max-height: 60vh;
+  min-height: 320px;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.messages-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.messages-row.is-mine {
+  justify-content: flex-end;
+}
+
+.messages-bubble {
+  background: hsl(var(--secondary));
+  border: 1px solid hsl(var(--border));
+  border-radius: 12px;
+  max-width: min(78ch, 100%);
+  padding: 8px 10px;
+}
+
+.ptcg-u-loading {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  ) !important;
+  background-size: 40px 40px !important;
+  animation: ptcg-u-loading-animation 2s linear infinite !important;
+}
+
+@keyframes ptcg-u-loading-animation {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.ptcg-u-top {
+  left: 0;
+  position: absolute !important;
+  right: 0;
+  top: 0;
+}
+
+.ptcg-u-spacer {
+  flex: 1 1 auto;
+}
+
+.ptcg-u-padding {
+  padding: var(--padding-normal);
+}
+
+@media (max-width: 767px) {
+  .app-header {
+    height: var(--size-toolbar-mobile);
+  }
+
+  .app-sidebar {
+    width: min(84vw, 320px);
+  }
+
+  .app-content {
+    padding: var(--padding-small);
+  }
+
+  .app-toolbar {
+    padding: var(--padding-small);
+  }
+
+  .app-search-input {
+    min-width: 0;
+    width: 100%;
+  }
+}

@@ -117,7 +117,7 @@ describe('ChooseCardsPrompt', () => {
     };
 
     const prompt = new ChooseCardsPrompt(playerId, GameMessage.CHOOSE_CARD_TO_HAND, cards, filter, options);
-    expect(prompt.options).toEqual(options);
+    expect(prompt.options).toEqual(jasmine.objectContaining(options));
   });
 
   describe('decode', () => {

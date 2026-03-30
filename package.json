@@ -6,7 +6,9 @@
     "start": "node start.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "scenario:debug": "node scripts/scenario-debug.js",
-    "restart:app": "bash scripts/restart-app.sh"
+    "restart:app": "bash scripts/restart-app.sh",
+    "restart:backend": "bash scripts/restart-backend.sh",
+    "restart:backend:fast": "SKIP_COMPILE=1 bash scripts/restart-backend.sh"
   },
   "private": true,
   "packageManager": "pnpm@9.12.3",
@@ -24,6 +26,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@ptcg/common": "workspace:*",
     "@ptcg/server": "workspace:*",
     "@ptcg/sets": "workspace:*",
     "js-yaml": "^4.1.1"

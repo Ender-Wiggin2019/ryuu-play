@@ -1,5 +1,4 @@
 import * as express from 'express';
-import { json } from 'body-parser';
 
 import { Core } from '../game/core/core';
 import { BotManager } from '../game/bots/bot-manager';
@@ -48,7 +47,7 @@ export class App {
       instance.init();
     };
 
-    app.use(json({limit: 512 + config.backend.avatarFileSize * 4}));
+    app.use(express.json({ limit: 512 + config.backend.avatarFileSize * 4 }));
     app.use(cors());
     define('/v1/avatars', Avatars);
     define('/v1/card-progress', CardProgress);
