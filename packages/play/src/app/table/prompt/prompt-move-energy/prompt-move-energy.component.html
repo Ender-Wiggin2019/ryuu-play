@@ -9,6 +9,11 @@
 <div class="ptcg-prompt-content">
   <p [translate]="'GAME_MESSAGES.' + message"></p>
 
+  <div class="ptcg-prompt-summary">
+    <span class="ptcg-prompt-summary-chip">来源 {{ selectedSourceName }}</span>
+    <span class="ptcg-prompt-summary-chip">{{ moveSummary }}</span>
+  </div>
+
   <ptcg-choose-pokemons-pane
     [pokemonData]="pokemonData"
     (cardClick)="onCardClick($event)"

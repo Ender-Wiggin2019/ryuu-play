@@ -33,6 +33,27 @@
       </div>
     </section>
 
+    <section class="ptcg-continue-strip" *ngIf="(activeGameStates$ | async)?.length">
+      <div class="ptcg-lobby-panel-header">
+        <div>
+          <span class="eyebrow">Resume</span>
+          <h2>继续当前对局</h2>
+        </div>
+      </div>
+
+      <div class="ptcg-continue-rail">
+        <a class="ptcg-continue-card"
+          *ngFor="let gameState of (activeGameStates$ | async)"
+          [routerLink]="['/table', gameState.localId]">
+          <span class="ptcg-continue-card-kicker">
+            {{ gameState.state.rules.formatName || ('GAMES_FORMAT_UNLIMITED' | translate) }}
+          </span>
+          <strong>{{ 'TABLE_TABLE_NAME' | translate: { id: gameState.gameId } }}</strong>
+          <p>{{ 'TABLE_TURN_NUMBER' | translate: { turn: gameState.state.turn } }}</p>
+        </a>
+      </div>
+    </section>
+
     <section class="ptcg-lobby-grid">
       <div class="ptcg-lobby-column">
         <section class="ptcg-lobby-panel">
@@ -64,7 +85,27 @@
           </div>
         </div>
 
-        <mat-nav-list>
+        <div class="ptcg-online-rail">
+          <article class="ptcg-online-card" *ngFor="let client of (clients$ | async)">
+            <ptcg-user-bar
+              [user]="client.user"
+              [marked]="clientId === client.clientId">
+            </ptcg-user-bar>
+            <div class="ptcg-online-actions">
+              <a mat-stroked-button [routerLink]="['/profile', client.user.userId]">
+                资料
+              </a>
+              <button mat-raised-button color="primary"
+                *ngIf="clientId !== client.clientId"
+                [disabled]="loading"
+                (click)="createGame(client.clientId)">
+                邀请
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <mat-nav-list class="ptcg-online-desktop-list">
           <a mat-list-item *ngFor="let client of (clients$ | async)"
             class="ptcg-no-padding-list-item"
             [matMenuTriggerFor]="menu">

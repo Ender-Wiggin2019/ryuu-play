@@ -47,3 +47,32 @@ ptcg-board-card {
     transform: rotate(180deg);
   }
 }
+
+@media (max-width: 767px) {
+  .ptcg-choose-pokemons-pane {
+    gap: 10px;
+    padding: 6px 0;
+  }
+
+  .ptcg-pokemon-row {
+    gap: 8px;
+    justify-content: flex-start;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 14px;
+    scroll-padding-inline: 14px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .ptcg-pokemon-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  ptcg-board-card {
+    margin: 0;
+    scroll-snap-align: start;
+    width: clamp(74px, calc(var(--card-size) * 0.92), 104px);
+  }
+}

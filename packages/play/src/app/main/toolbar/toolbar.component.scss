@@ -16,6 +16,9 @@
 mat-toolbar {
   @include mat.elevation(5);
   @include ptcg-toolbar-height();
+  background: var(--shell-toolbar-bg) !important;
+  border-bottom: 1px solid var(--shell-line);
+  color: var(--shell-toolbar-text) !important;
   flex: 0 0 auto;
 
   .ryuu-spacer {
@@ -25,6 +28,15 @@ mat-toolbar {
   &.is-logged-in {
     padding-right: 0;
   }
+}
+
+.ptcg-theme-switcher {
+  margin-right: 4px;
+}
+
+.ptcg-menu-hint {
+  color: var(--app-text-muted);
+  margin-left: auto;
 }
 
 ptcg-user-bar {

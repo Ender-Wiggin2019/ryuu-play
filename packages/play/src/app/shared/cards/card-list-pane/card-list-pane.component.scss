@@ -1,5 +1,10 @@
 @import '../../../../theme/variables.scss';
 
+:host {
+  display: block;
+  min-height: 0;
+}
+
 $ptcg-card-list-pane-padding: map-get($padding, small);
 $ptcg-card-list-pane-border-radius: map-get($padding, small);
 
@@ -8,6 +13,7 @@ $ptcg-card-list-pane-max-height: 3 * map-get($ptcg-size, card) * $card-aspect-ra
 
 .ptcg-card-list-pane {
   border-radius: $ptcg-card-list-pane-border-radius;
+  align-content: start;
   display: grid;
   gap: map-get($padding, small);
   grid-template-columns: repeat(auto-fill, minmax(min(92px, 100%), 1fr));
@@ -22,4 +28,14 @@ ptcg-card {
   margin: 0 auto;
   max-width: map-get($ptcg-size, card);
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  .ptcg-card-list-pane {
+    align-content: start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-height: none;
+    min-height: 0;
+    padding: 0;
+  }
 }

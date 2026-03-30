@@ -9,6 +9,11 @@
 <div class="ptcg-prompt-content">
   <p [translate]="'GAME_MESSAGES.' + message"></p>
 
+  <div class="ptcg-prompt-summary">
+    <span class="ptcg-prompt-summary-chip">已选 {{ selectionSummary }}</span>
+    <span class="ptcg-prompt-summary-chip">至少 {{ min }} 张</span>
+  </div>
+
   <ptcg-choose-pokemons-pane
     [pokemonData]="pokemonData"
     (cardClick)="onCardClick($event)">

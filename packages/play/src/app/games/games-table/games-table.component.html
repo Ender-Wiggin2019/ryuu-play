@@ -1,9 +1,32 @@
 <div class="ptcg-games-table ptcg-u-padding">
-
-  <h3 translate>GAMES_ACTIVE_GAMES_TITLE</h3>
-
   <ptcg-content>
-    <table mat-table [dataSource]="games$ | async" class="mat-elevation-z2">
+    <div class="ptcg-games-table-mobile">
+      <article class="ptcg-game-card" *ngFor="let row of (games$ | async)">
+        <header class="ptcg-game-card-header">
+          <div>
+            <span class="ptcg-card-kicker">{{ row.game.formatName ? (row.game.formatName | localizedFormatName) : ('GAMES_FORMAT_UNLIMITED' | translate) }}</span>
+            <strong>牌桌 #{{ row.game.gameId }}</strong>
+          </div>
+          <ptcg-badge>{{ '第 ' + row.game.turn + ' 回合' }}</ptcg-badge>
+        </header>
+
+        <div class="ptcg-game-card-players">
+          <ptcg-user-bar openUserPopup="true" *ngIf="row.users[0]" [user]="row.users[0]"></ptcg-user-bar>
+          <ptcg-user-bar openUserPopup="true" *ngIf="row.users[1]" [user]="row.users[1]"></ptcg-user-bar>
+        </div>
+
+        <div class="ptcg-game-card-meta" *ngIf="row.game.players[0] && row.game.players[1]">
+          <span>奖赏卡</span>
+          <strong>{{ row.game.players[0].prizes }} : {{ row.game.players[1].prizes }}</strong>
+        </div>
+
+        <div class="ptcg-game-card-actions">
+          <ptcg-game-actions [game]="row.game"></ptcg-game-actions>
+        </div>
+      </article>
+    </div>
+
+    <table mat-table [dataSource]="games$ | async" class="mat-elevation-z2 ptcg-games-table-desktop">
       <!-- Game ID Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef translate>LABEL_NUMBER</th>
@@ -65,5 +88,4 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </ptcg-content>
-
 </div>

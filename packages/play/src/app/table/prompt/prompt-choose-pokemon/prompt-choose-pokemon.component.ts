@@ -23,8 +23,16 @@ export class PromptChoosePokemonComponent implements OnChanges {
   public isInvalid = false;
   public isSubmitting = false;
 
-  private min = 1;
-  private max = 1;
+  public min = 1;
+  public max = 1;
+
+  public get selectedCount(): number {
+    return this.pokemonData ? this.pokemonData.countSelected() : 0;
+  }
+
+  public get selectionSummary(): string {
+    return `${this.selectedCount} / ${this.max}`;
+  }
 
   constructor(
     private gameService: GameService

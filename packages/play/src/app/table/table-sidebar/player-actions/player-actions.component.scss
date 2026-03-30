@@ -6,13 +6,11 @@ $avatar-size: map-get($ptcg-size, avatar);
   display: flex;
   flex-direction: column;
   grid-area: actions;
+  gap: 10px;
   padding: 0 $ptcg-sidebar-tiny-padding;
 
   & > * {
-    margin-top: $ptcg-sidebar-tiny-padding;
-  }
-
-  & > *:last-child {
-    margin-bottom: $ptcg-sidebar-tiny-padding;
+    margin-top: 0;
+    width: 100%;
   }
 }

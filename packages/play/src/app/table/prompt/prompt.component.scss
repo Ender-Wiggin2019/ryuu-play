@@ -10,6 +10,7 @@
   top: 0;
 
   &.active {
+    background: rgba(12, 9, 19, 0.45);
     display: block;
     opacity: .6;
   }
@@ -28,6 +29,7 @@
 }
 
 .ptcg-prompt-container {
+  background: var(--app-surface);
   display: block;
   margin: 0 auto;
   max-width: calc(100% - 2 * #{map-get($padding, normal)});
@@ -83,4 +85,39 @@
   bottom: map-get($padding, large);
   left: map-get($padding, large);
   position: absolute;
+}
+
+@media (max-width: 767px) {
+  .ptcg-prompt-container-wrapper {
+    align-items: flex-end;
+  }
+
+  .ptcg-prompt-container {
+    border-radius: 24px 24px 0 0;
+    bottom: 0;
+    left: 0;
+    max-width: none;
+    padding: 18px 16px 20px;
+    right: 0;
+    width: 100%;
+  }
+
+  .ptcg-prompt-content {
+    display: grid;
+    gap: 12px;
+    max-height: min(64vh, #{$ptcg-prompt-max-height});
+  }
+
+  .ptcg-prompt-actions {
+    gap: 8px;
+    justify-content: stretch;
+  }
+
+  .ptcg-prompt-actions > .ptcg-u-spacer {
+    display: none;
+  }
+
+  .ptcg-prompt-actions > * {
+    flex: 1 1 0;
+  }
 }

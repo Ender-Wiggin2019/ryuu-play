@@ -30,7 +30,7 @@
     <section class="ptcg-table-layout">
       <div class="ptcg-table-main">
         <section class="ptcg-table-panel ptcg-board-panel" [class.is-hidden]="activeView !== 'board'">
-          <div class="ptcg-board-intro">
+          <div class="ptcg-board-intro" *ngIf="!isMobileLayout">
             <div>
               <span class="eyebrow">Arena</span>
               <strong>战场总览</strong>
@@ -39,11 +39,20 @@
           </div>
 
           <ptcg-board
+            *ngIf="!isMobileLayout"
             [clientId]="clientId"
             [gameState]="gameState"
             [topPlayer]="topPlayer"
             [bottomPlayer]="bottomPlayer">
           </ptcg-board>
+
+          <ptcg-mobile-board
+            *ngIf="isMobileLayout"
+            [clientId]="clientId"
+            [gameState]="gameState"
+            [topPlayer]="topPlayer"
+            [bottomPlayer]="bottomPlayer">
+          </ptcg-mobile-board>
         </section>
 
         <section class="ptcg-table-panel ptcg-hand-panel" [class.is-hidden]="activeView !== 'hand'">

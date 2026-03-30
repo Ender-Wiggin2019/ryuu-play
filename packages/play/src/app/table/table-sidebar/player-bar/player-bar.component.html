@@ -1,53 +1,62 @@
 <div class="ptcg-player-bar" [ngClass]="{active: active}">
+  <div class="ptcg-player-bar-top">
+    <ptcg-player-avatar class="ptcg-player-bar-avatar"
+      (click)="allowAvatarClick && onAvatarClick()"
+      [user]="userInfo$ | async"
+      [allowClick]="allowAvatarClick"
+      [avatarName]="avatarName">
+    </ptcg-player-avatar>
 
-  <ptcg-player-avatar class="ptcg-player-bar-avatar"
-    (click)="allowAvatarClick && onAvatarClick()"
-    [user]="userInfo$ | async"
-    [allowClick]="allowAvatarClick"
-    [avatarName]="avatarName">
-  </ptcg-player-avatar>
+    <div class="ptcg-player-info">
+      <div *ngIf="!isEmpty; then playerInfo else emptyInfo"></div>
 
-  <div class="ptcg-player-info">
-    <div *ngIf="!isEmpty; then playerInfo else emptyInfo"></div>
+      <ng-template #playerInfo>
+        <div class="ptcg-player-title-row">
+          <h4 class="ptcg-player-name">
+            <span (click)="onUserNameClick()"
+              [class.clickable]="userInfo$ | async">
+              {{ name }}
+            </span>
+          </h4>
+          <ptcg-badge *ngIf="active" color="primary">当前回合</ptcg-badge>
+        </div>
 
-    <ng-template #playerInfo>
-      <h4 class="ptcg-player-name">
-        <span (click)="onUserNameClick()"
-          [class.clickable]="userInfo$ | async">
-          {{ name }}
-        </span>
-      </h4>
-      <div class="ptcg-player-rank">
-        <ptcg-rank *ngIf="userInfo$ | async as userInfo; else disconnected"
-          [ranking]="userInfo.ranking"
-          [rank]="userInfo.rank">
-        </ptcg-rank>
-        <ng-template #disconnected>
-          <ptcg-badge>
-            {{ 'TABLE_DISCONNECTED' | translate }}
-          </ptcg-badge>
-        </ng-template>
-      </div>
-    </ng-template>
+        <div class="ptcg-player-rank">
+          <ptcg-rank *ngIf="userInfo$ | async as userInfo; else disconnected"
+            [ranking]="userInfo.ranking"
+            [rank]="userInfo.rank">
+          </ptcg-rank>
+          <ng-template #disconnected>
+            <ptcg-badge>
+              {{ 'TABLE_DISCONNECTED' | translate }}
+            </ptcg-badge>
+          </ng-template>
+        </div>
+      </ng-template>
 
-    <ng-template #emptyInfo>
-      <div class="ptcg-empty-info mat-caption" translate>TABLE_NO_PLAYER</div>
-    </ng-template>
+      <ng-template #emptyInfo>
+        <div class="ptcg-empty-info mat-caption" translate>TABLE_NO_PLAYER</div>
+      </ng-template>
+    </div>
   </div>
 
   <div class="ptcg-card-counts" *ngIf="!isEmpty">
-    <ptcg-badge>
-      {{ 'TABLE_DECK_COUNT' | translate: { count: deckCount } }}
-    </ptcg-badge>
-    <ptcg-badge>
-      {{ 'TABLE_HAND_COUNT' | translate: { count: handCount } }}
-    </ptcg-badge>
-    <ptcg-badge>
-      {{ 'TABLE_DISCARD_COUNT' | translate: { count: discardCount } }}
-    </ptcg-badge>
-    <ptcg-badge>
-      {{ 'TABLE_LOST_ZONE_COUNT' | translate: { count: lostZoneCount } }}
-    </ptcg-badge>
+    <div class="ptcg-count-chip">
+      <span>牌库</span>
+      <strong>{{ deckCount }}</strong>
+    </div>
+    <div class="ptcg-count-chip">
+      <span>手牌</span>
+      <strong>{{ handCount }}</strong>
+    </div>
+    <div class="ptcg-count-chip">
+      <span>弃牌</span>
+      <strong>{{ discardCount }}</strong>
+    </div>
+    <div class="ptcg-count-chip">
+      <span>放逐</span>
+      <strong>{{ lostZoneCount }}</strong>
+    </div>
   </div>
 
   <ptcg-player-time class="ptcg-time-left" *ngIf="playerStats && timeLimit > 0"

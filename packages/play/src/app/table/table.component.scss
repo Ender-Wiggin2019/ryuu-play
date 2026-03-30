@@ -4,15 +4,10 @@
 }
 
 .ptcg-table-shell {
-  --battle-ink: oklch(0.25 0.03 250);
-  --battle-panel: oklch(0.18 0.02 250);
-  --battle-panel-2: oklch(0.24 0.03 250);
-  --battle-line: color-mix(in oklch, oklch(0.74 0.11 72), transparent 65%);
-  --battle-soft: oklch(0.95 0.02 95);
   background:
-    radial-gradient(circle at top, color-mix(in oklch, oklch(0.72 0.14 80), transparent 82%), transparent 38%),
-    linear-gradient(180deg, oklch(0.28 0.04 250), oklch(0.2 0.02 250));
-  color: var(--battle-soft);
+    radial-gradient(circle at top, color-mix(in oklch, var(--app-accent), transparent 82%), transparent 38%),
+    var(--battle-bg);
+  color: var(--battle-ink);
   height: 100%;
   overflow: hidden;
   padding: clamp(12px, 2vw, 22px);
@@ -32,8 +27,7 @@
 }
 
 .ptcg-table-panel {
-  background:
-    linear-gradient(180deg, color-mix(in oklch, var(--battle-panel-2), transparent 12%), color-mix(in oklch, var(--battle-panel), black 8%));
+  background: var(--battle-surface);
   border: 1px solid var(--battle-line);
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
@@ -59,7 +53,7 @@
 }
 
 .ptcg-battle-header-copy p {
-  color: color-mix(in oklch, var(--battle-soft), transparent 28%);
+  color: var(--battle-soft);
   margin: 0;
 }
 
@@ -75,7 +69,7 @@
 }
 
 .ptcg-battle-actions {
-  background: rgba(7, 10, 22, 0.35);
+  background: color-mix(in oklch, var(--app-surface), transparent 12%);
   border: 1px solid var(--battle-line);
   border-radius: 999px;
   display: inline-flex;
@@ -87,15 +81,15 @@
   background: transparent;
   border: 0;
   border-radius: 999px;
-  color: color-mix(in oklch, var(--battle-soft), transparent 30%);
+  color: var(--battle-soft);
   min-width: 74px;
   padding: 10px 14px;
   transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
 .ptcg-battle-actions button.active {
-  background: linear-gradient(135deg, oklch(0.76 0.17 82), oklch(0.7 0.16 50));
-  color: oklch(0.2 0.03 250);
+  background: linear-gradient(135deg, var(--app-accent), var(--app-accent-strong));
+  color: color-mix(in oklch, var(--app-bg), black 20%);
   font-weight: 700;
 }
 
@@ -116,7 +110,7 @@
 }
 
 .ptcg-board-hint {
-  color: color-mix(in oklch, var(--battle-soft), transparent 38%);
+  color: var(--battle-soft);
   font-size: 12px;
   max-width: 360px;
   text-align: right;
@@ -131,8 +125,7 @@ ptcg-board {
 }
 
 .ptcg-table-sidebar-desktop > ptcg-table-sidebar {
-  background:
-    linear-gradient(180deg, color-mix(in oklch, var(--battle-panel-2), transparent 6%), color-mix(in oklch, var(--battle-panel), black 10%));
+  background: var(--battle-surface);
   border: 1px solid var(--battle-line);
   border-radius: 24px;
   display: block;
@@ -176,12 +169,16 @@ ptcg-board {
     height: 100%;
   }
 
+  .ptcg-board-panel {
+    padding: 0;
+  }
+
   .ptcg-table-sidebar-desktop {
     display: none;
   }
 
   .ptcg-battle-header {
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
   }
 
@@ -195,7 +192,7 @@ ptcg-board {
   }
 
   .ptcg-board-intro {
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
   }
 
@@ -216,5 +213,9 @@ ptcg-board {
 
   .ptcg-table-layout {
     height: calc(100% - 134px);
+  }
+
+  .ptcg-table-panel {
+    border-radius: 20px;
   }
 }

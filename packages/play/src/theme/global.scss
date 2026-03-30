@@ -4,6 +4,58 @@
     padding: 0;
 }
 
+:root {
+  --app-bg: oklch(0.97 0.015 90);
+  --app-bg-elevated: oklch(0.995 0.006 95);
+  --app-surface: oklch(0.99 0.008 95);
+  --app-surface-2: oklch(0.95 0.012 92);
+  --app-surface-strong: oklch(0.9 0.02 88);
+  --app-text: oklch(0.24 0.02 256);
+  --app-text-muted: color-mix(in oklch, var(--app-text), transparent 34%);
+  --app-line: color-mix(in oklch, oklch(0.72 0.09 72), transparent 72%);
+  --app-accent: oklch(0.72 0.16 68);
+  --app-accent-strong: oklch(0.65 0.17 42);
+  --app-danger: oklch(0.62 0.21 28);
+  --shell-toolbar-bg: color-mix(in oklch, var(--app-surface), oklch(0.84 0.05 78) 8%);
+  --shell-toolbar-text: var(--app-text);
+  --shell-line: var(--app-line);
+  --battle-bg: linear-gradient(180deg, oklch(0.95 0.018 85), oklch(0.9 0.02 86));
+  --battle-surface: linear-gradient(180deg, oklch(0.985 0.006 95), oklch(0.94 0.014 92));
+  --battle-surface-2: linear-gradient(180deg, oklch(0.92 0.02 85), oklch(0.86 0.03 78));
+  --battle-ink: var(--app-text);
+  --battle-soft: var(--app-text-muted);
+  --battle-line: color-mix(in oklch, var(--app-accent), transparent 72%);
+  --battle-arena-top: linear-gradient(180deg, oklch(0.5 0.19 26), oklch(0.38 0.15 12));
+  --battle-arena-center: radial-gradient(circle at center, oklch(0.74 0.2 330), oklch(0.62 0.21 318));
+  --battle-arena-bottom: linear-gradient(180deg, oklch(0.8 0.08 84), oklch(0.67 0.09 84));
+}
+
+:root[data-theme='dark'] {
+  --app-bg: oklch(0.17 0.02 252);
+  --app-bg-elevated: oklch(0.21 0.022 252);
+  --app-surface: oklch(0.22 0.024 252);
+  --app-surface-2: oklch(0.27 0.03 252);
+  --app-surface-strong: oklch(0.3 0.03 252);
+  --app-text: oklch(0.95 0.015 92);
+  --app-text-muted: color-mix(in oklch, var(--app-text), transparent 34%);
+  --app-line: color-mix(in oklch, oklch(0.76 0.13 82), transparent 72%);
+  --app-accent: oklch(0.76 0.17 82);
+  --app-accent-strong: oklch(0.72 0.16 50);
+  --app-danger: oklch(0.7 0.19 26);
+  --shell-toolbar-bg: color-mix(in oklch, var(--app-surface), black 16%);
+  --shell-toolbar-text: var(--app-text);
+  --shell-line: var(--app-line);
+  --battle-bg: linear-gradient(180deg, oklch(0.28 0.04 250), oklch(0.2 0.02 250));
+  --battle-surface: linear-gradient(180deg, color-mix(in oklch, var(--app-surface-2), transparent 12%), color-mix(in oklch, var(--app-surface), black 8%));
+  --battle-surface-2: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  --battle-ink: var(--app-text);
+  --battle-soft: var(--app-text-muted);
+  --battle-line: color-mix(in oklch, var(--app-accent), transparent 65%);
+  --battle-arena-top: linear-gradient(180deg, oklch(0.4 0.17 25), oklch(0.27 0.14 10));
+  --battle-arena-center: radial-gradient(circle at center, oklch(0.62 0.22 320), oklch(0.46 0.19 300));
+  --battle-arena-bottom: linear-gradient(180deg, oklch(0.78 0.08 84), oklch(0.6 0.08 84));
+}
+
 *::after, *::before {
     box-sizing: border-box;
 }
@@ -13,11 +65,12 @@ html, body {
 }
 
 body {
-    background-color: #fff;
-    color: #333;
+    background: var(--app-bg);
+    color: var(--app-text);
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 1.42857;
+    transition: background-color 180ms ease, color 180ms ease, background 180ms ease;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
@@ -120,13 +173,20 @@ mat-dialog-content {
 }
 
 .ptcg-card-dialog .mat-dialog-container {
+  background: var(--app-surface);
   border-radius: 28px;
+  color: var(--app-text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 0;
 }
 
 .ptcg-card-dialog-mobile .mat-dialog-container {
+  background: var(--app-surface);
   border-radius: 0;
   height: 100vh;
+  height: 100dvh;
 }
 
 .ptcg-card-dialog .mat-dialog-title {
@@ -142,23 +202,33 @@ mat-dialog-content {
 }
 
 .ptcg-card-dialog .mat-dialog-actions {
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 1px solid var(--app-line);
   margin-bottom: 0;
   min-height: 0;
   padding: 12px 20px 18px;
 }
 
 .ptcg-card-dialog-mobile .mat-dialog-content {
-  height: calc(100vh - 132px);
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
   overflow: auto;
 }
 
 .ptcg-card-dialog-mobile .mat-dialog-actions {
   justify-content: space-between;
+  margin-top: auto;
 }
 
 .ptcg-no-padding-list-item {
   > .mat-list-item-content {
     padding: 0 !important;
   }
+}
+
+mat-sidenav-container,
+mat-sidenav-content,
+.mat-drawer-container,
+.mat-drawer-content {
+  background: transparent !important;
 }

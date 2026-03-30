@@ -6,3 +6,63 @@
 .ptcg-table-loading-failed {
   text-align: center;
 }
+
+.ptcg-games-table-mobile {
+  display: grid;
+  gap: 12px;
+}
+
+.ptcg-game-card {
+  background: color-mix(in oklch, var(--app-surface), transparent 4%);
+  border: 1px solid var(--app-line);
+  border-radius: 20px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.ptcg-game-card-header,
+.ptcg-game-card-meta,
+.ptcg-game-card-actions {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ptcg-card-kicker {
+  color: var(--app-accent);
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.ptcg-game-card-header strong,
+.ptcg-game-card-meta strong {
+  color: var(--app-text);
+}
+
+.ptcg-game-card-meta span {
+  color: var(--app-text-muted);
+}
+
+.ptcg-game-card-players {
+  display: grid;
+  gap: 8px;
+}
+
+.ptcg-games-table-desktop {
+  display: none;
+}
+
+@media (min-width: 961px) {
+  .ptcg-games-table-mobile {
+    display: none;
+  }
+
+  .ptcg-games-table-desktop {
+    display: table;
+  }
+}

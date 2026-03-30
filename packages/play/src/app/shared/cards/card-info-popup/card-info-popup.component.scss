@@ -1,5 +1,12 @@
 @import '../../../../theme/variables.scss';
 
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
 h2 {
   display: flex;
 }
@@ -11,7 +18,9 @@ h2 {
 }
 
 .ptcg-card-dialog-content {
+  flex: 1 1 auto;
   max-height: unset;
+  min-height: 0;
 }
 
 .ptcg-card-dialog-actions {

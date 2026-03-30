@@ -24,6 +24,11 @@ export class PromptChoosePrizeComponent implements OnChanges {
   public revealed = false;
   private result: number[] = [];
 
+  public get selectionSummary(): string {
+    const count = this.prompt?.options?.count || 0;
+    return `${this.result.length} / ${count}`;
+  }
+
   constructor(
     private gameService: GameService
   ) { }

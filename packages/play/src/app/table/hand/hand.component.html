@@ -4,11 +4,19 @@
       <span class="ptcg-hand-kicker">Hand Focus</span>
       <h3>{{ selectedCard | localizedCardName }}</h3>
       <p>共 {{ cards.length }} 张手牌，左右滑动浏览，点选后查看或操作当前聚焦卡。</p>
+
+      <div class="ptcg-hand-status">
+        <span class="ptcg-hand-status-chip">当前 {{ selectionLabel }}</span>
+        <span class="ptcg-hand-status-chip">状态 {{ handModeLabel }}</span>
+        <span class="ptcg-hand-status-chip" *ngIf="canReorder">支持拖拽排序</span>
+      </div>
     </div>
 
-    <button mat-stroked-button type="button" (click)="showCardInfo(selectedCard)">
-      查看详情
-    </button>
+    <div class="ptcg-hand-hero-actions">
+      <button mat-stroked-button type="button" (click)="showCardInfo(selectedCard)">
+        查看详情
+      </button>
+    </div>
   </div>
 
   <div class="ptcg-hand-container">
@@ -22,13 +30,15 @@
 
     <div class="ptcg-hand-rail">
       <div class="ptcg-hand-rail-header">
-        <div>
+        <div class="ptcg-hand-rail-copy">
           <span class="ptcg-hand-kicker">Card Rail</span>
-          <strong>{{ cards.length }} / {{ selectedIndex + 1 || 0 }}</strong>
+          <strong>{{ selectionLabel }}</strong>
+          <p>横滑切换焦点，长按后可拖拽调整顺序。</p>
         </div>
       </div>
 
       <dnd-sortable-list
+        class="ptcg-hand-sortable"
         [spec]="handSpec"
         hoverTrigger="fixed"
         [children]="tempList"

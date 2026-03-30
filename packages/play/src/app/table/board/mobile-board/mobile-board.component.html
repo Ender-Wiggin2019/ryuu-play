@@ -1,0 +1,184 @@
+<div class="ptcg-mobile-board" [dropTarget]="boardTarget">
+  <section class="ptcg-mobile-player ptcg-mobile-player-top">
+    <header class="ptcg-mobile-player-header">
+      <span class="ptcg-mobile-player-label">对手</span>
+      <div class="ptcg-mobile-player-stats">
+        <span>牌库 {{ topPlayer?.deck?.cards?.length || 0 }}</span>
+        <span>手牌 {{ topPlayer?.hand?.cards?.length || 0 }}</span>
+      </div>
+    </header>
+
+    <div class="ptcg-mobile-bench-strip">
+      <ptcg-board-card *ngFor="let slot of topBench | slice:0:(topPlayer?.bench.length || defaultBenchSize); index as i"
+        [value]="topPlayer?.bench[i]"
+        [owner]="topPlayer?.id === clientId"
+        (cardClick)="sandboxMode ? onTopBenchClick(i) : onCardClick($event.card, $event.cardList)">
+      </ptcg-board-card>
+    </div>
+
+    <div class="ptcg-mobile-main-row">
+      <div class="ptcg-mobile-zone-cluster">
+        <div class="ptcg-mobile-zone" (click)="sandboxMode ? onZoneClick(topPlayerSide, { zone: 'deck' }) : onDeckClick(topPlayer?.deck?.cards?.[0], topPlayer?.deck)">
+          <ptcg-board-card [value]="topPlayer?.deck" [owner]="topPlayer?.id === clientId" showCardCount="true"></ptcg-board-card>
+          <span>牌库</span>
+        </div>
+        <div class="ptcg-mobile-zone">
+          <ptcg-board-card
+            [value]="topPlayer?.discard"
+            [owner]="topPlayer?.id === clientId"
+            showCardCount="true"
+            (cardClick)="sandboxMode ? onZoneClick(topPlayerSide, { zone: 'discard' }) : onCardListClick($event.card, topPlayer?.discard)">
+          </ptcg-board-card>
+          <span>弃牌区</span>
+        </div>
+        <div class="ptcg-mobile-zone" *ngIf="(topPlayer?.lostzone?.cards?.length || 0) > 0">
+          <ptcg-board-card
+            [value]="topPlayer?.lostzone"
+            [owner]="topPlayer?.id === clientId"
+            showCardCount="true"
+            (cardClick)="sandboxMode ? onZoneClick(topPlayerSide, { zone: 'lostzone' }) : onCardListClick($event.card, topPlayer?.lostzone)">
+          </ptcg-board-card>
+          <span>放逐区</span>
+        </div>
+      </div>
+
+      <div class="ptcg-mobile-active-stack">
+        <div class="ptcg-mobile-utility-row">
+          <div class="ptcg-mobile-utility-card">
+            <ptcg-board-card
+              [value]="topPlayer?.supporter"
+              [owner]="topPlayer?.id === clientId"
+              (cardClick)="sandboxMode ? onSupporterClick(topPlayerSide) : onCardClick($event.card)">
+            </ptcg-board-card>
+            <span>支援者</span>
+          </div>
+          <div class="ptcg-mobile-utility-card">
+            <ptcg-board-card class="stadium-card"
+              [value]="topPlayer?.stadium"
+              [owner]="topPlayer?.id === clientId"
+              (cardClick)="sandboxMode ? onTopStadiumClick() : onStadiumClick($event.card)">
+            </ptcg-board-card>
+            <span>场地</span>
+          </div>
+        </div>
+
+        <div class="ptcg-mobile-active-card">
+          <ptcg-board-card
+            [value]="topPlayer?.active"
+            [owner]="topPlayer?.id === clientId"
+            (cardClick)="sandboxMode ? onTopActiveClick() : onCardClick($event.card, $event.cardList)">
+          </ptcg-board-card>
+        </div>
+      </div>
+
+      <div class="ptcg-mobile-prize-bank">
+        <button type="button"
+          *ngFor="let prize of topPlayer?.prizes; index as i"
+          class="ptcg-mobile-prize-slot"
+          (click)="sandboxMode ? onPrizeSlotClick(topPlayerSide, { prize: prize, index: i }) : onPrizeClick(topPlayer, prize)">
+          <ptcg-board-card [value]="prize" [owner]="topPlayer?.id === clientId"></ptcg-board-card>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ptcg-mobile-player ptcg-mobile-player-bottom">
+    <header class="ptcg-mobile-player-header">
+      <span class="ptcg-mobile-player-label">你</span>
+      <div class="ptcg-mobile-player-stats">
+        <span>牌库 {{ bottomPlayer?.deck?.cards?.length || 0 }}</span>
+        <span>手牌 {{ bottomPlayer?.hand?.cards?.length || 0 }}</span>
+      </div>
+    </header>
+
+    <div class="ptcg-mobile-main-row">
+      <div class="ptcg-mobile-zone-cluster">
+        <div class="ptcg-mobile-zone" (click)="sandboxMode ? onZoneClick(bottomPlayerSide, { zone: 'deck' }) : onDeckClick(bottomPlayer?.deck?.cards?.[0], bottomPlayer?.deck)">
+          <ptcg-board-card [value]="bottomPlayer?.deck" [owner]="bottomPlayer?.id === clientId" showCardCount="true"></ptcg-board-card>
+          <span>牌库</span>
+        </div>
+        <div class="ptcg-mobile-zone">
+          <ptcg-board-card
+            [value]="bottomPlayer?.discard"
+            [owner]="bottomPlayer?.id === clientId"
+            showCardCount="true"
+            (cardClick)="sandboxMode ? onZoneClick(bottomPlayerSide, { zone: 'discard' }) : onDiscardClick($event.card, bottomPlayer?.discard)">
+          </ptcg-board-card>
+          <span>弃牌区</span>
+        </div>
+        <div class="ptcg-mobile-zone" *ngIf="(bottomPlayer?.lostzone?.cards?.length || 0) > 0">
+          <ptcg-board-card
+            [value]="bottomPlayer?.lostzone"
+            [owner]="bottomPlayer?.id === clientId"
+            showCardCount="true"
+            (cardClick)="sandboxMode ? onZoneClick(bottomPlayerSide, { zone: 'lostzone' }) : onCardListClick($event.card, bottomPlayer?.lostzone)">
+          </ptcg-board-card>
+          <span>放逐区</span>
+        </div>
+      </div>
+
+      <div class="ptcg-mobile-active-stack">
+        <div class="ptcg-mobile-active-card ptcg-mobile-active-card-bottom">
+          <div class="ptcg-board-drop-target"
+            [dropTarget]="bottomActiveTarget"
+            ptcgDropHighlight="outside"
+            [ptcgDropHighlightVisible]="bottomActiveHighlight$ | async">
+            <ptcg-board-card
+              [class.draggable]="!gameState.deleted && bottomPlayer?.id === clientId && bottomPlayer?.active.pokemons.cards.length > 0"
+              [dragSource]="bottomActive.source"
+              [noHTML5Preview]="true"
+              [value]="bottomPlayer?.active"
+              [owner]="bottomPlayer?.id === clientId"
+              (cardClick)="onActiveClick($event.card, $event.cardList)">
+            </ptcg-board-card>
+          </div>
+        </div>
+
+        <div class="ptcg-mobile-utility-row">
+          <div class="ptcg-mobile-utility-card">
+            <ptcg-board-card class="stadium-card"
+              [value]="bottomPlayer?.stadium"
+              [owner]="bottomPlayer?.id === clientId"
+              (cardClick)="onStadiumClick($event.card)">
+            </ptcg-board-card>
+            <span>场地</span>
+          </div>
+          <div class="ptcg-mobile-utility-card">
+            <ptcg-board-card
+              [value]="bottomPlayer?.supporter"
+              [owner]="bottomPlayer?.id === clientId"
+              (cardClick)="sandboxMode ? onSupporterClick(bottomPlayerSide) : onCardClick($event.card)">
+            </ptcg-board-card>
+            <span>支援者</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ptcg-mobile-prize-bank">
+        <button type="button"
+          *ngFor="let prize of bottomPlayer?.prizes; index as i"
+          class="ptcg-mobile-prize-slot"
+          (click)="sandboxMode ? onPrizeSlotClick(bottomPlayerSide, { prize: prize, index: i }) : onPrizeClick(bottomPlayer, prize)">
+          <ptcg-board-card [value]="prize" [owner]="bottomPlayer?.id === clientId"></ptcg-board-card>
+        </button>
+      </div>
+    </div>
+
+    <div class="ptcg-mobile-bench-strip ptcg-mobile-bench-strip-bottom">
+      <div class="ptcg-board-drop-target"
+        *ngFor="let slot of bottomBench | slice:0:(bottomPlayer?.bench.length || defaultBenchSize)"
+        [dropTarget]="bottomBenchTarget[slot.index]"
+        ptcgDropHighlight="outside"
+        [ptcgDropHighlightVisible]="bottomBenchHighlight$[slot.index] | async">
+        <ptcg-board-card
+          [class.draggable]="!gameState.deleted && bottomPlayer?.id === clientId && bottomPlayer?.bench[slot.index].pokemons.cards.length > 0"
+          [dragSource]="slot.source"
+          [noHTML5Preview]="true"
+          [value]="bottomPlayer?.bench[slot.index]"
+          [owner]="bottomPlayer?.id === clientId"
+          (cardClick)="onBenchClick($event.card, $event.cardList, slot.index)">
+        </ptcg-board-card>
+      </div>
+    </div>
+  </section>
+</div>

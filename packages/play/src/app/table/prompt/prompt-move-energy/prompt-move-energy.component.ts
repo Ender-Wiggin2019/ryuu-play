@@ -38,6 +38,14 @@ export class PromptMoveEnergyComponent implements OnChanges {
   private blockedTo: CardTarget[];
   private blockedCardList: Card[];
 
+  public get moveSummary(): string {
+    return `${this.results.length} 次移动`;
+  }
+
+  public get selectedSourceName(): string {
+    return this.selectedItem?.pokemonSlot?.getPokemonCard()?.name || '未选择来源';
+  }
+
   constructor(
     private gameService: GameService
   ) { }

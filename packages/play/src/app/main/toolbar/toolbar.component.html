@@ -2,6 +2,27 @@
   <button mat-button (click)="onLogoClick()">{{ 'MAIN_TITLE' | translate }}</button>
   <span class="ryuu-spacer"></span>
 
+  <button mat-icon-button [matMenuTriggerFor]="themeMenu" class="ptcg-theme-switcher" [attr.aria-label]="'切换主题'">
+    <mat-icon>{{ resolvedTheme === 'dark' ? 'dark_mode' : 'light_mode' }}</mat-icon>
+  </button>
+  <mat-menu #themeMenu="matMenu">
+    <button mat-menu-item (click)="setThemeMode('system')">
+      <mat-icon>contrast</mat-icon>
+      <span>跟随系统</span>
+      <span class="ptcg-menu-hint" *ngIf="themeMode === 'system'">当前</span>
+    </button>
+    <button mat-menu-item (click)="setThemeMode('light')">
+      <mat-icon>light_mode</mat-icon>
+      <span>日间模式</span>
+      <span class="ptcg-menu-hint" *ngIf="themeMode === 'light'">当前</span>
+    </button>
+    <button mat-menu-item (click)="setThemeMode('dark')">
+      <mat-icon>dark_mode</mat-icon>
+      <span>夜间模式</span>
+      <span class="ptcg-menu-hint" *ngIf="themeMode === 'dark'">当前</span>
+    </button>
+  </mat-menu>
+
   <!-- Language select -->
   <ptcg-language-select *ngIf="!loggedUser"></ptcg-language-select>
 

@@ -27,3 +27,15 @@ $ptcg-cards-container-min-width: 3 * map-get($ptcg-size, card) + 4 * map-get($pa
   overflow: auto;
   padding: $ptcg-cards-container-padding-v $ptcg-cards-container-padding-h;
 }
+
+@media (max-width: 767px) {
+  :host:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .ptcg-cards-container {
+    min-height: 0;
+    min-width: 0;
+    padding: 8px 0;
+  }
+}

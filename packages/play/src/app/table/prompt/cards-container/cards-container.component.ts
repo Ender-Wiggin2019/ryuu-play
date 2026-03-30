@@ -14,7 +14,8 @@ export class CardsContainerComponent implements AfterViewInit {
   ngAfterViewInit() {
     // Remember the height of the component,
     // and do not change it during drag & drop
-    if (this.keepInitialSize) {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 767;
+    if (this.keepInitialSize && !isMobile) {
       setTimeout(() => {
         const host = this.elementRef.nativeElement;
         const container: HTMLElement = host.querySelector('.ptcg-cards-container');

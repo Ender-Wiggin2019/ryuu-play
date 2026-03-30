@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .ptcg-card-dialog-title {
   align-items: center;
   display: flex;
@@ -9,9 +16,39 @@
 }
 
 .ptcg-card-dialog-content {
+  display: flex;
+  flex: 1 1 auto;
   max-height: unset;
+  min-height: 0;
+}
+
+.ptcg-card-dialog-content ptcg-card-list-pane {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .ptcg-card-dialog-actions {
   gap: 10px;
+}
+
+@media (max-width: 767px) {
+  .ptcg-card-dialog-content {
+    padding-bottom: 0;
+  }
+
+  .ptcg-card-dialog-actions {
+    align-items: center;
+    border-top: 1px solid var(--app-line);
+    gap: 12px;
+    padding-top: 12px;
+  }
+
+  .ptcg-card-dialog-actions > .ptcg-u-spacer {
+    display: none;
+  }
+
+  .ptcg-card-dialog-actions button {
+    flex: 1 1 auto;
+  }
 }

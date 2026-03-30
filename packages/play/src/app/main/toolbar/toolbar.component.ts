@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { LoginPopupService } from '../../login/login-popup/login-popup.service';
 import { LoginRememberService } from '../../login/login-remember.service';
 import { SessionService } from '../../shared/session/session.service';
+import { ThemeMode, ThemePreferenceService } from '../theme-preference.service';
 
 @Component({
   selector: 'ptcg-toolbar',
@@ -20,13 +21,16 @@ export class ToolbarComponent implements OnInit {
 
   private loggedUser$: Observable<UserInfo | undefined>;
   public loggedUser: UserInfo | undefined;
+  public themeMode: ThemeMode;
+  public resolvedTheme: 'light' | 'dark';
   private destroyRef = inject(DestroyRef);
 
   constructor(
     private loginPopupService: LoginPopupService,
     private loginRememberService: LoginRememberService,
     private router: Router,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private themePreferenceService: ThemePreferenceService
   ) {
     this.loggedUser$ = this.sessionService.get(
       session => session.loggedUserId,
@@ -40,6 +44,14 @@ export class ToolbarComponent implements OnInit {
     this.loggedUser$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(user => this.loggedUser = user);
+
+    this.themePreferenceService.mode$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(mode => this.themeMode = mode);
+
+    this.themePreferenceService.resolvedTheme$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(theme => this.resolvedTheme = theme);
   }
 
   public login() {
@@ -54,6 +66,10 @@ export class ToolbarComponent implements OnInit {
 
   public onLogoClick() {
     this.logoClick.emit();
+  }
+
+  public setThemeMode(mode: ThemeMode) {
+    this.themePreferenceService.setMode(mode);
   }
 
 }

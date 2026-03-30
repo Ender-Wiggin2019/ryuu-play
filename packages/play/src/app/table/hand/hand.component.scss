@@ -1,8 +1,8 @@
 @import '../../../theme/variables.scss';
 
 .ptcg-hand {
-  --hand-line: color-mix(in oklch, oklch(0.76 0.13 82), transparent 70%);
-  --hand-soft: oklch(0.95 0.02 90);
+  --hand-line: var(--battle-line);
+  --hand-soft: var(--app-text);
   display: grid;
   gap: 12px;
   grid-template-rows: auto minmax(0, 1fr);
@@ -12,8 +12,7 @@
 
 .ptcg-hand-hero {
   align-items: center;
-  background:
-    linear-gradient(135deg, rgba(255, 215, 113, 0.12), rgba(255, 255, 255, 0.02));
+  background: var(--battle-surface-2);
   border: 1px solid var(--hand-line);
   border-radius: 22px;
   display: flex;
@@ -22,8 +21,12 @@
   padding: 14px 16px;
 }
 
+.ptcg-hand-hero-copy {
+  min-width: 0;
+}
+
 .ptcg-hand-kicker {
-  color: oklch(0.82 0.13 80);
+  color: var(--app-accent);
   display: block;
   font-size: 11px;
   font-weight: 700;
@@ -39,8 +42,28 @@
 }
 
 .ptcg-hand-hero p {
-  color: color-mix(in oklch, var(--hand-soft), transparent 35%);
+  color: var(--app-text-muted);
   margin: 0;
+}
+
+.ptcg-hand-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.ptcg-hand-status-chip {
+  background: color-mix(in oklch, var(--app-surface), transparent 8%);
+  border: 1px solid color-mix(in oklch, var(--hand-line), transparent 22%);
+  border-radius: 999px;
+  color: var(--app-text-muted);
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.ptcg-hand-hero-actions {
+  flex: 0 0 auto;
 }
 
 .ptcg-hand-container {
@@ -52,8 +75,7 @@
 
 .ptcg-hand-preview {
   align-items: center;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  background: var(--battle-surface-2);
   border: 1px solid var(--hand-line);
   border-radius: 24px;
   display: flex;
@@ -68,8 +90,7 @@
 }
 
 .ptcg-hand-rail {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  background: var(--battle-surface-2);
   border: 1px solid var(--hand-line);
   border-radius: 24px;
   display: grid;
@@ -83,14 +104,28 @@
   padding: 14px 16px 0;
 }
 
-dnd-sortable-list {
+.ptcg-hand-rail-copy p {
+  color: var(--app-text-muted);
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+dnd-sortable-list,
+.ptcg-hand-sortable {
   display: flex;
   gap: 10px;
   min-height: 0;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 14px 16px 16px;
+  scroll-padding-inline: 16px;
   scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+dnd-sortable-list::-webkit-scrollbar,
+.ptcg-hand-sortable::-webkit-scrollbar {
+  display: none;
 }
 
 ptcg-card {
@@ -116,8 +151,17 @@ ptcg-card {
 
 @media (max-width: 767px) {
   .ptcg-hand-hero {
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
+    gap: 12px;
+  }
+
+  .ptcg-hand-hero-actions {
+    width: 100%;
+  }
+
+  .ptcg-hand-hero-actions > * {
+    width: 100%;
   }
 
   .ptcg-hand-container {
@@ -132,7 +176,22 @@ ptcg-card {
     width: min(100%, calc(var(--card-size) * 1.32));
   }
 
+  .ptcg-hand-rail-header {
+    padding: 12px 14px 0;
+  }
+
+  .ptcg-hand-rail-copy p {
+    font-size: 11px;
+  }
+
+  dnd-sortable-list,
+  .ptcg-hand-sortable {
+    gap: 8px;
+    padding: 12px 14px 14px;
+    scroll-padding-inline: 14px;
+  }
+
   ptcg-card {
-    width: clamp(72px, calc(var(--card-size) * 0.92), 104px);
+    width: clamp(66px, calc(var(--card-size) * 0.86), 96px);
   }
 }

@@ -1,11 +1,8 @@
 .ptcg-games-lobby {
-  --lobby-bg: oklch(0.97 0.02 95);
-  --lobby-panel: oklch(0.99 0.01 95);
-  --lobby-accent: oklch(0.72 0.16 68);
-  --lobby-ink: oklch(0.28 0.03 48);
   background:
-    radial-gradient(circle at top right, color-mix(in oklch, oklch(0.88 0.1 82), transparent 72%), transparent 28%),
-    linear-gradient(180deg, oklch(0.98 0.01 90), var(--lobby-bg));
+    radial-gradient(circle at top right, color-mix(in oklch, var(--app-accent), transparent 78%), transparent 28%),
+    linear-gradient(180deg, color-mix(in oklch, var(--app-bg), var(--app-surface) 16%), var(--app-bg));
+  color: var(--app-text);
   min-height: 100%;
   padding: clamp(14px, 2vw, 28px);
 }
@@ -19,7 +16,7 @@
 
 .ptcg-games-kicker,
 .eyebrow {
-  color: oklch(0.62 0.15 70);
+  color: var(--app-accent);
   display: block;
   font-size: 11px;
   font-weight: 800;
@@ -29,10 +26,10 @@
 }
 
 .ptcg-games-hero-copy {
-  background:
-    linear-gradient(145deg, oklch(0.29 0.05 33), oklch(0.17 0.03 250));
+  background: var(--battle-surface);
+  border: 1px solid var(--battle-line);
   border-radius: 30px;
-  color: oklch(0.97 0.02 95);
+  color: var(--app-text);
   overflow: hidden;
   padding: clamp(20px, 4vw, 40px);
   position: relative;
@@ -40,7 +37,7 @@
 
 .ptcg-games-hero-copy::after {
   background:
-    linear-gradient(135deg, color-mix(in oklch, var(--lobby-accent), transparent 10%), transparent 62%);
+    linear-gradient(135deg, color-mix(in oklch, var(--app-accent), transparent 10%), transparent 62%);
   content: '';
   height: 240px;
   inset: auto -18% -35% auto;
@@ -61,7 +58,7 @@
 }
 
 .ptcg-games-hero-copy p {
-  color: color-mix(in oklch, white, transparent 20%);
+  color: var(--app-text-muted);
   font-size: clamp(14px, 1.5vw, 18px);
   margin-bottom: 20px;
   max-width: 42ch;
@@ -83,10 +80,10 @@
 
 .ptcg-hero-panel,
 .ptcg-lobby-panel {
-  background: var(--lobby-panel);
-  border: 1px solid color-mix(in oklch, var(--lobby-accent), transparent 72%);
+  background: var(--battle-surface);
+  border: 1px solid var(--battle-line);
   border-radius: 24px;
-  box-shadow: 0 18px 42px rgba(48, 37, 18, 0.08);
+  box-shadow: 0 18px 42px rgba(15, 12, 24, 0.12);
 }
 
 .ptcg-hero-panel {
@@ -98,13 +95,58 @@
 }
 
 .ptcg-hero-panel strong {
-  color: var(--lobby-ink);
+  color: var(--app-text);
   font-size: clamp(28px, 4vw, 46px);
   line-height: 1;
 }
 
 .ptcg-hero-panel p {
-  color: color-mix(in oklch, var(--lobby-ink), transparent 28%);
+  color: var(--app-text-muted);
+  margin: 0;
+}
+
+.ptcg-continue-strip {
+  margin-bottom: 18px;
+}
+
+.ptcg-continue-rail,
+.ptcg-online-rail {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.ptcg-continue-card {
+  background: var(--battle-surface);
+  border: 1px solid var(--battle-line);
+  border-radius: 22px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 126px;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.ptcg-continue-card:hover {
+  text-decoration: none;
+}
+
+.ptcg-continue-card-kicker {
+  color: var(--app-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ptcg-continue-card strong {
+  font-size: 20px;
+}
+
+.ptcg-continue-card p {
+  color: var(--app-text-muted);
   margin: 0;
 }
 
@@ -129,8 +171,30 @@
 }
 
 .ptcg-lobby-panel-header h2 {
-  color: var(--lobby-ink);
+  color: var(--app-text);
   font-size: clamp(20px, 2vw, 28px);
+}
+
+.ptcg-online-card {
+  background: color-mix(in oklch, var(--app-surface), transparent 6%);
+  border: 1px solid var(--app-line);
+  border-radius: 18px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.ptcg-online-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.ptcg-online-actions > * {
+  flex: 1 1 0;
+}
+
+.ptcg-online-desktop-list {
+  display: none;
 }
 
 .ptcg-online-panel mat-nav-list {
@@ -142,6 +206,16 @@
   .ptcg-games-hero,
   .ptcg-lobby-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 961px) {
+  .ptcg-online-rail {
+    display: none;
+  }
+
+  .ptcg-online-desktop-list {
+    display: block;
   }
 }
 
@@ -157,6 +231,11 @@
 
   .ptcg-games-hero-actions {
     flex-direction: column;
+  }
+
+  .ptcg-continue-rail,
+  .ptcg-online-rail {
+    grid-template-columns: 1fr;
   }
 
   .ptcg-lobby-panel {

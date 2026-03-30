@@ -14,7 +14,7 @@ import { CreateGamePopupComponent, CreateGamePopupResult } from './create-game-p
 import { DeckService } from '../api/services/deck.service';
 import { MainService } from '../api/services/main.service';
 import { SessionService } from '../shared/session/session.service';
-import { UserInfoMap } from '../shared/session/session.interface';
+import { LocalGameState, UserInfoMap } from '../shared/session/session.interface';
 import { DeckListEntry } from '../api/interfaces/deck.interface';
 
 @Component({
@@ -28,6 +28,7 @@ export class GamesComponent implements OnInit {
   displayedColumns: string[] = ['id', 'turn', 'player1', 'player2', 'actions'];
   public clients$: Observable<ClientUserData[]>;
   public games$: Observable<GameInfo[]>;
+  public activeGameStates$: Observable<LocalGameState[]>;
   public loading = false;
   public clientId: number;
   public loggedUserId: number;
@@ -57,6 +58,9 @@ export class GamesComponent implements OnInit {
     }));
 
     this.games$ = this.sessionService.get(session => session.games);
+    this.activeGameStates$ = this.sessionService.get(session => session.gameStates).pipe(
+      map(gameStates => gameStates.filter(gameState => !gameState.deleted && !gameState.gameOver))
+    );
   }
 
   ngOnInit() {

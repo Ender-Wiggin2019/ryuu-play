@@ -9,6 +9,11 @@
 <div class="ptcg-prompt-content">
   <p [translate]="'GAME_MESSAGES.' + message"></p>
 
+  <div class="ptcg-prompt-summary">
+    <span class="ptcg-prompt-summary-chip">{{ selectionSummary }}</span>
+    <span class="ptcg-prompt-summary-chip" *ngIf="isSecret && !revealed">当前以背面显示</span>
+  </div>
+
   <ptcg-choose-cards-panes
     [cards]="cards.cards"
     [cardbackMap]="revealed === false ? cardbackMap : {}"

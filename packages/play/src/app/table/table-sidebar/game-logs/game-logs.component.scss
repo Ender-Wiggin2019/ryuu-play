@@ -1,8 +1,12 @@
 @import '../../../../theme/variables.scss';
 
 :host {
+  background: color-mix(in oklch, var(--app-surface), transparent 4%);
+  border: 1px solid var(--app-line);
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .ptcg-game-logs-header {
@@ -10,8 +14,10 @@
   display: flex;
   flex: 0 0 auto;
   padding: map-get($padding, small);
+  border-bottom: 1px solid var(--app-line);
 
   & mat-icon {
+    color: var(--app-text-muted);
     cursor: pointer;
     height: 1em;
     overflow: hidden;
@@ -22,19 +28,22 @@
 .ptcg-game-logs-content {
   flex: 1 1 auto;
   overflow: auto;
+  padding: 8px 0;
 
   ul {
-    height: 0;
     list-style-type: none;
   }
   li {
-    padding: $ptcg-sidebar-tiny-padding;
+    color: var(--app-text);
+    line-height: 1.5;
+    padding: 8px 12px;
   }
 }
 
 .ptcg-game-logs-footer {
   flex: 0 0 auto;
-  padding: 0 $ptcg-sidebar-tiny-padding;
+  border-top: 1px solid var(--app-line);
+  padding: 4px $ptcg-sidebar-tiny-padding 0;
 
   & form {
     display: flex;

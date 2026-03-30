@@ -31,6 +31,27 @@ export class HandComponent implements OnChanges {
 
   private isOwner: boolean;
 
+  public get selectionLabel(): string {
+    if (this.cards.length === 0) {
+      return '0 / 0';
+    }
+    return `${this.selectedIndex + 1} / ${this.cards.length}`;
+  }
+
+  public get handModeLabel(): string {
+    if (this.isFaceDown) {
+      return '保密';
+    }
+    if (this.isOwner) {
+      return '可操作';
+    }
+    return '公开';
+  }
+
+  public get canReorder(): boolean {
+    return this.isOwner && !this.isDeleted;
+  }
+
   constructor(
     private cardsBaseService: CardsBaseService,
     private gameService: GameService

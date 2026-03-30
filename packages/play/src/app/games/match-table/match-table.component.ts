@@ -37,6 +37,18 @@ export class MatchTableComponent implements OnInit {
   private matchesPageRequst$ = new Subject<number>();
   private destroyRef = inject(DestroyRef);
 
+  public get featuredMatches(): MatchInfo[] {
+    return this.matches.slice(0, 3);
+  }
+
+  public get compactMatches(): MatchInfo[] {
+    return this.matches.slice(3);
+  }
+
+  public get mobileCompactMatches(): MatchInfo[] {
+    return this.compactMatches.slice(0, 9);
+  }
+
   @Input() set userId(userId: number) {
     this.id = userId;
     this.displayedColumns = userId !== 0
@@ -147,6 +159,9 @@ export class MatchTableComponent implements OnInit {
     let pageSize = environment.defaultPageSize;
     if (this.sessionService.session.config) {
       pageSize = this.sessionService.session.config.defaultPageSize;
+    }
+    if (typeof window !== 'undefined' && window.innerWidth <= 767) {
+      pageSize = Math.min(pageSize, 12);
     }
     this.pageSizeOptions = [ pageSize ];
     this.pageSize = pageSize;

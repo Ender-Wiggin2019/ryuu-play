@@ -48,6 +48,10 @@ export class PromptChooseCardsComponent {
   private promptValue: ChooseCardsPrompt;
   private result: number[] = [];
 
+  public get selectionSummary(): string {
+    return `已选 ${this.result.length} 张`;
+  }
+
   constructor(
     private gameService: GameService
   ) { }

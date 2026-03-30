@@ -4,29 +4,42 @@ $avatar-size: map-get($ptcg-size, avatar);
 $ptcg-player-bar-active-divider-size: 2px;
 
 .ptcg-player-bar {
+  background: color-mix(in oklch, var(--app-surface), transparent 4%);
+  border: 1px solid var(--app-line);
+  border-radius: 20px;
   display: grid;
   grid-template-areas:
-    "avatar name"
+    "top top"
     "counts counts"
     "time time";
-  grid-template-columns: $avatar-size 1fr;
-  grid-template-rows: $avatar-size auto;
-  padding: $ptcg-sidebar-tiny-padding;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 10px;
+  padding: 12px;
   position: relative;
 
   &.active:before {
-    bottom: 0;
+    border-radius: 999px;
+    height: 4px;
+    left: 12px;
+    right: 12px;
+    top: 0;
     content: "";
     display: block;
-    left: 0;
     position: absolute;
-    top: 0;
-    width: $ptcg-player-bar-active-divider-size;
+    width: auto;
   }
 }
 
+.ptcg-player-bar-top {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-area: top;
+  grid-template-columns: $avatar-size minmax(0, 1fr);
+}
+
 .ptcg-player-bar-avatar {
-  grid-area: avatar;
   height: map-get($ptcg-size, avatar);
   width: map-get($ptcg-size, avatar);
 }
@@ -34,16 +47,25 @@ $ptcg-player-bar-active-divider-size: 2px;
 .ptcg-player-info {
   display: flex;
   flex-direction: column;
-  grid-area: name;
   justify-content: center;
   overflow: hidden;
-  padding: $ptcg-sidebar-tiny-padding;
   white-space: nowrap;
   
   & > * {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+.ptcg-player-title-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.ptcg-player-name {
+  min-width: 0;
 }
 
 .ptcg-player-name .clickable {
@@ -55,19 +77,44 @@ $ptcg-player-bar-active-divider-size: 2px;
 }
 
 .ptcg-card-counts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
   grid-area: counts;
-  padding-top: $ptcg-sidebar-tiny-padding;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
 
-  & > ptcg-badge:not(:last-child) {
-    margin-right: $ptcg-sidebar-tiny-padding;
-  }
+.ptcg-count-chip {
+  align-items: center;
+  background: color-mix(in oklch, var(--app-surface-2), transparent 12%);
+  border: 1px solid color-mix(in oklch, var(--app-line), transparent 22%);
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 8px 10px;
+}
+
+.ptcg-count-chip span {
+  color: var(--app-text-muted);
+  font-size: 12px;
+}
+
+.ptcg-count-chip strong {
+  color: var(--app-text);
+  font-size: 15px;
 }
 
 .ptcg-time-left {
   display: flex;
   grid-area: time;
-  padding-top: $ptcg-sidebar-tiny-padding;
+}
+
+@media (max-width: 767px) {
+  .ptcg-player-bar {
+    padding: 12px;
+  }
+
+  .ptcg-player-bar-top {
+    gap: 12px;
+  }
 }

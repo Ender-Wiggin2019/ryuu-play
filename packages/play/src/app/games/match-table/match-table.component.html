@@ -1,9 +1,75 @@
 <div class="ptcg-match-table ptcg-u-padding">
-
-  <h3 translate>GAMES_RECENT_GAMES_TITLE</h3>
-
   <ptcg-content [loading]="loading">
-    <table mat-table [dataSource]="matches" class="mat-elevation-z2">
+    <div class="ptcg-match-table-mobile">
+      <section class="ptcg-match-featured" *ngIf="featuredMatches.length > 0">
+        <article class="ptcg-match-card" *ngFor="let match of featuredMatches; let i = index">
+          <header class="ptcg-match-card-header">
+            <div>
+              <span class="ptcg-card-kicker">{{ match.formatName ? (match.formatName | localizedFormatName) : ('GAMES_FORMAT_UNLIMITED' | translate) }}</span>
+              <strong>对局 {{ pageIndex * pageSize + i + 1 }}</strong>
+            </div>
+            <span class="ptcg-match-date">{{ match.created | date: ('DATE_FORMAT' | translate) }}</span>
+          </header>
+
+          <div class="ptcg-match-card-players">
+            <div class="ptcg-match-player" [class.is-winner]="match.winner === GameWinner.PLAYER_1">
+              <ptcg-user-bar openUserPopup="true"
+                [user]="users[match.player1Id]"
+                [marked]="match.winner === GameWinner.PLAYER_1">
+              </ptcg-user-bar>
+            </div>
+            <div class="ptcg-match-versus">VS</div>
+            <div class="ptcg-match-player" [class.is-winner]="match.winner === GameWinner.PLAYER_2">
+              <ptcg-user-bar openUserPopup="true"
+                [user]="users[match.player2Id]"
+                [marked]="match.winner === GameWinner.PLAYER_2">
+              </ptcg-user-bar>
+            </div>
+          </div>
+
+          <div class="ptcg-match-card-actions">
+            <button mat-stroked-button [disabled]="loading" (click)="showReplay(match.matchId)">
+              观看回放
+            </button>
+            <button mat-raised-button color="primary" [disabled]="loading" (click)="saveReplay(match.matchId)">
+              保存
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="ptcg-match-compact" *ngIf="mobileCompactMatches.length > 0">
+        <div class="ptcg-match-mobile-section-header">
+          <span class="ptcg-card-kicker">More Logs</span>
+          <strong>更多记录</strong>
+        </div>
+
+        <article class="ptcg-match-compact-row" *ngFor="let match of mobileCompactMatches; let i = index">
+          <div class="ptcg-match-compact-copy">
+            <div class="ptcg-match-compact-meta">
+              <span>{{ match.formatName ? (match.formatName | localizedFormatName) : ('GAMES_FORMAT_UNLIMITED' | translate) }}</span>
+              <span>{{ match.created | date: ('DATE_FORMAT' | translate) }}</span>
+            </div>
+            <strong>对局 {{ pageIndex * pageSize + featuredMatches.length + i + 1 }}</strong>
+            <p>
+              {{ users[match.player1Id]?.name || '玩家 1' }}
+              ·
+              {{ users[match.player2Id]?.name || '玩家 2' }}
+            </p>
+          </div>
+
+          <button mat-stroked-button [disabled]="loading" (click)="showReplay(match.matchId)">
+            回放
+          </button>
+        </article>
+
+        <p class="ptcg-match-compact-hint" *ngIf="compactMatches.length > mobileCompactMatches.length">
+          其余记录可通过底部分页继续查看。
+        </p>
+      </section>
+    </div>
+
+    <table mat-table [dataSource]="matches" class="mat-elevation-z2 ptcg-match-table-desktop">
 
       <!-- Game ID Column -->
       <ng-container matColumnDef="id">
@@ -104,5 +170,4 @@
     </div>
 
   </ptcg-content>
-
 </div>

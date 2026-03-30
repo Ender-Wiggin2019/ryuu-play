@@ -13,6 +13,7 @@ import { SessionService } from './shared/session/session.service';
 import { SocketService } from './api/socket.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { ThemePreferenceService } from './main/theme-preference.service';
 
 @Component({
   selector: 'ptcg-app',
@@ -36,9 +37,13 @@ export class AppComponent implements OnInit {
     private router: Router,
     private sessionService: SessionService,
     private socketService: SocketService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private themePreferenceService: ThemePreferenceService
   ) {
     this.authToken$ = this.sessionService.get(session => session.authToken);
+    this.themePreferenceService.resolvedTheme$.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe();
     setTimeout(() => this.onResize());
   }
 

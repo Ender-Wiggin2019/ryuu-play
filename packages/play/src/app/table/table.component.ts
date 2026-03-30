@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, inject, OnInit } from '@angular/core';
 import { Player, GamePhase } from '@ptcg/common';
 import { Observable, from, EMPTY } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { SessionService } from '../shared/session/session.service';
 })
 export class TableComponent implements OnInit {
   public activeView: 'board' | 'hand' | 'players' | 'logs' = 'board';
+  public isMobileLayout = false;
 
   public gameState: LocalGameState;
   public gameStates$: Observable<LocalGameState[]>;
@@ -47,6 +48,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onResize();
     this.route.paramMap
       .pipe(
         withLatestFrom(this.gameStates$, this.clientId$),
@@ -116,6 +118,11 @@ export class TableComponent implements OnInit {
 
   public setActiveView(view: 'board' | 'hand' | 'players' | 'logs') {
     this.activeView = view;
+  }
+
+  @HostListener('window:resize')
+  public onResize() {
+    this.isMobileLayout = window.innerWidth <= 960;
   }
 
   private updatePlayers(gameState: LocalGameState, clientId: number) {
