@@ -24,7 +24,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@ptcg/common": "*"
+    "@ptcg/common": "workspace:*"
   },
   "devDependencies": {
     "@types/jasmine": "~4.3.0",

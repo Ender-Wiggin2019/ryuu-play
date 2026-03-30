@@ -1,0 +1,6 @@
+packages:
+  - "packages/common"
+  - "packages/sets"
+  - "packages/server"
+  - "packages/play"
+  - "packages/cordova"

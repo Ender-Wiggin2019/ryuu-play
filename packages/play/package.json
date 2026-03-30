@@ -26,7 +26,7 @@
     "@ng-dnd/sortable": "^2.0.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
-    "@ptcg/common": "*",
+    "@ptcg/common": "workspace:*",
     "core-js": "^2.5.4",
     "dnd-multi-backend": "^5.0.0",
     "imgcache.js": "^1.1.1",

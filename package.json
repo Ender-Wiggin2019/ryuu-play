@@ -9,6 +9,11 @@
     "restart:app": "bash scripts/restart-app.sh"
   },
   "private": true,
+  "packageManager": "pnpm@9.12.3",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=8"
+  },
   "workspaces": [
     "packages/common",
     "packages/sets",
@@ -19,8 +24,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@ptcg/server": "*",
-    "@ptcg/sets": "*",
+    "@ptcg/server": "workspace:*",
+    "@ptcg/sets": "workspace:*",
     "js-yaml": "^4.1.1"
   }
 }
